@@ -17,10 +17,12 @@
 
 
 
-  <meta name="description" content="Another temp blog.">
+  <meta name="description" content="Hello World">
 
 
 
+
+  <meta name="keywords" content="Misc Flax Hexo, Lago">
 
 
 
@@ -40,7 +42,7 @@
 
 
 
-<link rel="canonical" href="https://memorytoco.github.io/Lago/">
+<link rel="canonical" href="https://memorytoco.github.io/Lago/2019/02/10/Hello-World/">
 
 
 
@@ -88,7 +90,7 @@
   window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
 </script>
 
-    <title> Lago </title>
+    <title> Hello World - Lago </title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -236,15 +238,11 @@
           <div id="content" class="content">
             
   
-  <section id="posts" class="posts">
-    
-      
-        
   <article class="post">
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/Lago/2019/02/10/truthaboutSys_0/">真象还原之零</a>
+          Hello World
         
       </h1>
 
@@ -259,101 +257,18 @@
 
     
     
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><ul>
-<li>常见 cpu 字节序:<ul>
-<li>大端字节序: <code>IBM, Sun, PowerPC</code></li>
-<li>小端字节序: <code>x86, DEC</code><blockquote>
-<p><code>ARM</code> 系的大小通吃<br>网络字节序是大端字节序</p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ul>
-<p>对于指令集来说有两种指令体系, 分别是<code>CISC</code>和<code>RISC</code>两个.指令集则是类似于协议的存在.<br>AMD 和 Intel使用同一种指令集,但是他们各自对于cpu的硬件实现不同,而这个<em>硬件实现</em><br>就称之为<em>微架构</em>.</p>
-<p>目前存在的指令集共有5种, 分别是 <code>x86(Intel), ARM, MIPS, Power, C6000</code>.<br>其中只有<code>x86</code>是是属于CISC体系的.</p>
-<h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><ul>
-<li><code>elf</code> : <code>executable and linking format</code></li>
-<li><code>readelf -e elf</code> 用来查询程序中段的类型. (其中 <code>elf</code> 是文件名)</li>
-<li><code>GDT</code> : <code>Global Descriptor Table</code> 全局描述符表, 表中的每一项被称为段描述符.</li>
-<li>描述符 : 描述某种数据的数据结构, 是元信息.</li>
-<li>堆 : 程序运行过程中用于动态内存分配的内存空间, 由操作系统分配划分.</li>
-<li><p>堆栈,栈 : 同指栈, 硬件必须.</p>
-</li>
-<li><p>大端字节序和小端字节序</p>
-<blockquote>
-<p>小端字节序是数值的低字节存放在内存的低地址出,高字节存放在高地址处.<br>大端字节序与小端字节序相反.</p>
-</blockquote>
-</li>
-<li><p><code>IVT</code> : <code>Interrupt Vector Table</code> 中断向量表.</p>
-</li>
-<li><code>CISC</code> : <code>Complex Instruction Set Computer</code> 复杂指令集计算机</li>
-<li><code>RISC</code> : <code>Reduced Instruction Set Computer</code> 精简指令集计算机</li>
-</ul>
-<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><p>我原本对<strong>位,比特,字节</strong>这些东西一直记不住,现在搞清了赶紧记下来.</p>
-<blockquote>
-<p>一个位即是一个 bit(比特),是最最小的数据单位,没有比它更小的了.</p>
-</blockquote>
-<blockquote>
-<p>一个字节是 8 位,写作 byte, 换算关系为 $1 \; byte = 8 \; bits$.<br>而内存的分布是以 byte 为基本单位的,也就是那些内存地址的单位都是 byte.</p>
-</blockquote>
-<p>另外一点容易弄混的是对于数据大小的判别. 首先分清这个十六进制数是一个存在内存里的<br>数还是一个地址. 如果是数那么计算的单位是<code>bit</code>即位. 将这个数字换成一<code>二进制</code>串,其<br>长度就是其大小,当然单位为<code>bit</code>. </p>
-<blockquote>
-<p>比如 <code>0xac2</code> 这个十六进制数所占的内存大小为12位,由于字节是8位,这里采用向上取整的方法为2字节. 二进制数为 <code>b101011000010</code>.</p>
-</blockquote>
-<p>如果是要看这个数本身的大小,则通过进制转换成十进制数即可.</p>
-<blockquote>
-<p>那么还是上面的例子, <code>0xac2</code> 这个数的大小是 $ 2+16^1 \times 12 + 16^2 \times 10 = 2754 $</p>
-</blockquote>
-<p>于是在具体的计算一个数字的”大小”的时候最好分清这个”大小”的意义所在.</p>
-
-        
-      
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#不-我没有放弃flax"><span class="toc-text">不, 我没有放弃flax!</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#现在你用了hexo建了博客-原来的flax呢"><span class="toc-text">现在你用了hexo建了博客,原来的flax呢?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#这个-Lago-是干什么的"><span class="toc-text">这个 Lago 是干什么的?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#那-flax-有什么动作吗"><span class="toc-text">那 flax 有什么动作吗?</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#所谓的-Flax-动态在哪里"><span class="toc-text">所谓的 Flax 动态在哪里?</span></a></li></ol>
     </div>
+  </div>
 
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/Lago/2019/02/10/Hello-World/">Hello World</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-02-09
-        </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
 
 
     <div class="post-content">
       
-        
-        
-
-        
-          <h2 id="不-我没有放弃flax"><a href="#不-我没有放弃flax" class="headerlink" title="不, 我没有放弃flax!"></a>不, 我没有放弃flax!</h2><p>这里做一些说明吧.</p>
+        <h2 id="不-我没有放弃flax"><a href="#不-我没有放弃flax" class="headerlink" title="不, 我没有放弃flax!"></a>不, 我没有放弃flax!</h2><p>这里做一些说明吧.</p>
 <h3 id="现在你用了hexo建了博客-原来的flax呢"><a href="#现在你用了hexo建了博客-原来的flax呢" class="headerlink" title="现在你用了hexo建了博客,原来的flax呢?"></a>现在你用了<code>hexo</code>建了博客,原来的<code>flax</code>呢?</h3><p>emmm, 首先这两者不冲突. <code>flax</code> 的开发还在继续,并没有弃坑.</p>
 <blockquote>
 <p>我这个寒假一半的时间都耗在上面了,怎么可能弃坑呢! 并且我相信最终的它会给你们带来惊喜!</p>
@@ -383,29 +298,70 @@
 <p>我现在还在继续扩展<code>flax</code>, 并且边用 <code>hexo</code> 边观察它的运作方式. 希望获得启发吧.</p>
 <h2 id="所谓的-Flax-动态在哪里"><a href="#所谓的-Flax-动态在哪里" class="headerlink" title="所谓的 Flax 动态在哪里?"></a>所谓的 <code>Flax</code> 动态在哪里?</h2><p>在这个博客的页面可以看到一栏 <code>Flax</code>, 那里有一些关于 <code>Flax</code> 的信息.</p>
 
-        
       
     </div>
 
     
+      
+      
 
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="https://memorytoco.github.io/Lago">Memorytoco</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="https://memorytoco.github.io/Lago/2019/02/10/Hello-World/">https://memorytoco.github.io/Lago/2019/02/10/Hello-World/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
     
 
-  </article>
-
-      
-      
-  <nav class="pagination">
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/Lago/tags/Misc-Flax-Hexo/">Misc Flax Hexo</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/Lago/2019/02/10/truthaboutSys_0/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">真象还原之零</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
     
     
   </nav>
 
 
+      </footer>
     
-  </section>
+
+  </article>
+
 
           </div>
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
       </main>
@@ -487,6 +443,11 @@
     </div>
 
     
+  
+  
+
+  
+
 
 
     

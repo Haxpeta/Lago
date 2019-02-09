@@ -6,7 +6,7 @@
   <link href="/Lago/atom.xml" rel="self"/>
   
   <link href="https://memorytoco.github.io/Lago/"/>
-  <updated>2019-02-09T12:13:23.668Z</updated>
+  <updated>2019-02-09T14:13:50.848Z</updated>
   <id>https://memorytoco.github.io/Lago/</id>
   
   <author>
@@ -17,26 +17,51 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>hello-world</title>
-    <link href="https://memorytoco.github.io/Lago/2019/02/09/hello-world/"/>
-    <id>https://memorytoco.github.io/Lago/2019/02/09/hello-world/</id>
-    <published>2019-02-09T12:06:28.000Z</published>
-    <updated>2019-02-09T12:13:23.668Z</updated>
+    <title>真象还原之零</title>
+    <link href="https://memorytoco.github.io/Lago/2019/02/10/truthaboutSys_0/"/>
+    <id>https://memorytoco.github.io/Lago/2019/02/10/truthaboutSys_0/</id>
+    <published>2019-02-09T22:13:01.000Z</published>
+    <updated>2019-02-09T14:13:50.848Z</updated>
     
-    <content type="html"><![CDATA[<p>### </p>]]></content>
+    <content type="html"><![CDATA[<h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><ul><li>常见 cpu 字节序:<ul><li>大端字节序: <code>IBM, Sun, PowerPC</code></li><li>小端字节序: <code>x86, DEC</code><blockquote><p><code>ARM</code> 系的大小通吃<br>网络字节序是大端字节序</p></blockquote></li></ul></li></ul><p>对于指令集来说有两种指令体系, 分别是<code>CISC</code>和<code>RISC</code>两个.指令集则是类似于协议的存在.<br>AMD 和 Intel使用同一种指令集,但是他们各自对于cpu的硬件实现不同,而这个<em>硬件实现</em><br>就称之为<em>微架构</em>.</p><p>目前存在的指令集共有5种, 分别是 <code>x86(Intel), ARM, MIPS, Power, C6000</code>.<br>其中只有<code>x86</code>是是属于CISC体系的.</p><h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><ul><li><code>elf</code> : <code>executable and linking format</code></li><li><code>readelf -e elf</code> 用来查询程序中段的类型. (其中 <code>elf</code> 是文件名)</li><li><code>GDT</code> : <code>Global Descriptor Table</code> 全局描述符表, 表中的每一项被称为段描述符.</li><li>描述符 : 描述某种数据的数据结构, 是元信息.</li><li>堆 : 程序运行过程中用于动态内存分配的内存空间, 由操作系统分配划分.</li><li><p>堆栈,栈 : 同指栈, 硬件必须.</p></li><li><p>大端字节序和小端字节序</p><blockquote><p>小端字节序是数值的低字节存放在内存的低地址出,高字节存放在高地址处.<br>大端字节序与小端字节序相反.</p></blockquote></li><li><p><code>IVT</code> : <code>Interrupt Vector Table</code> 中断向量表.</p></li><li><code>CISC</code> : <code>Complex Instruction Set Computer</code> 复杂指令集计算机</li><li><code>RISC</code> : <code>Reduced Instruction Set Computer</code> 精简指令集计算机</li></ul><h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><p>我原本对<strong>位,比特,字节</strong>这些东西一直记不住,现在搞清了赶紧记下来.</p><blockquote><p>一个位即是一个 bit(比特),是最最小的数据单位,没有比它更小的了.</p></blockquote><blockquote><p>一个字节是 8 位,写作 byte, 换算关系为 $1 \; byte = 8 \; bits$.<br>而内存的分布是以 byte 为基本单位的,也就是那些内存地址的单位都是 byte.</p></blockquote><p>另外一点容易弄混的是对于数据大小的判别. 首先分清这个十六进制数是一个存在内存里的<br>数还是一个地址. 如果是数那么计算的单位是<code>bit</code>即位. 将这个数字换成一<code>二进制</code>串,其<br>长度就是其大小,当然单位为<code>bit</code>. </p><blockquote><p>比如 <code>0xac2</code> 这个十六进制数所占的内存大小为12位,由于字节是8位,这里采用向上取整的方法为2字节. 二进制数为 <code>b101011000010</code>.</p></blockquote><p>如果是要看这个数本身的大小,则通过进制转换成十进制数即可.</p><blockquote><p>那么还是上面的例子, <code>0xac2</code> 这个数的大小是 $ 2+16^1 \times 12 + 16^2 \times 10 = 2754 $</p></blockquote><p>于是在具体的计算一个数字的”大小”的时候最好分清这个”大小”的意义所在.</p>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;p&gt;### &lt;/p&gt;
-
+        &lt;h2 id=&quot;知识点&quot;&gt;&lt;a href=&quot;#知识点&quot; class=&quot;headerlink&quot; title=&quot;知识点&quot;&gt;&lt;/a&gt;知识点&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;常见 cpu 字节序:&lt;ul&gt;
+&lt;li&gt;大端字节序: &lt;code&gt;IBM, Sun, PowerPC&lt;/code&gt;&lt;/l
       
     
     </summary>
     
     
-      <category term="Misc" scheme="https://memorytoco.github.io/Lago/tags/Misc/"/>
+      <category term="ComputerSystem Asm" scheme="https://memorytoco.github.io/Lago/tags/ComputerSystem-Asm/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="https://memorytoco.github.io/Lago/2019/02/10/Hello-World/"/>
+    <id>https://memorytoco.github.io/Lago/2019/02/10/Hello-World/</id>
+    <published>2019-02-09T21:18:39.000Z</published>
+    <updated>2019-02-09T14:05:37.359Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="不-我没有放弃flax"><a href="#不-我没有放弃flax" class="headerlink" title="不, 我没有放弃flax!"></a>不, 我没有放弃flax!</h2><p>这里做一些说明吧.</p><h3 id="现在你用了hexo建了博客-原来的flax呢"><a href="#现在你用了hexo建了博客-原来的flax呢" class="headerlink" title="现在你用了hexo建了博客,原来的flax呢?"></a>现在你用了<code>hexo</code>建了博客,原来的<code>flax</code>呢?</h3><p>emmm, 首先这两者不冲突. <code>flax</code> 的开发还在继续,并没有弃坑.</p><blockquote><p>我这个寒假一半的时间都耗在上面了,怎么可能弃坑呢! 并且我相信最终的它会给你们带来惊喜!</p></blockquote><p>然后主要现在在开发<code>flax</code>上遇挫, 遭遇了一个瓶颈.<br>一来迟迟不能让整个工作流程建立起来,<br>二来我也等不及了,<br>三来看到的一些东西让我对<code>flax</code>的期望(或者说是野心)增加了,结果让这个成型日期更加的延后.</p><h3 id="这个-Lago-是干什么的"><a href="#这个-Lago-是干什么的" class="headerlink" title="这个 Lago 是干什么的?"></a>这个 <code>Lago</code> 是干什么的?</h3><p>这个博客用于</p><ul><li>记笔记, 把一些想要分享的东西及时的贴出来</li><li>学习 <code>hexo</code>, 给 <code>flax</code> 铺路</li><li>进行知识输出</li><li>摸索自己的需求</li><li>作为一个辅助博客出现, 同时兼顾 <code>flax</code>的动态信息</li></ul><p>由于 <code>flax</code> 还在开发中, 我就没法着手关于博客页面相关的研究.<br>这就让整个进度异常缓慢, 非常摧残我的小心灵!! 所以这个博客就是一个试探.</p><blockquote><p>我在写<code>flax</code>的时候也对网站没什么概念, 用上这个来学习学习.</p></blockquote><blockquote><p>我最近一直在尝试建立起个人的学习体系, 其中的一环就是博客.<br>现在这个比重还在持续上升中.</p></blockquote><h3 id="那-flax-有什么动作吗"><a href="#那-flax-有什么动作吗" class="headerlink" title="那 flax 有什么动作吗?"></a>那 <code>flax</code> 有什么动作吗?</h3><p>有, 现在 <code>flax</code> 已经有了一个伪 <strong>hook</strong> 系统. 受到 <code>chez-scheme</code> 的逼迫,我不得不<br>改变原先的工作机理, 摆脱对 <code>guile</code> 实现的依赖, 于是绞尽脑汁捉摸出了一个基于<br><strong>链表</strong> 这个数据结构的的系统, 终于可以在 <strong>新的</strong> 的实现上跑起来了.</p><blockquote><p>我也深刻的意识到了基本功的重要性. (转来转去, 我依然是在用我之前接触到的东西)</p></blockquote><p>出乎意料的是我发现这个改变得到的收益比我想象中的还要多. 于是我又想在这个基础上看看<br>能不能琢磨出一个 <code>trigger</code> 系统出来, 再给它加上一些额外的支持.</p><p>由于原来的 <code>flax</code> 是我基于 <a href="https://dthompson.us/projects/haunt.html" target="_blank" rel="noopener">guile haunt</a> 一点一点<code>抄</code> 过来的, 所以有很多的思路都受到限制( 还是我自己脑补的思路… ), 现在正在努力的一点一点突破限制.</p><p>我现在还在继续扩展<code>flax</code>, 并且边用 <code>hexo</code> 边观察它的运作方式. 希望获得启发吧.</p><h2 id="所谓的-Flax-动态在哪里"><a href="#所谓的-Flax-动态在哪里" class="headerlink" title="所谓的 Flax 动态在哪里?"></a>所谓的 <code>Flax</code> 动态在哪里?</h2><p>在这个博客的页面可以看到一栏 <code>Flax</code>, 那里有一些关于 <code>Flax</code> 的信息.</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;不-我没有放弃flax&quot;&gt;&lt;a href=&quot;#不-我没有放弃flax&quot; class=&quot;headerlink&quot; title=&quot;不, 我没有放弃flax!&quot;&gt;&lt;/a&gt;不, 我没有放弃flax!&lt;/h2&gt;&lt;p&gt;这里做一些说明吧.&lt;/p&gt;
+&lt;h3 id=&quot;现在你用了hex
+      
+    
+    </summary>
+    
+    
+      <category term="Misc Flax Hexo" scheme="https://memorytoco.github.io/Lago/tags/Misc-Flax-Hexo/"/>
     
   </entry>
   
