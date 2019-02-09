@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Hexo</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://yoursite.com/"/>
+  <updated>2019-02-09T12:13:23.668Z</updated>
+  <id>https://yoursite.com/</id>
+  
+  <author>
+    <name>Memorytoco</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>hello-world</title>
+    <link href="https://yoursite.com/2019/02/09/hello-world/"/>
+    <id>https://yoursite.com/2019/02/09/hello-world/</id>
+    <published>2019-02-09T12:06:28.000Z</published>
+    <updated>2019-02-09T12:13:23.668Z</updated>
+    
+    <content type="html"><![CDATA[<p>### </p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;### &lt;/p&gt;
+
+      
+    
+    </summary>
+    
+    
+      <category term="Misc" scheme="https://yoursite.com/tags/Misc/"/>
+    
+  </entry>
+  
+</feed>
