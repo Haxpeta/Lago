@@ -267,14 +267,14 @@
         
 
         
-          <h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><ul>
-<li>常见 cpu 字节序:<ul>
+          <h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><ol>
+<li>常见 cpu 字节序:</li>
+</ol>
+<ul>
 <li>大端字节序: <code>IBM, Sun, PowerPC</code></li>
 <li>小端字节序: <code>x86, DEC</code><blockquote>
 <p><code>ARM</code> 系的大小通吃<br>网络字节序是大端字节序</p>
 </blockquote>
-</li>
-</ul>
 </li>
 </ul>
 <p>对于指令集来说有两种指令体系, 分别是<code>CISC</code>和<code>RISC</code>两个.指令集则是类似于协议的存在.<br>AMD 和 Intel使用同一种指令集,但是他们各自对于cpu的硬件实现不同,而这个<em>硬件实现</em><br>就称之为<em>微架构</em>.</p>
@@ -285,15 +285,12 @@
 <li><code>GDT</code> : <code>Global Descriptor Table</code> 全局描述符表, 表中的每一项被称为段描述符.</li>
 <li>描述符 : 描述某种数据的数据结构, 是元信息.</li>
 <li>堆 : 程序运行过程中用于动态内存分配的内存空间, 由操作系统分配划分.</li>
-<li><p>堆栈,栈 : 同指栈, 硬件必须.</p>
-</li>
-<li><p>大端字节序和小端字节序</p>
-<blockquote>
+<li>堆栈,栈 : 同指栈, 硬件必须.</li>
+<li>大端字节序和小端字节序<blockquote>
 <p>小端字节序是数值的低字节存放在内存的低地址出,高字节存放在高地址处.<br>大端字节序与小端字节序相反.</p>
 </blockquote>
 </li>
-<li><p><code>IVT</code> : <code>Interrupt Vector Table</code> 中断向量表.</p>
-</li>
+<li><code>IVT</code> : <code>Interrupt Vector Table</code> 中断向量表.</li>
 <li><code>CISC</code> : <code>Complex Instruction Set Computer</code> 复杂指令集计算机</li>
 <li><code>RISC</code> : <code>Reduced Instruction Set Computer</code> 精简指令集计算机</li>
 </ul>
