@@ -268,7 +268,9 @@
 
     <div class="post-content">
       
-        <h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><ol>
+        <p>这个是阅读<strong>操作系统真象还原</strong>的笔记. 记录学习系统一些知识点.<br>同时和<strong>深入理解计算机操作系统</strong>一起. 希望学完系统能让我更加方便的<br>学习汇编与二进制.</p>
+<a id="more"></a>
+<h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><ol>
 <li>常见 cpu 字节序:</li>
 </ol>
 <ul>
@@ -300,7 +302,7 @@
 <p>一个位即是一个 bit(比特),是最最小的数据单位,没有比它更小的了.</p>
 </blockquote>
 <blockquote>
-<p>一个字节是 8 位,写作 byte, 换算关系为 $1 \; byte = 8 \; bits$.<br>而内存的分布是以 byte 为基本单位的,也就是那些内存地址的单位都是 byte.</p>
+<p>一个字节是 8 位,写作 byte, 换算关系为 <em>1 byte</em> = <em>8 bits</em> .<br>而内存的分布是以 byte 为基本单位的,也就是那些内存地址的单位都是 byte.</p>
 </blockquote>
 <p>另外一点容易弄混的是对于数据大小的判别. 首先分清这个十六进制数是一个存在内存里的<br>数还是一个地址. 如果是数那么计算的单位是<code>bit</code>即位. 将这个数字换成一<code>二进制</code>串,其<br>长度就是其大小,当然单位为<code>bit</code>. </p>
 <blockquote>
@@ -308,7 +310,7 @@
 </blockquote>
 <p>如果是要看这个数本身的大小,则通过进制转换成十进制数即可.</p>
 <blockquote>
-<p>那么还是上面的例子, <code>0xac2</code> 这个数的大小是 $ 2+16^1 \times 12 + 16^2 \times 10 = 2754 $</p>
+<p>那么还是上面的例子, <code>0xac2</code> 这个数的大小可以通过十六进制转换为十进制即可.</p>
 </blockquote>
 <p>于是在具体的计算一个数字的”大小”的时候最好分清这个”大小”的意义所在.</p>
 
