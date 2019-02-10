@@ -237,7 +237,77 @@
             
   <article class="post">
     <div class="post-content">
-      <h1 id="关于-flax"><a href="#关于-flax" class="headerlink" title="关于 flax"></a>关于 flax</h1><h2 id="flax-工作流程-改进计划"><a href="#flax-工作流程-改进计划" class="headerlink" title="flax 工作流程 + 改进计划"></a>flax 工作流程 + 改进计划</h2><p>目前 flax 的目标是能够最大限度的给予用户自由并且提供充足的 api 来减轻<br>用户的负担.</p>
+      <h1 id="关于-flax-近期的信息"><a href="#关于-flax-近期的信息" class="headerlink" title="关于 flax 近期的信息"></a>关于 flax 近期的信息</h1><ul>
+<li>更新时间 : <code>2019-2-10</code></li>
+<li><code>flax</code> 最新开发信息: <code>v 0.2.2</code> 加入了<code>data</code>数据结构,精炼了hook系统!</li>
+</ul>
+<blockquote>
+<p>以下的内容可能受限于我个人的知识面和经验让你看得很尬, 所以<br>一来如果有任何好的建议, 欢迎通过邮件与我交流.<br>二来…. 请 嘘…… 脸皮薄..</p>
+</blockquote>
+<h2 id="flax-工作流程"><a href="#flax-工作流程" class="headerlink" title="flax 工作流程"></a>flax 工作流程</h2><p>首先<strong>parser</strong>读取源文件,得到初始数据,将其存于自己的 resr 域中.<br>根据具体的设计可能对初始的原<code>post</code>进行修改与提炼.</p>
+<p>然后交由<strong>post</strong>对数据进一步处理,得到完整的 <code>post sxml</code> 数据以及相关的原始文件信息<br>以及关于<strong>post</strong>的一些属性, 类似 <em>tag, categories</em> 这类.<br>得到<strong>post</strong>之后, 这个就算最初始的处理了. 对于后面的过程来讲, 最小的数据单元就是这个 <strong>post</strong> 了.</p>
+<blockquote>
+<p><strong>post</strong> 包含了由解析器处理后的<code>sxml</code>数据以及相关的文件,post属性</p>
+</blockquote>
+<p>在得到一系列或者单个<strong>post</strong>之后,就会根据<strong>site</strong>的设定用每个独立的<strong>page</strong><br>单元调用依据对应不同部分的<strong>renderer</strong>来对原始<code>sxml</code>进行渲染和组装处理.<br>这时候可能是输入诸如post时间, post分类, 生成相关的<em>url</em>这类数据的阶段.<br>组装完成后的数据会存放在<strong>page</strong>的<em>cont</em>域中.</p>
+<p>最后最后, 我们可能得到了一系列或者单个<strong>page</strong>原数据.<br>这时最小的数据单元就是一个个或者单个<strong>page</strong>了.<br>依据<strong>site</strong>的设定一个个的输出到对应的目标位置. 在这期间是否会有什么其他的操作不得而<br>知, 但是基于<code>sxml</code>的特性, 依旧存在着继续处理的可能性.(因为sxml和一个lisp代码没有本质的区别,只是把它当成数据来处理了,这也是当初决定拿scheme来写这个东西的一个原因)</p>
+<p>结尾时, 再把一些网站的资源文件搬到对应的地方去, 由<strong>asset</strong>来处理.</p>
+<p>至此, 整个建站过程完成. 下面针对一些细节再次讨论一下:</p>
+<ul>
+<li>整个过程似乎没有提到一些特殊的页面, 比如<strong>categories</strong>和最开始的<strong>index</strong>页面, 这些怎么生成<blockquote>
+<p>现在补充的一个信息就是, 以上的工作流程是<strong>命令</strong> <code>build</code> 的全部工作流程.<br>这里除了<strong>post</strong>可能会被写死专门处理有关post的事情, 其它的<strong>page</strong>,<strong>parser</strong><br>和<strong>site</strong>等等都是一些个带有特定意义的域的数据结构罢了. 具体的处理流程会由<strong>命令</strong>来<br>决定. 针对这些特殊的页面可以专门为其写入一个原始sxml文件中, 然后依旧交给<strong>parser</strong><br>和<strong>page</strong>进行处理, 根据对应的配置输出到相应的位置.</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>同样的, 对于<strong>atom</strong>格式的RSS,可能的订阅服务等, 都可以交由那两个来处理.</p>
+</blockquote>
+<blockquote>
+<p>所有的<strong>parser</strong>都是针对文件来说的, <code>flax</code>会针对不同格式的文件调用不同<strong>parser</strong><br>从而得到相对应输出文件.<br>所有的post都是针对<strong>parser</strong>来讲的. 这里我其实也没有把post写死, 他也不一定只是针对<br>post来说的, 之后或许可以改个名.<br>然而<strong>page</strong>可能是对<strong>post</strong>也可能是对于<strong>parser</strong>来说的. <strong>page</strong> 是网站的最小<br>构成单元.</p>
+</blockquote>
+<ul>
+<li>我看着你说的东西不仅模糊, 而且我似乎也没有看到什么让我兴奋的点阿<blockquote>
+<p>这样的, 由于<code>flax</code>还在构建中, 所以以上的说明也只是我目前的想法, 随时都有可能更改.<br>我也要一个具体的思路才能继续构建. 具体的流程也会慢慢完善细致.</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>从我的角度来看, 我觉得兴奋的点还是存在的. <code>flax</code> 目前的目标是定义一套构建个人博客的<br>工具, 并且一直在努力减少原先代码的存在感. 意思就是让用户能够定义几乎所有的东西.<br>包括写博客时的工作目录的结构, <code>flax</code>的内置命令. 这些不需要修改<code>flax</code>的源码就能做到.<br>这个东西其实是很有限的, 但是如果把想象力交给用户的话, 一切都不一样了.</p>
+</blockquote>
+<blockquote>
+<p>目前<code>build</code>命令其实做的事情就是执行用户的<code>.scm</code>文件(对, 就是执行), 然后用户在这个<br>文件里能够访问所有的实现特性以及引入库. 主题什么的就是一个程序. 这个程序可能会替代原先<br>默认的一些设置.</p>
+</blockquote>
+<blockquote>
+<p>然后, 用户可以自定义<code>flax</code>的二级命令, 比如达到<code>Hexo new &quot;blog name&quot;</code>这种效果.</p>
+</blockquote>
+<hr>
+<hr>
+<h2 id="flax-目前的困难"><a href="#flax-目前的困难" class="headerlink" title="flax 目前的困难"></a>flax 目前的困难</h2><ul>
+<li>考虑加入缓存系统, 也就是一个全局的数据文件, 这个用来处理诸如index页面post预览顺序的问题<blockquote>
+<p>是不是要加还是有待探索, 个人认为最好元数据不会依赖于除了原post之外的一些数据<br>也就是说, 所有的关于post的信息都只从原文件获取</p>
+</blockquote>
+</li>
+<li>markdown 的支持<blockquote>
+<p> 现在最麻烦的可能就是这个解析器了…</p>
+</blockquote>
+</li>
+<li>内部的url连接问题, 以及在写post时对于其它post或者资源文件引用的问题</li>
+<li>单个 post 或者单个页面的资源位置存放问题</li>
+<li>插件系统<blockquote>
+<p>从工作流程上来看, 所谓的插件可能不是特别需要. 直接开箱即用的定义好的主题可能就够了.<br>而这个主题本身就是一个程序, 它的配置选项,对应用户的额外需求似乎不需要我来插手.</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="flax-预备特性"><a href="#flax-预备特性" class="headerlink" title="flax 预备特性"></a>flax 预备特性</h2><ul>
+<li>更加智能, 机智的知道哪些需要删除哪些可以添加<blockquote>
+<p>它是半个活的程序…<br>目前好像<code>Hexo</code>做到了这一点</p>
+</blockquote>
+</li>
+<li>加大其适用性</li>
+</ul>
+<hr>
+<hr>
+<h2 id="flax-改进计划以及详细介绍"><a href="#flax-改进计划以及详细介绍" class="headerlink" title="flax 改进计划以及详细介绍"></a>flax 改进计划以及详细介绍</h2><p>目前 flax 的目标是能够最大限度的给予用户自由并且提供充足的 api 来减轻<br>用户的负担.</p>
 <h3 id="reader-–-gt-parser-可能对源文件做一些改变-将结果存储到-cache-中"><a href="#reader-–-gt-parser-可能对源文件做一些改变-将结果存储到-cache-中" class="headerlink" title="reader –&gt; parser(可能对源文件做一些改变,将结果存储到 cache 中)"></a>reader –&gt; parser(可能对源文件做一些改变,将结果存储到 cache 中)</h3><blockquote>
 <p>用于读取原 post 并把它转化成 sxml<br>现在 parser 将源文件编译,获取最原始数据,比如 metadata 和 content 这些.<br>最好是将这些东西具体存储在某些地方,目前来说最好的就是 chain 里的 data 域中.<br>对于一些不是 post 的东西也可以用它来 parse.</p>
 </blockquote>
@@ -255,6 +325,9 @@
 </blockquote>
 <blockquote>
 <p>现在将把 metadata 转换为具体的一些东西,用作内部构建使用</p>
+</blockquote>
+<blockquote>
+<p>现在考虑一个处在<strong>parser</strong>和<strong>page</strong>之间的更加灵活的存在</p>
 </blockquote>
 <p>可能的域:</p>
 <ul>
@@ -294,11 +367,11 @@
 <ul>
 <li>layout ==&gt; 网站布局, 是具体的文件集对网站组成部分的对应关系.</li>
 <li>comt ==&gt; 组件,比如个人介绍页, 资源页等,网站的组成. 构建方式是由一个个组件放入layout中</li>
-<li>attr ==&gt; 具体的文件配置属性k</li>
+<li>attr ==&gt; 具体的文件配置属性</li>
 </ul>
 <hr>
 <h3 id="hook-系统-有必要继续扩展的-甚至可以基于这个构建出那种响应式的系统"><a href="#hook-系统-有必要继续扩展的-甚至可以基于这个构建出那种响应式的系统" class="headerlink" title="hook 系统 (有必要继续扩展的),甚至可以基于这个构建出那种响应式的系统"></a>hook 系统 (有必要继续扩展的),甚至可以基于这个构建出那种响应式的系统</h3><blockquote>
-<p>一定要物尽其用,改进后的这个系统相对于原来的基于 siteobj 的系统优势很大<br>有必要继续扩大其作用. 仔细想想.</p>
+<p>一定要物尽其用,改进后的这个系统相对于原来的基于 <code>site obj</code> 的系统优势很大<br>有必要继续扩大其作用. 仔细想想.</p>
 </blockquote>
 <hr>
 <h3 id="trigger-系统"><a href="#trigger-系统" class="headerlink" title="trigger 系统"></a>trigger 系统</h3><blockquote>
@@ -308,30 +381,6 @@
 <h3 id="插件系统"><a href="#插件系统" class="headerlink" title="插件系统"></a>插件系统</h3><blockquote>
 <p>开发额外的插件, 提供额外的命令, 不一定只有 build 命令,目前不会多想</p>
 </blockquote>
-<hr>
-<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><p>首先 parser 读取源文件,得到初始数据,将其存于自己的 resr 域中. 然后交由 post 对数据进一步处理,得到完整的 post sxml 数据以及相关的原始文件及属性如 tag 这类.在处理过程中对全局的数据进行更新.</p>
-<p>重构</p>
-<ul>
-<li>site<ul>
-<li>site 的目标文件夹</li>
-<li>componment<blockquote>
-<p>用来描述博客共分为几个部分</p>
-</blockquote>
-</li>
-<li>special page<blockquote>
-<p>对于 post 都会有对应的 reader 来进行渲染,但是对于一个 index 入口文件来说没有一个合适的位置,用这个来为某些特殊的页面进行设置.</p>
-</blockquote>
-</li>
-<li>util<blockquote>
-<p>可以用来存放 asset 这样的东西,asset 也值得拓展</p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="flax-的展望"><a href="#flax-的展望" class="headerlink" title="flax 的展望"></a>flax 的展望</h2><ul>
-<li>考虑加入缓存系统(由于目前用来生成博客的,页面不会超过一两百,所以这里不是为了更加快速而是更加智能)</li>
-</ul>
 
     </div>
   </article>
