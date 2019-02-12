@@ -292,7 +292,10 @@
 <p>整个系统的启动过程简述(个人理解):</p>
 <p>电源通电后, 硬件开机自检. 硬件是如何知道这时候需要自检的呢? 是<strong>BIOS</strong>通知它们的.<strong>BIOS</strong> 如上所述, 是基本的输入输出系统. 没有太多的功能, 它的目的就是为了在整个开机接力赛中传递这第一棒. 在通知个硬件自检后, 它就会将接力棒传给<strong>MBR</strong>. <strong>MBR</strong>就是主引导程序. 如果折腾过linux, 那么可以把这个<strong>GRUB</strong>想象成<strong>MBR</strong>. 这么说或许就清楚点了.随后<strong>MBR</strong>会寻找<strong>OBR</strong>, 将主导权交给对应系统的引导程序. 可以把grup上的一些系统选项想象成系统引导程序. 最后, 主导权再由<strong>OBR</strong>交接给系统内核. 至此, 系统就正常启动啦.</p>
 <blockquote>
-<p>如果你不仅折腾过linux, 还想过把它和windows一起装在机器里, 那么你一定会使用双启动这个<br>  方案. 折腾过双系统的人一定会碰到过这种情况:<br>  在把linux安装完成后, 开机就是grub, windows则消失不见了. 如果需要再次引导windows则需要配置一下grbu才行. 反之, 如果在存在linux系统的情况下安装或者重装windows系统, 则会发现开机直接进入windows了. 出现这种情况是因为windows系统在安装的时候会把自己的<br>  引导程序放到<strong>MBR</strong>中去, 这就会造成机器启动的时候直接执行此时<strong>MBR</strong>上的内容. 这时候<br>  <strong>MBR</strong>上存放的是windows的引导器, 所以windows就会直接启动, linux就被撂在一旁,可怜兮兮,无人搭理.</p>
+<p>如果你不仅折腾过linux, 还想过把它和windows一起装在机器里, 那么你一定会使用双启动这方案. 折腾过双系统的人一定会碰到过这种情况:</p>
+</blockquote>
+<blockquote>
+<p>在把linux安装完成后, 开机就是grub, windows则消失不见了. 如果需要再次引导windows则需要配置一下grbu才行. 反之, 如果在存在linux系统的情况下安装或者重装windows系统, 则会发现开机直接进入windows了. 出现这种情况是因为windows系统在安装的时候会把自己的引导程序放到<strong>MBR</strong>中去, 这就会造成机器启动的时候直接执行此时<strong>MBR</strong>上的内容. 这时候<strong>MBR</strong>上存放的是windows的引导器, 所以windows就会直接启动, linux就被撂在一旁,可怜兮兮,无人搭理.</p>
 </blockquote>
 <h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><ul>
 <li><code>elf</code> : <code>executable and linking format</code></li>
