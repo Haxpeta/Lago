@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="cn">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="vim寄存器简明介绍">
+
+
+
+
+  <meta name="keywords" content="vim, Lago">
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/Lago/atom.xml" title="Lago">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/Lago/favicon.ico?v=2.10.2">
+
+
+
+<link rel="canonical" href="https://memorytoco.github.io/Lago/2019/02/15/vim-register/">
+
+
+
+  <link rel="stylesheet" type="text/css" href="/Lago/lib/fancybox/jquery.fancybox.css">
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/Lago/lib/nprogress/nprogress.min.css">
+
+
+
+<link rel="stylesheet" type="text/css" href="/Lago/css/style.css?v=2.10.2">
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
+</script>
+
+    <title> vim寄存器简明介绍 - Lago </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/Lago/." class="logo">Lago</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/Lago/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/categories">
+        <li class="mobile-menu-item">
+          
+          
+            分类
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/about">
+        <li class="mobile-menu-item">
+          
+          
+            关于
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/flax">
+        <li class="mobile-menu-item">
+          
+          
+            Flax
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/Lago/." class="logo">Lago</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/about">
+            
+            
+              关于
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/flax">
+            
+            
+              Flax
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          vim寄存器简明介绍
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-02-14
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/Lago/categories/Note/">Note</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#t-与-m-文本命令"><span class="toc-text">:t 与 :m 文本命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#无名寄存器-quot-quot"><span class="toc-text">无名寄存器 &quot;&quot;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数字寄存器-quot-0-quot-9"><span class="toc-text">数字寄存器 &quot;0 - &quot;9</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小型删除寄存器-small-delete-register-quot"><span class="toc-text">小型删除寄存器(small delete register) &quot;-</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#有名字母寄存器-quot-a-quot-z-quot-A-quot-Z"><span class="toc-text">有名字母寄存器 &quot;a - &quot;z , &quot;A - &quot;Z</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#只读寄存器-quot-quot-quot"><span class="toc-text">只读寄存器 &quot;:, &quot;., &quot;%</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#备用文件寄存器-quot"><span class="toc-text">备用文件寄存器 &quot;#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#表达式寄存器-quot"><span class="toc-text">表达式寄存器 &quot;=</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#选中丢弃寄存器-selection-and-drop-register-quot-quot-quot"><span class="toc-text">选中丢弃寄存器(selection and drop register) &quot;*,&quot;+,&quot;~</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#黑洞寄存器-quot"><span class="toc-text">黑洞寄存器 &quot;_</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#搜索模式寄存器-quot"><span class="toc-text">搜索模式寄存器 &quot;/</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#let-形式"><span class="toc-text">let-@ 形式</span></a></li></ol>
+    </div>
+  </div>
+
+
+
+    <div class="post-content">
+      
+        <p>最后编辑时间: <code>2019-2-14</code> , 之后会添加具体的例子.</p>
+<p>最近再次深入一下<code>vim</code>, 这次复习了一下<code>vim</code>的寄存器.</p>
+<p><code>vim</code>寄存器属于那种没用过几乎不用但一用过就再也离不开的角色, 在<code>vim</code>里面, 寄存器不仅与插件有无限的可能, 而且就算不借助任何插件, 只是使用好这些寄存器也会使你在<code>vim</code>的编辑效率提高一个档次.</p>
+<p>物超所值, 值的学习!</p>
+<p>这次就将我复习的内容分享出来啦!</p>
+<a id="more"></a>
+<p>概览</p>
+<p>使用<code>:dis</code>或者不带参数的<code>:reg</code>命令显示所有的寄存器以及储存的值. 使用<code>:reg</code>后跟复数个寄存器的名字来显示寄存器中的内容.</p>
+<table>
+<thead>
+<tr>
+<th>寄存器名</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&quot;&quot;</code></td>
+<td>无名寄存器</td>
+</tr>
+<tr>
+<td><code>&quot;0 - &quot;9</code></td>
+<td>10个数字寄存器</td>
+</tr>
+<tr>
+<td><code>&quot;-</code></td>
+<td>小型删除寄存器</td>
+</tr>
+<tr>
+<td><code>&quot;a - &quot;z</code>, <code>&quot;A -&quot;Z</code></td>
+<td>26个字母寄存器</td>
+</tr>
+<tr>
+<td><code>&quot;:</code>, <code>&quot;.</code>, <code>&quot;%</code></td>
+<td>三个只读寄存器</td>
+</tr>
+<tr>
+<td><code>&quot;#</code></td>
+<td>备用文件寄存器</td>
+</tr>
+<tr>
+<td><code>&quot;=</code></td>
+<td>表达式寄存器</td>
+</tr>
+<tr>
+<td><code>&quot;*</code>, <code>&quot;+</code>, <code>&quot;~</code></td>
+<td>选中丢弃寄存器</td>
+</tr>
+<tr>
+<td><code>&quot;_</code></td>
+<td>黑洞寄存器</td>
+</tr>
+<tr>
+<td><code>&quot;/</code></td>
+<td>最后的搜索的pattern</td>
+</tr>
+</tbody>
+</table>
+<h3 id="t-与-m-文本命令"><a href="#t-与-m-文本命令" class="headerlink" title=":t 与 :m 文本命令"></a><code>:t</code> 与 <code>:m</code> 文本命令</h3><p><code>:co</code>, <code>:copy</code> 命令<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:[<span class="built_in">range</span>]<span class="keyword">co</span>[<span class="keyword">py</span>] &#123;address&#125;</span><br></pre></td></tr></table></figure></p>
+<p>将<code>[range]</code>内的内容复制到<code>{address}</code>行下. <code>:t</code>与这两个同义.</p>
+<blockquote>
+<p><code>[range]</code>可以是<code>num1,num2</code>,表示从<code>num1</code>到<code>num2</code>的行. 也可以是特殊的表示行号的字符, 由<code>,</code>分隔. <code>{address}</code>表示一个行的地址, 初步使用可以指定一个行号. 更多的内容请看之后的<code>vim</code>系列的<strong>特殊记号</strong>说明吧. :)</p>
+</blockquote>
+<hr>
+<p><code>:m</code>, <code>mo</code>, <code>move</code>命令<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:[<span class="built_in">range</span>]<span class="keyword">m</span>[ove] &#123;address&#125;</span><br></pre></td></tr></table></figure></p>
+<p>将<code>[range]</code>内的内容移动到<code>{address}</code>行下.</p>
+<h3 id="无名寄存器-quot-quot"><a href="#无名寄存器-quot-quot" class="headerlink" title="无名寄存器 &quot;&quot;"></a>无名寄存器 <code>&quot;&quot;</code></h3><p>vim将<code>d</code>,<code>c</code>,<code>s</code>,<code>x</code>这些动作或者<code>y</code>指令操作的内容存放到无名寄存器中, 且无论在进行这些操作的时候是否指定特殊的寄存器, 无名寄存器中的内容总会这这些指令操作的内容. </p>
+<blockquote>
+<p>实际上, 无名寄存器总是指向一个有名寄存器, 且它的内容和这个有名寄存器中的一样.</p>
+</blockquote>
+<p>唯一的特例就是黑洞寄存器<code>&quot;_</code>, 如果进行动作的时候指定了黑洞寄存器, 那么操作的内容不会存到任何寄存器中.</p>
+<p>无名寄存器中的内容用于任何的<strong>粘贴</strong>命令如<code>p</code>. 还有一个就是, 如果我们特别指定<code>&quot;&quot;</code>无名寄存器的话, 写入无名寄存器中的内容也会同时写入<code>&quot;0</code>寄存器中.</p>
+<h3 id="数字寄存器-quot-0-quot-9"><a href="#数字寄存器-quot-0-quot-9" class="headerlink" title="数字寄存器 &quot;0 - &quot;9"></a>数字寄存器 <code>&quot;0 - &quot;9</code></h3><p><code>&quot;0</code>寄存器存储最后的<code>y</code>命令yank的内容, 如果在yank的时候指定了其他的寄存器, 那么<code>&quot;0</code>寄存器中的内容不更新.</p>
+<p><code>&quot;1</code>寄存器存储绝大多数最后删除的内容, 除非指定了其他的寄存器. 如果删除的内容小于一行的话, 使用小型删除寄存器<code>&quot;-</code>. 一个例外就是, 如果删除的命令使用了这些<code>%</code>,<code>(</code>,<code>)</code>,<code>`</code>,<code>/</code>,<code>?</code>,<code>n</code>,<code>N</code>,<code>{</code>,<code>}</code>动作指令, 那么<code>&quot;1</code>寄存器的内容总会被更新为这些新的内容. 同时,如果删除的内容在一行之内的话, <code>&quot;-</code>也会被使用到.<br>每次的删除都会使数字寄存器的内容向后推移.  vim会将原来<code>&quot;1</code>的内容传给<code>&quot;2</code>, 再将原来<code>&quot;2</code>的内容传给<code>&quot;3</code>, 如此下去, 并且丢弃原来<code>&quot;9</code>中的内容.</p>
+<h3 id="小型删除寄存器-small-delete-register-quot"><a href="#小型删除寄存器-small-delete-register-quot" class="headerlink" title="小型删除寄存器(small delete register) &quot;-"></a>小型删除寄存器(small delete register) <code>&quot;-</code></h3><p>这个寄存器存储所有小于一行的删除操作, 除非在删除的时候指定了寄存器.</p>
+<h3 id="有名字母寄存器-quot-a-quot-z-quot-A-quot-Z"><a href="#有名字母寄存器-quot-a-quot-z-quot-A-quot-Z" class="headerlink" title="有名字母寄存器 &quot;a - &quot;z , &quot;A - &quot;Z"></a>有名字母寄存器 <code>&quot;a - &quot;z</code> , <code>&quot;A - &quot;Z</code></h3><p>这些寄存器只有在被指定的时候才会被用到. 小写字母寄存器<code>&quot;a - &quot;z</code>会替换原先的内容, 大写字母寄存器<code>&quot;A - &quot;Z</code>会将内容附加到原先的寄存器中. 当 <code>&gt;</code> 标志被放到 <code>cpoptions</code>时, 在附加内容之前总会插入一个换行符.</p>
+<h3 id="只读寄存器-quot-quot-quot"><a href="#只读寄存器-quot-quot-quot" class="headerlink" title="只读寄存器 &quot;:, &quot;., &quot;%"></a>只读寄存器 <code>&quot;:</code>, <code>&quot;.</code>, <code>&quot;%</code></h3><p>这些寄存器只能只能通过<code>p</code>,<code>P</code>,<code>:put</code>和<code>CTRL-R</code>使用.</p>
+<p><code>&quot;.</code>寄存器包含最后在插入模式下插入的内容.</p>
+<p><code>&quot;%</code>寄存器包含这当前打开的文件名.</p>
+<p><code>&quot;:</code>寄存器包含着最后输入的命令行命令. 可以使用<code>@:</code>来执行最后执行过的命令. 注意, 只有在命令行中执行的命令才会被记录, 也就是说如果是通过按键映射执行的命令将不会被记录.</p>
+<h3 id="备用文件寄存器-quot"><a href="#备用文件寄存器-quot" class="headerlink" title="备用文件寄存器 &quot;#"></a>备用文件寄存器 <code>&quot;#</code></h3><p><code>&quot;#</code>寄存器保存当前窗口备用文件的名字, 它会影响<code>CTRL-^</code>的工作方式. 一个备用文件往往是之前编辑过的文件, 所以可以用这个<code>:e #</code>再两个文件之间快速跳转, 与之有相同功能的是<code>CTRL-^</code>组合键. 比如, 你先打开了<code>file1</code>文件, 然后发现更改了<code>file1</code>的内容后需要更改<code>file2</code>文件, 于是又通过<code>:e file2</code>来打开<code>file2</code>. 在更改的过程中突然发现原来的<code>file1</code>文件有错误, 于是此时就可以<code>CTRL-^</code>切回<code>file1</code>继续编辑. 编辑完了后再次<code>CTRL-^</code>切回<code>file2</code>继续更改.</p>
+<blockquote>
+<p>这个寄存器是可写的. 所以通过一些插件的支持, 或许可以维系一个特别高效的编辑模式.</p>
+</blockquote>
+<h3 id="表达式寄存器-quot"><a href="#表达式寄存器-quot" class="headerlink" title="表达式寄存器 &quot;="></a>表达式寄存器 <code>&quot;=</code></h3><p>当键入<code>&quot;=</code>或者<code>CTRL-R</code>时, 光标会跑到命令行中去. 在那里, 你可以键入任意的表达式, 使用<code>&lt;CR&gt;</code>键结束输入, 使用<code>&lt;ESC&gt;</code>键放弃输入, 如果留空, 那么执行上一次的命令. 然后结果会被转换成字串储存起来. 如果<code>&quot;=</code>被用到<code>p</code>命令上去, 那么其内容会被自动加上一个换行符.</p>
+<h3 id="选中丢弃寄存器-selection-and-drop-register-quot-quot-quot"><a href="#选中丢弃寄存器-selection-and-drop-register-quot-quot-quot" class="headerlink" title="选中丢弃寄存器(selection and drop register) &quot;*,&quot;+,&quot;~"></a>选中丢弃寄存器(selection and drop register) <code>&quot;*</code>,<code>&quot;+</code>,<code>&quot;~</code></h3><p>这些寄存器是否可用还请亲自实验, 后续补全使用条件.</p>
+<p><code>&quot;+</code>寄存器与系统剪贴板相通, 需要编译支持. 而<code>&quot;*</code>会存储选中的内容. 比如存储通过<code>v</code>选中后又<code>&lt;ESC&gt;</code>取消丢弃掉的内容. 这两个非常好用, 可以自己尝试. 剪贴板的我就不说了, <code>&quot;*</code>这个寄存器只要选中就可以将内容存储到里面去了. <code>&quot;~</code> 暂时不知晓, 有机会后续补充.</p>
+<h3 id="黑洞寄存器-quot"><a href="#黑洞寄存器-quot" class="headerlink" title="黑洞寄存器 &quot;_"></a>黑洞寄存器 <code>&quot;_</code></h3><p>如其名, 它就像一个黑洞一样, 只进不出. 使用它不会对其它寄存器作出影响, 从这个寄存器中也取不出任何内容, 总之, 无事发生.</p>
+<h3 id="搜索模式寄存器-quot"><a href="#搜索模式寄存器-quot" class="headerlink" title="搜索模式寄存器 &quot;/"></a>搜索模式寄存器 <code>&quot;/</code></h3><p><code>&quot;/</code>寄存器保存最后一次搜索的搜索模式(pattern). 这会影响命令<code>n</code>,<code>N</code>和选项<code>hlsearch</code>的工作方式. 它是可写的, 可以使用 <code>:let</code>来赋值, 但是无法通过删除或者yank内容到这个寄存器中.</p>
+<blockquote>
+<p>一个用处就是可以通过改变这个寄存器里的内容来高亮不同的内容.</p>
+</blockquote>
+<h3 id="let-形式"><a href="#let-形式" class="headerlink" title="let-@ 形式"></a><code>let-@</code> 形式</h3><p>使用<code>let @</code>后跟寄存器的名字来对寄存器赋值. 比如<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> @<span class="number">1</span> = <span class="string">"hello"</span></span><br><span class="line"><span class="keyword">let</span> @/ = <span class="string">"good"</span></span><br><span class="line"><span class="keyword">let</span> @<span class="string">" = "</span><span class="keyword">next</span> value <span class="keyword">to</span> paste<span class="comment">"</span></span><br></pre></td></tr></table></figure></p>
+<p>到此, 寄存器这一方面就差不多啦. 再花些时间琢磨出自己的一套使用方法吧.</p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="https://memorytoco.github.io/Lago">Memorytoco</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="https://memorytoco.github.io/Lago/2019/02/15/vim-register/">https://memorytoco.github.io/Lago/2019/02/15/vim-register/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/Lago/tags/vim/">vim</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/Lago/2019/02/14/shell/">
+        <span class="next-text nav-default">linux 命令行</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:memorytoco@gmail.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/memorytoco" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+    
+      <a href="/Lago/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+    
+    2019
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Memorytoco</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+
+  
+
+
+
+    
+  
+
+
+
+  
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/Lago/lib/jquery/jquery.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/Lago/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/Lago/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/Lago/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/Lago/lib/nprogress/nprogress.min.js"></script>
+  
+
+
+    <script type="text/javascript" src="/Lago/js/src/even.js?v=2.10.2"></script>
+
+  </body>
+</html>
