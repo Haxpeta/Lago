@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="cn">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="shell 工具集">
+
+
+
+
+  <meta name="keywords" content="linux shell, Lago">
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/Lago/atom.xml" title="Lago">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/Lago/favicon.ico?v=2.10.2">
+
+
+
+<link rel="canonical" href="https://memorytoco.github.io/Lago/2019/02/16/shell-tools/">
+
+
+
+  <link rel="stylesheet" type="text/css" href="/Lago/lib/fancybox/jquery.fancybox.css">
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/Lago/lib/nprogress/nprogress.min.css">
+
+
+
+<link rel="stylesheet" type="text/css" href="/Lago/css/style.css?v=2.10.2">
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
+</script>
+
+    <title> shell 工具集 - Lago </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/Lago/." class="logo">Lago</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/Lago/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/categories">
+        <li class="mobile-menu-item">
+          
+          
+            分类
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/about">
+        <li class="mobile-menu-item">
+          
+          
+            关于
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/flax">
+        <li class="mobile-menu-item">
+          
+          
+            Flax
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/Lago/." class="logo">Lago</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/about">
+            
+            
+              关于
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/flax">
+            
+            
+              Flax
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          shell 工具集
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-02-15
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/Lago/categories/Note/">Note</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#wc-工具"><span class="toc-text">wc 工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-cat-显示文件内容"><span class="toc-text">使用 cat 显示文件内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-cut-提取半结构化文件内容"><span class="toc-text">使用 cut 提取半结构化文件内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#paste-与-cut-搭配使用"><span class="toc-text">paste 与 cut 搭配使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#流编辑器-sed"><span class="toc-text">流编辑器 sed</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tr"><span class="toc-text">tr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#grep-文件搜索"><span class="toc-text">grep 文件搜索</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-sort-对内容进行排序"><span class="toc-text">使用 sort 对内容进行排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#uniq-过滤器"><span class="toc-text">uniq 过滤器</span></a></li></ol>
+    </div>
+  </div>
+
+
+
+    <div class="post-content">
+      
+        <p>最后编辑时间: <code>2019-2-15</code> , 持续更新补充</p>
+<p>linux shell 最常用工具介绍. 这些在你编写linux shell脚本的时候拥有非常大的用处. 你的shell脚本水平也与你对这些工具的熟练度直接挂钩.</p>
+<a id="more"></a>
+<h3 id="wc-工具"><a href="#wc-工具" class="headerlink" title="wc 工具"></a><code>wc</code> 工具</h3><p>用作字符统计.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wc file</span><br></pre></td></tr></table></figure>
+<p><code>wc</code> 命令会显示三个数字和文件名.<br>实例:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> wc .vimrc</span><br><span class="line">273  865 8549 .vimrc</span><br></pre></td></tr></table></figure>
+<p>可以看到这里由三个数字, 第一个数字表示文件行数, 第二个数字表示单词数, 第三个表示字符数.最后一个是文件名. 所以这个例子显示了 <em>.vimrc</em> 这个文件共有 273 行, 865 个单词, 8549 个字符. 统计结果来自 <em>.vimrc</em>这个文件.</p>
+<h3 id="使用-cat-显示文件内容"><a href="#使用-cat-显示文件内容" class="headerlink" title="使用 cat 显示文件内容"></a>使用 <code>cat</code> 显示文件内容</h3><p>显示文件内容. 是<em>concatenate</em>的缩写, 如果给了多个文件, 那么<code>cat</code>会将两个文件的内容合并起来在输出到标准输出中去.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat files</span><br></pre></td></tr></table></figure>
+<h3 id="使用-cut-提取半结构化文件内容"><a href="#使用-cut-提取半结构化文件内容" class="headerlink" title="使用 cut 提取半结构化文件内容"></a>使用 <code>cut</code> 提取半结构化文件内容</h3><p>用于从数据文件或者命令输出中提取(切出)各种字段.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cut -cchars file</span><br></pre></td></tr></table></figure>
+<p>其中<code>-cchars</code>可以是</p>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>含义</th>
+<th>总结</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-c1</code></td>
+<td>提取每行的第一个字符</td>
+<td><code>-cnum</code></td>
+</tr>
+<tr>
+<td><code>-c1,3,5</code></td>
+<td>提取每行的第一,三,五个字符</td>
+<td><code>-cnum1,num2,num3...</code></td>
+</tr>
+<tr>
+<td><code>-c1-4</code></td>
+<td>提取每行的第一到四个字符</td>
+<td><code>-cnum1-num2</code></td>
+</tr>
+<tr>
+<td></td>
+<td>提取从<code>num1</code>到行尾的所有字符</td>
+<td><code>-cnum1-</code></td>
+</tr>
+</tbody>
+</table>
+<p>上面的足以应对一般需求了,但是如果一个文件不是那么规则的话或许需要一些额外的支持才行.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cut -ddchar -ffield file</span><br></pre></td></tr></table></figure>
+<p>其中, <code>dchar</code>是分隔字符, <code>field</code>是由分隔字符分隔出来的一个个段, 其格式和<code>-c</code>选项一样.</p>
+<blockquote>
+<p>如果在没有指定<code>-d</code>选项的情况下使用<code>-f</code>, 那么分隔符就是<strong>制表符</strong>.</p>
+</blockquote>
+<h3 id="paste-与-cut-搭配使用"><a href="#paste-与-cut-搭配使用" class="headerlink" title="paste 与 cut 搭配使用"></a><code>paste</code> 与 cut 搭配使用</h3><p>用于合并行, 与<code>cut</code>相反.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">paste files</span><br></pre></td></tr></table></figure>
+<p><code>paste</code>后面可以跟随多个文件名, 结果就是将每个文件中的对应行合并起来. 默认分隔符是<strong>制表符</strong>.如果想要更改分隔符可以使用<code>-d</code>选项. 命令格式为:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">paste -dchars file1 file2 file3 ...</span><br></pre></td></tr></table></figure>
+<p>其中, <code>chars</code>是多个字符, 每个字符分别分隔依次序的文件. 就是第一个字符分隔<code>file1</code>和<code>file2</code>, 第二个字符分隔<code>file2</code>和<code>file3</code>, 其余以此类推.</p>
+<p>同时使用<code>-s</code>选项,将一个文件中的所有行合并.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">paste -s file</span><br></pre></td></tr></table></figure>
+<h3 id="流编辑器-sed"><a href="#流编辑器-sed" class="headerlink" title="流编辑器 sed"></a>流编辑器 <code>sed</code></h3><p>是<strong>stream editor</strong>(流编辑器)的简称.一般用法如下:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed command file</span><br></pre></td></tr></table></figure>
+<p><code>sed</code> 不会修改原始的文件, 只会把结果输出到标准输出.</p>
+<p>具体的用法另起一个笔记.</p>
+<h3 id="tr"><a href="#tr" class="headerlink" title="tr"></a><code>tr</code></h3><p>用作于过滤器,转换标准输入中的字符.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tr fromchars tochars</span><br></pre></td></tr></table></figure>
+<p>同样的, <code>tr</code>不会修改原始文件. 其中, 字符可以使用八进制来表示. <code>\xxx</code>.</p>
+<table>
+<thead>
+<tr>
+<th>tr 命令</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tr &#39;[a-z]&#39; &#39; &#39;</code></td>
+<td>将小写字母转换成空格</td>
+</tr>
+<tr>
+<td><code>tr &#39;[a-z][A-Z]&#39; &#39;[A-Z][a-z]&#39;</code></td>
+<td>将大写字母转换成小写字母, 将小写字母转换成大写字母</td>
+</tr>
+</tbody>
+</table>
+<p><code>-s</code>选项用来将连续出现的字符替换成一个单一的字符. <code>-d</code>选项用于删除输入流中的</p>
+<h3 id="grep-文件搜索"><a href="#grep-文件搜索" class="headerlink" title="grep 文件搜索"></a><code>grep</code> 文件搜索</h3><p>神器,不解释.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep pattern files</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>待补充</p>
+</blockquote>
+<h3 id="使用-sort-对内容进行排序"><a href="#使用-sort-对内容进行排序" class="headerlink" title="使用 sort 对内容进行排序"></a>使用 <code>sort</code> 对内容进行排序</h3><p>用于给输入的内容排序.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sort file</span><br></pre></td></tr></table></figure>
+<p><code>-u</code>选项,消除重复的行. <code>-r</code>选项逆序排列. <code>-o</code>选项指定输出文件. <code>-n</code>将行中的第一个字段视为数字进行排序. <code>-knumn</code> 选项表示从第<code>num</code>个字段开始排序. <code>-t</code>选项制定各个字段的分隔符.</p>
+<h3 id="uniq-过滤器"><a href="#uniq-过滤器" class="headerlink" title="uniq 过滤器"></a><code>uniq</code> 过滤器</h3><p>用于查找或者删除文件中的重复行.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uniq inputfile outputfile</span><br></pre></td></tr></table></figure>
+<p><code>-d</code>选项用于找出重复的行. <code>-c</code>选项统计出现的次数.</p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="https://memorytoco.github.io/Lago">Memorytoco</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="https://memorytoco.github.io/Lago/2019/02/16/shell-tools/">https://memorytoco.github.io/Lago/2019/02/16/shell-tools/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/Lago/tags/linux-shell/">linux shell</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/Lago/2019/02/15/vim-register/">
+        <span class="next-text nav-default">vim寄存器简明介绍</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:memorytoco@gmail.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/memorytoco" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+    
+      <a href="/Lago/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+    
+    2019
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Memorytoco</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+
+  
+
+
+
+    
+  
+
+
+
+  
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/Lago/lib/jquery/jquery.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/Lago/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/Lago/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/Lago/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/Lago/lib/nprogress/nprogress.min.js"></script>
+  
+
+
+    <script type="text/javascript" src="/Lago/js/src/even.js?v=2.10.2"></script>
+
+  </body>
+</html>
