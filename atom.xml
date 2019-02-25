@@ -6,7 +6,7 @@
   <link href="/Lago/atom.xml" rel="self"/>
   
   <link href="https://memorytoco.github.io/Lago/"/>
-  <updated>2019-02-24T10:07:36.564Z</updated>
+  <updated>2019-02-25T13:46:49.591Z</updated>
   <id>https://memorytoco.github.io/Lago/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>x86 汇编之一</title>
+    <link href="https://memorytoco.github.io/Lago/2019/02/26/wangshuang_1/"/>
+    <id>https://memorytoco.github.io/Lago/2019/02/26/wangshuang_1/</id>
+    <published>2019-02-25T21:30:13.000Z</published>
+    <updated>2019-02-25T13:46:49.591Z</updated>
+    
+    <content type="html"><![CDATA[<p>王爽汇编第三版, 包括课后习题答案(部分解读).</p><p>主要是每一章的知识点罗列.</p><p>王爽这一本书还是相当基础详细的, 用作汇编入门最好. 主要是我有方法模拟 8086 的机器了哈哈. 虽然老了很多, 但是还是觉得可以. 第一个微型系统就在8086上了. 于是这里就将这个作为<em>操作系统真象还原</em>的前导课程来学一下.</p><a id="more"></a><h2 id="cpu"><a href="#cpu" class="headerlink" title="cpu"></a>cpu</h2><ul><li>cpu 的存储是以<strong>B</strong>为基本单位来进行计算的, 一个存储单元就是一个字节, 如果一个存储器有 128 个存储单元, 就可以说这个存储器 128 字节大小.</li><li>cpu 需要三种信息, 才能正确的执行一条指令<ul><li>地址信息</li><li>控制信息</li><li>数据信息</li></ul></li></ul><p>而且, cpu 是通过<strong>总线</strong>来和外部器件(芯片)交流的. 根据它所要的信息不同, 从逻辑上将总线划分成 3 个类别, 分别是</p><ul><li>地址总线</li><li>控制总线</li><li>数据总线</li></ul><p>这几个.</p><h3 id="地址总线"><a href="#地址总线" class="headerlink" title="地址总线"></a>地址总线</h3><p>一根导线只能传输高电平或者低电平, 也即<code>1</code>和<code>0</code>. 那么地址总线若有<code>10</code>根的话, 它的状态就有 2 的 10 次方个, 最大数为<code>1023</code>最小为<code>0</code>. 因此可以说, 其寻址能力是<code>1KB</code>. 这里是数字大小, 以 byte 为单位. 一根线数字上最大表示 1, 那最大一 byte, 两根最大 4, 6 根最大 64byte. 数字意义上. 这里需要和数据总线的”大小”区分开来, 依然是和之前的一样, 数字意义上和物理逻辑上.</p><h3 id="数据总线"><a href="#数据总线" class="headerlink" title="数据总线"></a>数据总线</h3><p>和地址总线一样, 总线的宽度(构成总线的线的个数)决定了一次可以传送的二进制数据量. <code>8</code>根数据线一次传送一个字节,<code>16</code>根一次<code>2</code>个字节. 这里一次所传大小的要以在内存中的计算. 8 个 bit 就是一个 byte. 几根几个 bit, 合起来 8 个算一个 byte.</p><h3 id="控制总线"><a href="#控制总线" class="headerlink" title="控制总线"></a>控制总线</h3><p>控制总线是一个总称, 但是其宽度依然能决定 cpu 对外部器件控制的能力.</p><h2 id="内存空间"><a href="#内存空间" class="headerlink" title="内存空间"></a>内存空间</h2><p>这里可以理解计算机内部由一个巨大的逻辑内存空间. 它在逻辑上是一整块儿的, 并且从<code>0</code>到<code>FFF..H</code>地址上分布. 而实际上, 这个巨大的内存空间是由若干个零碎的物理空间拼凑起来的. 同时, 这样我们也可以就把这个空间当作真实的物理空间, 而且不同的区段有不同的特殊功能.</p><h2 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h2><p>同时, 这里使用<code>H</code>后缀表示十六进制数字, 用<code>B</code>后缀表示二进制, 什么都不带的表示十进制.</p><p>一个十六进制位的数字可以使用 4 个二进制的<code>0</code>和<code>1</code>来替代.</p><p>比如<code>23H</code>就是<code>0010</code> <code>0011</code> <code>B</code>. <code>2</code>对应<code>0010</code>,<code>3</code>对应<code>0011</code>. 有趣的是这里面的位置意义也正好对应. 这两个数字转换成十进制的数是相同的.</p><h1 id="答题"><a href="#答题" class="headerlink" title="答题"></a>答题</h1><h2 id="检测点-1-1"><a href="#检测点-1-1" class="headerlink" title="检测点 1.1"></a>检测点 1.1</h2><ol><li>一颗 cpu 的寻址能力为 8KB,那么它的地址总线宽度是<code>13</code>.</li><li>1KB 的存储器有<code>1024</code>个存储单元, 编号从<code>0</code>到<code>1023</code>.</li><li>1KB 的存储器, 可以存储$8 \times 1024$个 bit, <code>1024</code>个 byte.</li><li>1GB = $2^{30}$B, 1MB = $2^{20}$B, 1KB = $2^{10}$B.</li><li>8080 地址总线宽度是 16 根,寻址能力是<code>64KB</code>. 8088 宽 20 根,寻址能力是<code>1MB</code>, 80286 宽 24 根, 寻址能力是<code>16</code>MB, 80386 宽 32 根, 寻址能力是<code>4GB</code>.</li><li>数据总线</li></ol><table><thead><tr><th>处理器名称</th><th>数据总线宽度(根)</th><th>一次所传数据大小</th></tr></thead><tbody><tr><td>8080</td><td>8</td><td>1B</td></tr><tr><td>8088</td><td>8</td><td>1B</td></tr><tr><td>8086</td><td>16</td><td>2B</td></tr><tr><td>80286</td><td>16</td><td>2B</td></tr><tr><td>80386</td><td>32</td><td>4B</td></tr></tbody></table><ol start="7"><li>从内存中读取 1024 字节的数据, 8086 至少读<code>512</code>次, 80386 至少读<code>256</code>次.</li><li>在存储器中, 数据和程序以<code>二进制</code>的形式存放.</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;王爽汇编第三版, 包括课后习题答案(部分解读).&lt;/p&gt;
+&lt;p&gt;主要是每一章的知识点罗列.&lt;/p&gt;
+&lt;p&gt;王爽这一本书还是相当基础详细的, 用作汇编入门最好. 主要是我有方法模拟 8086 的机器了哈哈. 虽然老了很多, 但是还是觉得可以. 第一个微型系统就在8086上了. 于是这里就将这个作为&lt;em&gt;操作系统真象还原&lt;/em&gt;的前导课程来学一下.&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Note" scheme="https://memorytoco.github.io/Lago/categories/Note/"/>
+    
+    
+      <category term="asm" scheme="https://memorytoco.github.io/Lago/tags/asm/"/>
+    
+  </entry>
   
   <entry>
     <title>特殊 shell 转义字符</title>
