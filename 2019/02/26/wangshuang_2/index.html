@@ -275,6 +275,7 @@
     <div class="post-content">
       
         <p>这里涉及到了一些计算机硬件层面的知识要求, 不过阅读的话问题不大.</p>
+<p>这里的重点是通用寄存器和指令段寄存器.</p>
 <a id="more"></a>
 <h2 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h2><p>8086cpu 的寄存器共有<code>AX</code>,<code>BX</code>,<code>CX</code>,<code>DX</code>,<code>SI</code>,<code>DI</code>,<code>SP</code>,<code>BP</code>,<code>IP</code>,<code>CS</code>,<code>SS</code>,<code>DS</code>,<code>ES</code>,<code>PSW</code>14 个寄存器.</p>
 <h2 id="通用寄存器"><a href="#通用寄存器" class="headerlink" title="通用寄存器"></a>通用寄存器</h2><p>这 14 个寄存器中, 有 4 个通用寄存器, 分别是<code>AX</code>,<code>BX</code>,<code>CX</code>,<code>DX</code>, 它们分别用于存放一般通用型数据.<br>同时, 8086 是 16 为寄存器, 可以存放两个字节, 为了兼容 8080 的 8 为寄存器, 通用寄存器又分为<strong>高位寄存器</strong>与<strong>低位寄存器</strong>, 分别表示为<code>AH</code>与<code>AL</code>. <code>B,C,D</code>同样.</p>
