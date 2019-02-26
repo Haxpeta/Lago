@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="cn">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="x86 汇编之三">
+
+
+
+
+  <meta name="keywords" content="asm, Lago">
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/Lago/atom.xml" title="Lago">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/Lago/favicon.ico?v=2.10.2">
+
+
+
+<link rel="canonical" href="https://memorytoco.github.io/Lago/2019/02/26/wangshuang_3/">
+
+
+
+  <link rel="stylesheet" type="text/css" href="/Lago/lib/fancybox/jquery.fancybox.css">
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/Lago/lib/nprogress/nprogress.min.css">
+
+
+
+<link rel="stylesheet" type="text/css" href="/Lago/css/style.css?v=2.10.2">
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
+</script>
+
+    <title> x86 汇编之三 - Lago </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/Lago/." class="logo">Lago</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/Lago/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/categories">
+        <li class="mobile-menu-item">
+          
+          
+            分类
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/about">
+        <li class="mobile-menu-item">
+          
+          
+            关于
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/melt">
+        <li class="mobile-menu-item">
+          
+          
+            Melt
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/Lago/." class="logo">Lago</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/about">
+            
+            
+              关于
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/melt">
+            
+            
+              Melt
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          x86 汇编之三
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-02-26
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/Lago/categories/Note/">Note</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#字单元"><span class="toc-text">字单元</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#存放数据地址的段寄存器"><span class="toc-text">存放数据地址的段寄存器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8086-的栈"><span class="toc-text">8086 的栈</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#栈段"><span class="toc-text">栈段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#段的综述"><span class="toc-text">段的综述</span></a></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#答题"><span class="toc-text">答题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#检测点-3-1"><span class="toc-text">检测点 3.1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#检测点-3-2"><span class="toc-text">检测点 3.2</span></a></li></ol>
+    </li></div>
+  </div>
+
+
+
+    <div class="post-content">
+      
+        <p>这里需要弄明白的就是栈是由<code>SS:SP</code>控制的就行. 它本身有一个执行逻辑. 其它的关于<code>mov</code>传送的数据的类型, 还是需要个人自己探索. 毕竟那是手册上的东西. 这系列笔记还是关注与知识的理解不是具体命令的细节.</p>
+<a id="more"></a>
+<h2 id="字单元"><a href="#字单元" class="headerlink" title="字单元"></a>字单元</h2><p>由于在内存中, 一个单元的大小是一个字节, 而 cpu 是 16 位即大小为 2 字节. 那么想要从内存中向 cpu 中传送一个字的数据时, 就要使用内存中<strong>连续的两个内存单元</strong>作为<strong>一个字单元</strong>, 以此为基本单位来传送数据.</p>
+<p>这里提出<strong>字单元</strong>的概念. 字单元是存放一个 16 位数据大小的内存单元(规定的), 由两个连续地址的内存单元组成. 在这两个内存单元中, 低位字节在低地址单元中, 高位字节在高地址单元中.</p>
+<p>然后, 低地址为<code>N</code>时, 称这个<strong>字单元</strong>为<strong>N 地址字单元</strong>.</p>
+<p>若是提到某个单元里的字节型数据, 就是单个内存单元中, 一个字节里的数据. 若是提到字型单元, 就要将两个相邻的内存单元连起来一起看.</p>
+<h2 id="存放数据地址的段寄存器"><a href="#存放数据地址的段寄存器" class="headerlink" title="存放数据地址的段寄存器"></a>存放数据地址的段寄存器</h2><p>8086 里面使用<code>DS</code>段寄存器存放要访问的数据的段地址, 而使用<code>[address]</code>中的<code>address</code>表示偏移地址.</p>
+<p>这里的作用就是使用<code>mov</code>指令直接从内存中<code>DS:address</code>取得数据. 格式为<code>mov obj, [address]</code>, 其中, <code>obj</code>是寄存器. 其中<code>address</code>的大小和<code>IP</code>的大小一样是 16 位.</p>
+<p>这里, <code>mov</code>就有了四个作用.</p>
+<table>
+<thead>
+<tr>
+<th>格式</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mov ax, 003H</code></td>
+<td>将一个数字直接传入寄存器中</td>
+</tr>
+<tr>
+<td><code>mov ax, bx</code></td>
+<td>将一个寄存器中的内容传入寄存器中</td>
+</tr>
+<tr>
+<td><code>mov ax, [address]</code></td>
+<td>将内存中<code>DS:address</code>所指单元的内容存入寄存器中</td>
+</tr>
+<tr>
+<td><code>mov [address], ax</code></td>
+<td>将寄存器中的值传入内存中, 地址同样是<code>DS:address</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>注意, 在执行第三中形式时, cpu 直接默认从<code>DS</code>中取得段地址.</p>
+</blockquote>
+<p>当<code>mov</code>中有 16 位的寄存器时, 自动传送 16 位的数据即一个字型数据. 也就是上面列表中<code>格式</code>一栏中展示的示例都是传送的一个字型数据. 但是如果出现了<code>al</code>的话, 那就是字节型数据. 注意内存中字型数据的存放取出的规则(高对高,低对低). 同时注意所操作的寄存器的位数, 是 8 位还是 16 位.</p>
+<p>这里面, 除了将数字直接传送到段寄存器中的行为不允许, 其它情况下段寄存器的操作和通用寄存器一样.</p>
+<p>同时<code>add</code>,<code>sub</code>这两个命令和<code>mov</code>有一样格式. 不过, 这两个都不能对段寄存器操作(只是<code>add ds, ax</code>这类将<code>ds</code>放在第一位的不行, <code>add ax, ds</code>这个可以).</p>
+<blockquote>
+<p>另外一点是, <code>DS</code>不可以使用<code>mov</code>直接传入数字, 只能将一个寄存器中的值传入<code>DS</code>中. 因此需要传入数值时, 需要使用一个寄存器用作中转.</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">;; 错误</span><br><span class="line">mov ds, 003H</span><br><span class="line"></span><br><span class="line">;; 正确</span><br><span class="line">mov ax, 003H</span><br><span class="line">mov ds, ax   ; ds 为 003H</span><br></pre></td></tr></table></figure>
+<h2 id="8086-的栈"><a href="#8086-的栈" class="headerlink" title="8086 的栈"></a>8086 的栈</h2><p>首先, 想象一个开口向上的瓶子. 开口处就是<strong>栈顶</strong>. 栈顶的元素总是最后入栈, 最先取出. 栈遵循<strong>先进后出</strong>原则.</p>
+<p>8086 中提供<code>push</code>和<code>pop</code>命令来入栈和出栈. 入栈和出栈都是以<strong>字</strong>为单位的(也就是 2 个字节). <code>push ax</code>表示将<code>ax</code>中的内容入栈. 而<code>pop ax</code>表示将栈顶的元素弹出到<code>ax</code>中. 注意, 这里字在内存中的存储规则依然是高对高,低对低.</p>
+<p>8086 使用<code>SS</code>和<code>SP</code>两个寄存器来跟踪<strong>栈顶元素</strong>. 其中<code>SS</code>存放段地址, <code>SP</code>存放偏移地址.</p>
+<p><code>push ax</code> 操作有两步</p>
+<ol>
+<li><code>SP=SP-2</code>, <code>SS:SP</code>指向栈顶前面的单元(低地址方向), 以当前地址为新的栈顶.</li>
+<li>同时, 将<code>ax</code>内容送到内存中</li>
+</ol>
+<blockquote>
+<p>如此, 得到栈是从<strong>高地址</strong>向<strong>低地址</strong>方向增长的. 且当栈中无元素时, 指向栈最高地址加一的地方. 可以理解为此时栈中没有元素, 因此栈指针指向栈外一个单元(高地址处).</p>
+</blockquote>
+<p><code>pop ax</code> 操作同样两步</p>
+<ol>
+<li>将栈顶内容送入<code>ax</code>中</li>
+<li><code>SP=SP+2</code>, <code>SS:SP</code>指向栈顶后面的单元(高地址方向), 以当前地址为新的栈顶.</li>
+</ol>
+<blockquote>
+<p><code>push</code>和<code>pop</code>这两个操作对所有寄存器都可用, 同时对内存单元也可用. 不过需要注意的是操作的数据是以<strong>字</strong>为单位的.</p>
+</blockquote>
+<p>8086 的栈的最大值是<code>0H~FFFFH</code>, 同时, 如何确保栈不会溢出这点需要我们自己控制.</p>
+<p>在初始化栈的时候有一个技巧来判断<code>SP</code>的值是否设置正确. 那就是求值此时的栈的大小, 用此时<code>SP</code>的值加一, 判断是否为奇数, 若是则是正确的, 若不是, 那么就是错误的.</p>
+<h2 id="栈段"><a href="#栈段" class="headerlink" title="栈段"></a>栈段</h2><p>同其它的分段机制一样, 也可以对栈进行分段, 如果将<code>10000H ~ 1FFFFH</code>这段空间当作栈空间, 那么栈空时, 当<code>SS</code>为<code>1000H</code>时, <code>SP</code>的值为 <code>0</code>. 可以先考虑栈中有一个元素的情况下, <code>SP</code>的值是<code>FFFEH</code>. 那么, 此时<code>pop</code>操作可得<code>SP</code>为 <code>0</code>. 即<code>SP</code>的值应该为<code>0</code>.</p>
+<h2 id="段的综述"><a href="#段的综述" class="headerlink" title="段的综述"></a>段的综述</h2><p>首先, 段是人为规定的, 并且由于其段地址不会改变, 无论是栈的段地址, 指令的段地址还是数据的段地址, 在初始化后主动改变的话是不会变的. 变的只有偏移地址. 而且由于偏移地址的大小, 可以确定段的最大空间为 64KB. 基于这些特性, 我们可以定义自己的<strong>代码段</strong>, <strong>数据段</strong>, <strong>栈段</strong>进行管理.</p>
+<h1 id="答题"><a href="#答题" class="headerlink" title="答题"></a>答题</h1><h2 id="检测点-3-1"><a href="#检测点-3-1" class="headerlink" title="检测点 3.1"></a>检测点 3.1</h2><blockquote>
+<p>实验跳过</p>
+</blockquote>
+<ol>
+<li>写出每条指令结束后, 相关寄存器中的值. <code>AX=0</code>,<code>BX=0</code>.</li>
+</ol>
+<p>相关内存如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0000:0000 70 80 F0 30 EF 60 30 E2-00 80 80 12 66 20 22 60  0000:000F</span><br><span class="line">0000:0010 62 26 E6 D6 CC 2E 3C 3B-AB BA 00 00 26 06 66 88  0000:001F</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th><code>AX</code></th>
+<th><code>BX</code></th>
+<th><code>DS</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mov ax, 1</code></td>
+<td>1</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>mov ds, ax</code></td>
+<td></td>
+<td></td>
+<td>1</td>
+</tr>
+<tr>
+<td><code>mov ax, [0000]</code></td>
+<td>2662</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>mov bx, [0001]</code></td>
+<td></td>
+<td>E626</td>
+<td></td>
+</tr>
+<tr>
+<td><code>mov ax, bx</code></td>
+<td>E626</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>mov ax, [0000]</code></td>
+<td>2662</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>mov bx, [0002]</code></td>
+<td></td>
+<td>D6E6</td>
+<td></td>
+</tr>
+<tr>
+<td><code>add ax, bx</code></td>
+<td>FD48</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>add ax, [0004]</code></td>
+<td>2C14</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>mov ax, 0</code></td>
+<td>0</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>mov al, [0002]</code></td>
+<td>E6</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>mov bx, 0</code></td>
+<td></td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td><code>mov bl, [000C]</code></td>
+<td></td>
+<td>26</td>
+<td></td>
+</tr>
+<tr>
+<td><code>add al, bl</code></td>
+<td>C</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ol start="2">
+<li>寄存器初始值为: <code>CS=2000H</code>, <code>IP=0</code>, <code>DS=1000H</code>, <code>AX=0</code>, <code>BX=0</code></li>
+</ol>
+<p>内存情况如下:</p>
+<table>
+<thead>
+<tr>
+<th>地址</th>
+<th>值</th>
+<th>指令</th>
+<th>地址</th>
+<th>值</th>
+<th>指令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10000</td>
+<td>B8</td>
+<td>*</td>
+<td>20000</td>
+<td>B8</td>
+<td>*</td>
+</tr>
+<tr>
+<td>10001</td>
+<td>00</td>
+<td>*</td>
+<td>20001</td>
+<td>22</td>
+<td>*</td>
+</tr>
+<tr>
+<td>10002</td>
+<td>20</td>
+<td>mov ax, 2000H</td>
+<td>20002</td>
+<td>66</td>
+<td>mov ax, 6622H</td>
+</tr>
+<tr>
+<td>10003</td>
+<td>8E</td>
+<td>*</td>
+<td>20003</td>
+<td>Ea</td>
+<td>*</td>
+</tr>
+<tr>
+<td>10004</td>
+<td>D8</td>
+<td>mov ds, ax</td>
+<td>20004</td>
+<td>00</td>
+<td>*</td>
+</tr>
+<tr>
+<td>10005</td>
+<td>A1</td>
+<td>*</td>
+<td>20005</td>
+<td>01</td>
+<td>*</td>
+</tr>
+<tr>
+<td>10006</td>
+<td>08</td>
+<td>*</td>
+<td>20006</td>
+<td>F0</td>
+<td>*</td>
+</tr>
+<tr>
+<td>10007</td>
+<td>00</td>
+<td>mov ax, [0008]</td>
+<td>20007</td>
+<td>0F</td>
+<td>jmp 0ff0:0100</td>
+</tr>
+<tr>
+<td>10008</td>
+<td>A1</td>
+<td>*</td>
+<td>20008</td>
+<td>89</td>
+<td>*</td>
+</tr>
+<tr>
+<td>10009</td>
+<td>02</td>
+<td>*</td>
+<td>20009</td>
+<td>C3</td>
+<td>mov bx, ax</td>
+</tr>
+<tr>
+<td>1000a</td>
+<td>00</td>
+<td>mov ax, [0002]</td>
+<td>2000a</td>
+<td>…</td>
+<td></td>
+</tr>
+<tr>
+<td>1000b</td>
+<td>…</td>
+<td></td>
+<td>2000b</td>
+<td>…</td>
+<td></td>
+</tr>
+<tr>
+<td>1000c</td>
+<td>…</td>
+<td></td>
+<td>2000c</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mov ax, 6622H  ;; AX=6622H IP=3</span><br><span class="line">jmp 0ff0:0100  ;; CS=2000H IP=8 --&gt; CS=0FF0 IP=0100 : ff00+100 = 10000</span><br><span class="line">mov ax, 2000H  ;; AX=2000H IP=0103</span><br><span class="line">mov ds, ax     ;; DS=2000H IP=0105</span><br><span class="line">mov ax, [0008] ;; AX=C389H IP=0108</span><br><span class="line">mov ax, [0002] ;; Ax=EA66H IP=010b</span><br></pre></td></tr></table></figure>
+<h2 id="检测点-3-2"><a href="#检测点-3-2" class="headerlink" title="检测点 3.2"></a>检测点 3.2</h2><ol>
+<li>补全程序, 将 1000H 到 1000FH 中的 8 个字逆序复制到 2000H 到 2000FH 中</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov ax, 1000H</span><br><span class="line">mov ds, ax</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov ax, 2000H</span><br><span class="line">mov ss, ax</span><br><span class="line">mov sp, 0010H</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">push [0]</span><br><span class="line">push [2]</span><br><span class="line">push [4]</span><br><span class="line">push [6]</span><br><span class="line">push [8]</span><br><span class="line">push [a]</span><br><span class="line">push [c]</span><br><span class="line">push [e]</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>补全程序, 将 1000H 到 1000FH 中的 8 个字逆序复制到 2000H 到 2000FH 中</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov ax, 2000H</span><br><span class="line">mov ds, ax</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov ax, 1000H</span><br><span class="line">mov ds, ax</span><br><span class="line">mov sp, 0000H</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">pop [E]</span><br><span class="line">pop [C]</span><br><span class="line">pop [A]</span><br><span class="line">pop [8]</span><br><span class="line">pop [6]</span><br><span class="line">pop [4]</span><br><span class="line">pop [2]</span><br><span class="line">pop [0]</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="https://memorytoco.github.io/Lago">Memorytoco</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="https://memorytoco.github.io/Lago/2019/02/26/wangshuang_3/">https://memorytoco.github.io/Lago/2019/02/26/wangshuang_3/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/Lago/tags/asm/">asm</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/Lago/2019/02/26/wangshuang_2/">
+        <span class="next-text nav-default">x86 汇编之二</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:memorytoco@gmail.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/memorytoco" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+    
+      <a href="/Lago/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+    
+    2019
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Memorytoco</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+
+  
+
+
+
+    
+  
+
+
+
+  
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/Lago/lib/jquery/jquery.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/Lago/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/Lago/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/Lago/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/Lago/lib/nprogress/nprogress.min.js"></script>
+  
+
+
+    <script type="text/javascript" src="/Lago/js/src/even.js?v=2.10.2"></script>
+
+  </body>
+</html>
