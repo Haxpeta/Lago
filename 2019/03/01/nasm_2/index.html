@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="cn">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="nasm 基础之编译器指令">
+
+
+
+
+  <meta name="keywords" content="nasm, Lago">
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/Lago/atom.xml" title="Lago">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/Lago/favicon.ico?v=2.10.2">
+
+
+
+<link rel="canonical" href="https://memorytoco.github.io/Lago/2019/03/01/nasm_2/">
+
+
+
+  <link rel="stylesheet" type="text/css" href="/Lago/lib/fancybox/jquery.fancybox.css">
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/Lago/lib/nprogress/nprogress.min.css">
+
+
+
+<link rel="stylesheet" type="text/css" href="/Lago/css/style.css?v=2.10.2">
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
+</script>
+
+    <title> nasm 基础之编译器指令 - Lago </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/Lago/." class="logo">Lago</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/Lago/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/categories">
+        <li class="mobile-menu-item">
+          
+          
+            分类
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/about">
+        <li class="mobile-menu-item">
+          
+          
+            关于
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/melt">
+        <li class="mobile-menu-item">
+          
+          
+            Melt
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/Lago/." class="logo">Lago</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/about">
+            
+            
+              关于
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/melt">
+            
+            
+              Melt
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          nasm 基础之编译器指令
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-03-01
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/Lago/categories/Note/">Note</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#指定目标处理器模式-Specifying-Target-Processor-Mode"><span class="toc-text">指定目标处理器模式(Specifying Target Processor Mode)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#改变编译器的默认值-Change-the-assembler-defaults"><span class="toc-text">改变编译器的默认值(Change the assembler defaults)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RIP-relative-addressing"><span class="toc-text">RIP-relative addressing</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BND-prefix"><span class="toc-text">BND prefix</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#改变或定义段-Changing-and-Defining-Sections"><span class="toc-text">改变或定义段(Changing and Defining Sections)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#定义绝对的标签-Defining-Absolute-Labels"><span class="toc-text">定义绝对的标签(Defining Absolute Labels)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#从其它模块导入符号-Importing-Symbols-from-Other-Modules"><span class="toc-text">从其它模块导入符号(Importing Symbols from Other Modules)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#将符号导出到其它模块-Exporting-Symbols-to-Other-Modules"><span class="toc-text">将符号导出到其它模块(Exporting Symbols to Other Modules)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#定义通用数据区域-Defining-Common-Data-Areas"><span class="toc-text">定义通用数据区域(Defining Common Data Areas)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#本地符号-Local-Symbols-within-Modules"><span class="toc-text">本地符号(Local Symbols within Modules)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修饰字符-Mangling-Symbols"><span class="toc-text">修饰字符(Mangling Symbols)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通用命名空间-Generic-Namespaces"><span class="toc-text">通用命名空间(Generic Namespaces)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#定义-cpu-的依赖-Defining-CPU-Dependencies"><span class="toc-text">定义 cpu 的依赖(Defining CPU Dependencies)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#处理浮点数常数-Handling-of-floating-point-constants"><span class="toc-text">处理浮点数常数(Handling of floating-point constants)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#打开或关闭警告-Enable-or-disable-warnings"><span class="toc-text">打开或关闭警告(Enable or disable warnings)</span></a></li></ol>
+    </div>
+  </div>
+
+
+
+    <div class="post-content">
+      
+        <p>这个紧随之前的基本语法, 要把这个看完才能基本看懂<code>nasm</code>风格的代码. 当然也可以看不懂的时候再来看就是了. 其中有些只是列出了指令名, 这是出于强迫症考虑的. 虽然不大可能用得到, 但还是写上, 之后若要用再来补充就是了. 还有一些指令直接将原来的复制来了, 这是因为我也不明白它的作用, 不好翻译. 所以直接贴原文, 不过只有一个指令.</p>
+<a id="more"></a>
+<hr>
+<p><code>nasm</code>的汇编指令分为基础指令(primitive instruction)和用户级指令(user-level instruction).</p>
+<p>基础指令是被<strong>方括号</strong>包围的, 而用户级指令不需要.</p>
+<p>然后对应于不同的输出格式, 可能有不同的额外的指令.</p>
+<h2 id="指定目标处理器模式-Specifying-Target-Processor-Mode"><a href="#指定目标处理器模式-Specifying-Target-Processor-Mode" class="headerlink" title="指定目标处理器模式(Specifying Target Processor Mode)"></a>指定目标处理器模式(Specifying Target Processor Mode)</h2><p><code>BITS</code>指令指定了 nasm 是否要生成为特定处理器模式的代码. 比如处理器的<code>16位</code>,<code>32位</code>和<code>64位</code>模式. 基本格式为<code>BITS XX</code>, 里面的<code>XX</code> 是<code>16</code>, <code>32</code> 或者 <code>64</code>.</p>
+<p>这个指令一般不常用. 同时, 为了兼容, 也有一些别名<code>USE16</code>,<code>USE32</code>分别代表<code>BITS 16</code>和<code>BITS 32</code>.</p>
+<h2 id="改变编译器的默认值-Change-the-assembler-defaults"><a href="#改变编译器的默认值-Change-the-assembler-defaults" class="headerlink" title="改变编译器的默认值(Change the assembler defaults)"></a>改变编译器的默认值(Change the assembler defaults)</h2><p><code>DEFAULT</code> 可以设置为(<code>REL</code>或<code>ABS</code>)和(<code>BND</code>或<code>NOBND</code>).</p>
+<h3 id="RIP-relative-addressing"><a href="#RIP-relative-addressing" class="headerlink" title="RIP-relative addressing"></a>RIP-relative addressing</h3><p><code>REL</code>或<code>ABS</code>用来设置没有用到寄存器的指令在 64 位模式下是不是<code>RIP–relative</code>的. 默认情况下都是绝对的除非用<code>REL</code>覆盖掉.</p>
+<h3 id="BND-prefix"><a href="#BND-prefix" class="headerlink" title="BND prefix"></a>BND prefix</h3><p>If DEFAULT BND is set, all bnd-prefix available instructions following this directive are prefixed with bnd. To override it, NOBND prefix can be used.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DEFAULT BND</span><br><span class="line">    call foo            ; BND will be prefixed</span><br><span class="line">    nobnd call foo      ; BND will NOT be prefixed</span><br></pre></td></tr></table></figure>
+<p>DEFAULT NOBND can disable DEFAULT BND and then BND prefix will be added only when explicitly specified in code.</p>
+<p>DEFAULT BND is expected to be the normal configuration for writing MPX-enabled code.</p>
+<h2 id="改变或定义段-Changing-and-Defining-Sections"><a href="#改变或定义段-Changing-and-Defining-Sections" class="headerlink" title="改变或定义段(Changing and Defining Sections)"></a>改变或定义段(Changing and Defining Sections)</h2><p>如名, <code>SECTION</code>或者<code>SEGMENT</code>就是用来定义段的. 对于有的格式来说, 都有些什么段都是固定的, 而有的则不作限制.</p>
+<p>对于<code>Unix object</code>和<code>bin object</code>格式来说, 它们都支持标准的段名<code>.text</code>, <code>.data</code> 和 <code>.bss</code> 分别对应 <code>code</code>, <code>data</code> 和 <code>uninitialized-data</code>段.</p>
+<p>相反的, <code>obj</code>格式就不会特殊对待这些段, 而且可能会把段名前面的句点<code>.</code>给删掉.</p>
+<h2 id="定义绝对的标签-Defining-Absolute-Labels"><a href="#定义绝对的标签-Defining-Absolute-Labels" class="headerlink" title="定义绝对的标签(Defining Absolute Labels)"></a>定义绝对的标签(Defining Absolute Labels)</h2><p><code>ABSOLUTE</code>指令可以用作<code>SECTION</code>等的替代品. 它让接下来的代码地址不是基于真实的段的地址, 而是基于一个给定的假设的绝对地址. 同时在这个模式下能够使用的指令只有<code>RESB</code>家族了.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">absolute 0x1A</span><br><span class="line"></span><br><span class="line">    kbuf_chr    resw    1</span><br><span class="line">    kbuf_free   resw    1</span><br><span class="line">    kbuf        resw    16</span><br></pre></td></tr></table></figure>
+<p>这个例子描述了一个 PC BIOS 的数据段在地址 <code>0x40</code> 处. 上面的代码定义了 <code>kbuf_chr</code>的值为 <code>0x1A</code>, <code>kbuf_free</code> 的值为<code>0x1C</code>, 并且 <code>kbuf</code> 的值为 <code>0x1E</code>.</p>
+<h2 id="从其它模块导入符号-Importing-Symbols-from-Other-Modules"><a href="#从其它模块导入符号-Importing-Symbols-from-Other-Modules" class="headerlink" title="从其它模块导入符号(Importing Symbols from Other Modules)"></a>从其它模块导入符号(Importing Symbols from Other Modules)</h2><p><code>EXTERN</code>指令有点类似 c 里面的<code>extern</code>关键字. 它用来引用定义在其它模块的符号. 同时注意不是所有的格式都会支持这个指令, <code>bin</code>格式就不支持.</p>
+<p><code>EXTERN</code>指令可以接受任意多个参数, 每个参数都是一个符号名.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">extern  _printf</span><br><span class="line">extern  _sscanf,_fscanf</span><br></pre></td></tr></table></figure>
+<p><code>EXTERN</code>可以导入一个符号两次, 不过 nasm 会忽视第二次导入.</p>
+<p>同时, 如果一个变量被同时声明为<code>GLOBAL</code>和 <code>EXTERN</code> 或者它被声明为<code>EXTERN</code>后又被定义了, 那么它会被当成<code>GLOBAL</code>来处理.如果一个变量同时被声明为<code>COMMON</code> 和<code>EXTERN</code>, 它会被当成<code>COMMON</code>来处理.</p>
+<h2 id="将符号导出到其它模块-Exporting-Symbols-to-Other-Modules"><a href="#将符号导出到其它模块-Exporting-Symbols-to-Other-Modules" class="headerlink" title="将符号导出到其它模块(Exporting Symbols to Other Modules)"></a>将符号导出到其它模块(Exporting Symbols to Other Modules)</h2><p><code>GLOBAL</code>是<code>EXTERN</code>的另外一端: 如果一个模块将一个变量声明为<code>EXTERN</code>并且引用了它, 那么为了避免链接错误, 另外一个模块就需要使用<code>GLOBAL</code>来声明它, 并且还要明确的定义它. 其它的编译器可能使用<code>PUBLIC</code>来用作这一目的.</p>
+<p>它的语法和<code>EXTERN</code>相同.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">global _main</span><br><span class="line">_main:</span><br><span class="line">        ; some code</span><br></pre></td></tr></table></figure>
+<h2 id="定义通用数据区域-Defining-Common-Data-Areas"><a href="#定义通用数据区域-Defining-Common-Data-Areas" class="headerlink" title="定义通用数据区域(Defining Common Data Areas)"></a>定义通用数据区域(Defining Common Data Areas)</h2><p><code>COMMON</code>指令用于声明通用变量(common variable). 作用就是声明一个在未初始化数据段的<code>GLOBAL</code>变量.</p>
+<p>所以这个</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">common  intvar  4</span><br></pre></td></tr></table></figure>
+<p>和这个</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">global  intvar</span><br><span class="line">section .bss</span><br><span class="line"></span><br><span class="line">intvar  resd    1</span><br></pre></td></tr></table></figure>
+<p>它们的含义是相同的. 除了一点: 如果有超过一个的模块定义了<code>COMMON</code>变量, 那么它们会共享同一个通用变量. 它们各自定义的变量将会被合并, 并且在实际内存中, 指向同一块内存.</p>
+<h2 id="本地符号-Local-Symbols-within-Modules"><a href="#本地符号-Local-Symbols-within-Modules" class="headerlink" title="本地符号(Local Symbols within Modules)"></a>本地符号(Local Symbols within Modules)</h2><p><code>STATIC</code>会声明一个本地符号.</p>
+<h2 id="修饰字符-Mangling-Symbols"><a href="#修饰字符-Mangling-Symbols" class="headerlink" title="修饰字符(Mangling Symbols)"></a>修饰字符(Mangling Symbols)</h2><p><code>(G|L)PREFIX</code>, <code>(G|L)POSTFIX</code>这里面有<code>6</code>个指令, <code>()</code>表示可选,<code>|</code>表示或.</p>
+<h2 id="通用命名空间-Generic-Namespaces"><a href="#通用命名空间-Generic-Namespaces" class="headerlink" title="通用命名空间(Generic Namespaces)"></a>通用命名空间(Generic Namespaces)</h2><p><code>OUTPUT</code> 和 <code>DEBUG</code>指令.</p>
+<h2 id="定义-cpu-的依赖-Defining-CPU-Dependencies"><a href="#定义-cpu-的依赖-Defining-CPU-Dependencies" class="headerlink" title="定义 cpu 的依赖(Defining CPU Dependencies)"></a>定义 cpu 的依赖(Defining CPU Dependencies)</h2><p><code>CPU</code>指令限制了指令集.</p>
+<p>选项有:</p>
+<ul>
+<li>CPU 8086 Assemble only 8086 instruction set</li>
+<li>CPU 186 Assemble instructions up to the 80186 instruction set</li>
+<li>CPU 286 Assemble instructions up to the 286 instruction set</li>
+<li>CPU 386 Assemble instructions up to the 386 instruction set</li>
+<li>CPU 486 486 instruction set</li>
+<li>CPU 586 Pentium instruction set</li>
+<li>CPU PENTIUM Same as 586</li>
+<li>CPU 686 P6 instruction set</li>
+<li>CPU PPRO Same as 686</li>
+<li>CPU P2 Same as 686</li>
+<li>CPU P3 Pentium III (Katmai) instruction sets</li>
+<li>CPU KATMAI Same as P3</li>
+<li>CPU P4 Pentium 4 (Willamette) instruction set</li>
+<li>CPU WILLAMETTE Same as P4</li>
+<li>CPU PRESCOTT Prescott instruction set</li>
+<li>CPU X64 x86-64 (x64/AMD64/Intel 64) instruction set</li>
+<li>CPU IA64 IA64 CPU (in x86 mode) instruction set</li>
+</ul>
+<p>所有的选项都是大小写不敏感的. 默认提供所有的指令.</p>
+<h2 id="处理浮点数常数-Handling-of-floating-point-constants"><a href="#处理浮点数常数-Handling-of-floating-point-constants" class="headerlink" title="处理浮点数常数(Handling of floating-point constants)"></a>处理浮点数常数(Handling of floating-point constants)</h2><p>默认的, 浮点常数都会近似到最接近的数字, 但是也可以使用<code>FLOAT</code>来改变这个行为.</p>
+<p>选项如下:</p>
+<ul>
+<li>FLOAT DAZ Flush denormals to zero</li>
+<li>FLOAT NODAZ Do not flush denormals to zero (default)</li>
+<li>FLOAT NEAR Round to nearest (default)</li>
+<li>FLOAT UP Round up (toward +Infinity)</li>
+<li>FLOAT DOWN Round down (toward –Infinity)</li>
+<li>FLOAT ZERO Round toward zero</li>
+<li>FLOAT DEFAULT Restore default settings</li>
+</ul>
+<h2 id="打开或关闭警告-Enable-or-disable-warnings"><a href="#打开或关闭警告-Enable-or-disable-warnings" class="headerlink" title="打开或关闭警告(Enable or disable warnings)"></a>打开或关闭警告(Enable or disable warnings)</h2><p><code>[WARNING]</code>指令打开或者关闭警告级别, 同命令行<code>-w</code>参数的作用.</p>
+<p>说明:</p>
+<ul>
+<li>[warning +warning-class] enables warnings for warning-class.</li>
+<li>[warning -warning-class] disables warnings for warning-class.</li>
+<li>[warning *warning-class] restores warning-class to the original value, either the default value or as specified on the command line.</li>
+</ul>
+<p>同时, <code>[WARNING]</code> 指令也接受<code>all</code>, <code>error</code>和 <code>error=warning-class</code>这些选项.<br>这个指令没有提供用户级别的指令.</p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="https://memorytoco.github.io/Lago">Memorytoco</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="https://memorytoco.github.io/Lago/2019/03/01/nasm_2/">https://memorytoco.github.io/Lago/2019/03/01/nasm_2/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/Lago/tags/nasm/">nasm</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/Lago/2019/03/01/nasm_1/">
+        <span class="next-text nav-default">nasm 基础之基本语法</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:memorytoco@gmail.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/memorytoco" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+    
+      <a href="/Lago/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+    
+    2019
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Memorytoco</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+
+  
+
+
+
+    
+  
+
+
+
+  
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/Lago/lib/jquery/jquery.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/Lago/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/Lago/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/Lago/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/Lago/lib/nprogress/nprogress.min.js"></script>
+  
+
+
+    <script type="text/javascript" src="/Lago/js/src/even.js?v=2.10.2"></script>
+
+  </body>
+</html>
