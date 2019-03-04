@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="cn">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="x86 8086 寄存器">
+
+
+
+
+  <meta name="keywords" content="Note, Lago">
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/Lago/atom.xml" title="Lago">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/Lago/favicon.ico?v=2.10.2">
+
+
+
+<link rel="canonical" href="https://memorytoco.github.io/Lago/2019/03/05/8086register/">
+
+
+
+  <link rel="stylesheet" type="text/css" href="/Lago/lib/fancybox/jquery.fancybox.css">
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/Lago/lib/nprogress/nprogress.min.css">
+
+
+
+<link rel="stylesheet" type="text/css" href="/Lago/css/style.css?v=2.10.2">
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
+</script>
+
+    <title> x86 8086 寄存器 - Lago </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/Lago/." class="logo">Lago</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/Lago/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/categories">
+        <li class="mobile-menu-item">
+          
+          
+            分类
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/about">
+        <li class="mobile-menu-item">
+          
+          
+            关于
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/melt">
+        <li class="mobile-menu-item">
+          
+          
+            Melt
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/Lago/." class="logo">Lago</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/about">
+            
+            
+              关于
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/melt">
+            
+            
+              Melt
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          x86 8086 寄存器
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-03-04
+        </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#通用寄存器-GENERAL-PURPOSE-REGISTERS"><span class="toc-text">通用寄存器(GENERAL PURPOSE REGISTERS)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#段寄存器-SEGMENT-REGISTERS"><span class="toc-text">段寄存器(SEGMENT REGISTERS)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#特殊目的寄存器-SPECIAL-PURPOSE-REGISTERS"><span class="toc-text">特殊目的寄存器(SPECIAL PURPOSE REGISTERS)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#flag-寄存器-Program-Status-Word"><span class="toc-text">flag 寄存器(Program Status Word)</span></a></li></ol>
+    </div>
+  </div>
+
+
+
+    <div class="post-content">
+      
+        <p>基本 8086 寄存器以及部分用途列举.</p>
+<a id="more"></a>
+<p>8086cpu 的寄存器共有<code>AX</code>,<code>BX</code>,<code>CX</code>,<code>DX</code>,<code>SI</code>,<code>DI</code>,<code>SP</code>,<code>BP</code>,<code>IP</code>,<code>CS</code>,<code>SS</code>,<code>DS</code>,<code>ES</code>,<code>PSW</code>14 个寄存器.</p>
+<h2 id="通用寄存器-GENERAL-PURPOSE-REGISTERS"><a href="#通用寄存器-GENERAL-PURPOSE-REGISTERS" class="headerlink" title="通用寄存器(GENERAL PURPOSE REGISTERS)"></a>通用寄存器(GENERAL PURPOSE REGISTERS)</h2><p>这 14 个寄存器中, 有 8 个通用寄存器, 分别是<code>AX</code>,<code>BX</code>,<code>CX</code>,<code>DX</code>,<code>SI</code>, <code>DI</code>, <code>BP</code>, <code>SP</code> 它们分别用于存放一般通用型数据.</p>
+<p>其中 <code>AX</code>,<code>BX</code>,<code>CX</code>,<code>DX</code>通用寄存器又分为<strong>高位寄存器</strong>与<strong>低位寄存器</strong>, 分别表示为<code>AH</code>与<code>AL</code>. <code>B,C,D</code>也可以作同样的区分. 但是其它四个不行.</p>
+<p>这几个寄存器的英文名字以及作用为:</p>
+<ol>
+<li><code>AX</code><blockquote>
+<p>累加寄存器(the accumulator register)</p>
+<ul>
+<li>产生简短的机器代码(Generates shortest machine code)</li>
+<li>算数, 逻辑和数据传输(Arithmetic, logic and data transfer)</li>
+<li>One number must be in AL or AX</li>
+<li>乘法和除法(Multiplication &amp; Division)</li>
+<li>输入输出(Input &amp; Output)</li>
+</ul>
+</blockquote>
+</li>
+<li><code>BX</code><blockquote>
+<p>基址寄存器(the base address register)</p>
+</blockquote>
+</li>
+<li><code>CX</code><blockquote>
+<p>计数寄存器(the count register)</p>
+<ul>
+<li>使用<code>LOOP</code>等指令的时候调用(Iterative code segments using the LOOP instruction)</li>
+<li>重复的执行某个指令(Repetitive operations on strings with the REP command)</li>
+<li>Count (in CL) of bits to shift and rotate</li>
+</ul>
+</blockquote>
+</li>
+<li><code>DX</code><blockquote>
+<p>数据寄存器(the data register)</p>
+<ul>
+<li><code>DX</code>和<code>AX</code>寄存器相连接来存储 32 位数字供<code>DIV</code>和<code>MUL</code>指令使用(DX:AX concatenated into 32-bit register for some MUL and DIV operations)</li>
+<li>使用<code>IN</code>和<code>OUT</code>的时候指定端口(Specifying ports in some IN and OUT operations)</li>
+</ul>
+</blockquote>
+</li>
+<li><code>SI</code><blockquote>
+<p>源地址索引寄存器(source index register)</p>
+<ul>
+<li>可以被用作数据指针(Can be used for pointer addressing of data)</li>
+<li>在某些字串处理指令中充当源(Used as source in some string processing instructions)</li>
+<li>相对于<code>DS</code>寄存器的偏移地址(Offset address relative to DS)</li>
+</ul>
+</blockquote>
+</li>
+<li><p><code>DI</code></p>
+<blockquote>
+<p>目的地址索引寄存器(destination index register)</p>
+</blockquote>
+<ul>
+<li>可以被用作数据指针(Can be used for pointer addressing of data)</li>
+<li>在某些字串处理指令中充当目标(Used as destination in some string processing instructions)</li>
+<li>相对于<code>ES</code>寄存器的偏移地址(Offset address relative to ES)</li>
+</ul>
+</li>
+<li><p><code>BP</code></p>
+<blockquote>
+<p>基址指针寄存器(base pointer)</p>
+<ul>
+<li>主要用于访问存储在栈中的变量(Primarily used to access parameters passed via the stack )</li>
+<li>相对于<code>SS</code>寄存器的偏移地址(Offset address relative to SS)</li>
+</ul>
+</blockquote>
+</li>
+<li><code>SP</code><blockquote>
+<p>栈指针寄存器(stack pointer)</p>
+<ul>
+<li>总是指向栈顶(Always points to top item on the stack)</li>
+<li>相对于<code>SS</code>寄存器的偏移地址(Offset address relative to SS)</li>
+<li>操作的时候总是以<strong>字</strong>为单位(Always points to word)</li>
+<li>一个空栈会有<code>SP=FFFEH</code>(An empty stack will had SP = FFFEh)</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+<h2 id="段寄存器-SEGMENT-REGISTERS"><a href="#段寄存器-SEGMENT-REGISTERS" class="headerlink" title="段寄存器(SEGMENT REGISTERS)"></a>段寄存器(SEGMENT REGISTERS)</h2><p>8086 有 4 个段寄存器: <code>CS</code>, <code>DS</code>, <code>SS</code>, <code>ES</code>.</p>
+<p>段寄存器如其名所示, 是用来存放段地址的寄存器, 为 16 位. 同时,仅有一个段寄存器是不够的, 还需要配合一个可以提供偏移地址的立即数或者寄存器来使用.</p>
+<ul>
+<li><code>CS</code><blockquote>
+<p>指令段寄存器(code segment)</p>
+</blockquote>
+</li>
+<li><code>DS</code><blockquote>
+<p>数据段寄存器(data segment)</p>
+</blockquote>
+</li>
+<li><code>ES</code><blockquote>
+<p>额外的段寄存器(extra segment register)</p>
+<ul>
+<li>它的功能由程序员决定</li>
+</ul>
+</blockquote>
+</li>
+<li><code>SS</code><blockquote>
+<p>栈段寄存器(stack segment)</p>
+</blockquote>
+</li>
+</ul>
+<p>默认状态下, <code>BX</code>, <code>SI</code> 和 <code>DI</code> 寄存器与<code>DS</code>段寄存器一起工作. <code>BP</code> 和 <code>SP</code> 寄存器与 <code>SS</code> 段寄存器一起工作.</p>
+<h2 id="特殊目的寄存器-SPECIAL-PURPOSE-REGISTERS"><a href="#特殊目的寄存器-SPECIAL-PURPOSE-REGISTERS" class="headerlink" title="特殊目的寄存器(SPECIAL PURPOSE REGISTERS)"></a>特殊目的寄存器(SPECIAL PURPOSE REGISTERS)</h2><p>这里面就一个<code>IP</code>寄存器, 总是和<code>CS</code>寄存器一起工作, 并且, <code>IP</code>总是指向下一个需要执行的指令地址.</p>
+<h2 id="flag-寄存器-Program-Status-Word"><a href="#flag-寄存器-Program-Status-Word" class="headerlink" title="flag 寄存器(Program Status Word)"></a>flag 寄存器(Program Status Word)</h2><p>作用:</p>
+<ol>
+<li>存储相关命令的执行结果</li>
+<li>为 cpu 指令的某些行为提供依据</li>
+<li>控制 cpu 的相关工作方式</li>
+</ol>
+<p>8086 中的标志寄存器(flag)为 16 位, 存储的内容为<strong>程序状态字</strong>(PSW).</p>
+<blockquote>
+<p>其中, flag 寄存器和通用寄存器不同, 它是按照每个特殊的位工作的. 每一个位置上的位都具有特殊的含义.</p>
+</blockquote>
+<p>8086 中,<code>0, 2,4,6,7,8,9,10,11</code>位有特殊的含义.</p>
+<table>
+<thead>
+<tr>
+<th>0</th>
+<th>2</th>
+<th>4</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CF</td>
+<td>PF</td>
+<td>AF</td>
+<td>ZF</td>
+<td>SF</td>
+<td>TF</td>
+<td>IF</td>
+<td>DF</td>
+<td>OF</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><code>CF</code><blockquote>
+<p>进位标志 (Carry Flag)</p>
+<ul>
+<li>当有一个<strong>无符号</strong>数字溢出时, 设为<code>1</code>, 否则为<code>0</code>.</li>
+</ul>
+</blockquote>
+</li>
+<li><code>PF</code><blockquote>
+<p>奇偶标志位 (Parity Flag)</p>
+<ul>
+<li>记录相关指令的结果中<code>1</code>的比特位个数是否为偶数, 如果是为<code>1</code>,否则<code>0</code>.</li>
+<li>如果结果大小是一个字, 只有低 8 位会被计算!</li>
+<li>其中<code>0</code>个<code>1</code>也是偶数个<code>1</code></li>
+</ul>
+</blockquote>
+</li>
+<li><code>AF</code><blockquote>
+<p>辅助进位标志 (Auxiliary Flag)</p>
+<ul>
+<li>在字操作时, 发生低字节向高字节进位或借位时, 设置为<code>1</code>, 否则为<code>0</code>, 在字节操作时则相应的低 4 位向高 4 位进位或者借位.</li>
+</ul>
+</blockquote>
+</li>
+<li><code>ZF</code><blockquote>
+<p>零标志位 (Zero Flag)</p>
+<ul>
+<li>记录相关指令的执行结果是否为 0, 如果为 0 , 那么此位为<code>1</code>, 否则<code>0</code>.</li>
+</ul>
+</blockquote>
+</li>
+<li><code>SF</code><blockquote>
+<p>符号标志位 (sign Flag)</p>
+<ul>
+<li>记录相关指令的执行结果是否为负, 若是为负, 则为<code>1</code>, 否则<code>0</code>.</li>
+<li>需要注意的是, 在相关的指令中, 起始默认已经包含了两种结果, 而如何看待执行后的结果. 将它看成符号数还是无符号数, 由我们自己决定.</li>
+</ul>
+</blockquote>
+</li>
+<li><code>TF</code><blockquote>
+<p>内中断标志位 (Trap Flag)</p>
+<ul>
+<li>如果为<code>1</code>, 那么在执行完当前的指令后, 执行单步中断.</li>
+</ul>
+</blockquote>
+</li>
+<li><code>IF</code><blockquote>
+<p>外中断标志位(Interrupt enable Flag)</p>
+<ul>
+<li>如果为<code>1</code>, 那么响应可屏蔽外中断.</li>
+</ul>
+</blockquote>
+</li>
+<li><code>DF</code><blockquote>
+<p>方向标志位 (Direction Flag)</p>
+<ul>
+<li>用作某些指令的执行方向, 如果设为<code>0</code>, 那么正向, 如果为<code>1</code>, 反向.</li>
+</ul>
+</blockquote>
+</li>
+<li><code>OF</code><blockquote>
+<p>溢出标志位 (Overflow Flag)</p>
+<ul>
+<li>记录了相关命令的<strong>有符号数字</strong>执行结果中, 是否溢出. 溢出则为<code>1</code>,否则<code>0</code>.</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="https://memorytoco.github.io/Lago">Memorytoco</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="https://memorytoco.github.io/Lago/2019/03/05/8086register/">https://memorytoco.github.io/Lago/2019/03/05/8086register/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/Lago/tags/Note/">Note</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/Lago/2019/03/04/nasm_3/">
+        <span class="next-text nav-default">在linux上学习汇编的必备工具</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:memorytoco@gmail.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/memorytoco" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+    
+      <a href="/Lago/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+    
+    2019
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Memorytoco</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+
+  
+
+
+
+    
+  
+
+
+
+  
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/Lago/lib/jquery/jquery.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/Lago/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/Lago/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/Lago/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/Lago/lib/nprogress/nprogress.min.js"></script>
+  
+
+
+    <script type="text/javascript" src="/Lago/js/src/even.js?v=2.10.2"></script>
+
+  </body>
+</html>
