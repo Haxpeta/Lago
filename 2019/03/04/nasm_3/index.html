@@ -266,7 +266,7 @@
   <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">文章目录</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#nasm-汇编器合集"><span class="toc-text">nasm 汇编器合集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#nasm-基本使用"><span class="toc-text">nasm 基本使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ndisasm-反汇编工具"><span class="toc-text">ndisasm 反汇编工具</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bochs-虚拟机调试工具"><span class="toc-text">Bochs 虚拟机调试工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dd-命令"><span class="toc-text">dd 命令</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#nasm-汇编器合集"><span class="toc-text">nasm 汇编器合集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#nasm-基本使用"><span class="toc-text">nasm 基本使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ndisasm-反汇编工具"><span class="toc-text">ndisasm 反汇编工具</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bochs-虚拟机调试工具"><span class="toc-text">Bochs 虚拟机调试工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#qemu"><span class="toc-text">qemu</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dd-命令"><span class="toc-text">dd 命令</span></a></li></ol>
     </div>
   </div>
 
@@ -306,6 +306,9 @@
 <p>最后最后, 键入<code>bochs -q</code>. 如果弹出了一个窗口, 并且命令行有了<code>bochs:n&gt;</code>提示, <code>n</code>是一个数字, 一开始是<code>1</code>. 那么你离设置成功就只有 1%的路程了, 最后在命令行中输出<code>c</code>. 如果窗口中输出了<code>Hello World</code>, 那么恭喜你, 成功配置了<code>bochs</code>.</p>
 <p>想要退出的时候, <code>Ctrl-c</code>退出循环, 然后按<code>q</code>退出.</p>
 <p>bochs 告此一段落.</p>
+<h2 id="qemu"><a href="#qemu" class="headerlink" title="qemu"></a>qemu</h2><p>上面的 bochs 用来进行调试工作, 而这个<code>qemu</code>工具可以用来查看执行结果.</p>
+<p>同时, 它不必额外的使用<code>dd</code>命令将生成的数据段再渗透到<code>hd60M.img</code>中. 只要直接使用<code>qemu-system-x86_64</code>加上编译生成的<code>mbr</code>文件就行.</p>
+<p>总结就是<code>qemu-system-x86_64 mbr</code>. 然后查看执行结果.</p>
 <h2 id="dd-命令"><a href="#dd-命令" class="headerlink" title="dd 命令"></a>dd 命令</h2><p>关于这个命令, 如果有装机的经验, 就会在处理<code>iso</code>和”启动盘”时常见到它. 对它真是既爱又恨. 它十分的强大, 能够随意的渗透到<strong>任意的二进制文件</strong>中, 然后它又是所有系统崩坏的直接推手(还不是自己菜…).</p>
 <p>不过, 我们这里只是用到这个命令而已<code>dd if=mbr of=hd60M.img bs=512 count=1 conv=notrunc</code>. 这个就够了, 如果有别的需求, 再次补充. 这里面的<code>mbr</code>替换成之后使用<code>nasm</code>编译的 mbr 二进制文件.</p>
 <p>这个命令的含义就是, 从<code>mbr</code>中提取数据(<code>if</code>=<code>input file</code>), 将数据写入到<code>hd60M.img</code>(<code>of</code>= <code>ouput file</code>)中, 分的区块大小是<code>512</code>字节, 总共一个区块<code>count=1</code>, 同时在写入的时候不要将目标文件截断(按照这里的例子就是<code>hd60M.img</code>汇编成<code>512</code>字节大小).</p>
@@ -361,8 +364,8 @@
       </a>
     
     
-      <a class="next" href="/Lago/2019/03/01/nasm_2/">
-        <span class="next-text nav-default">nasm 基础之编译器指令</span>
+      <a class="next" href="/Lago/2019/03/01/nasm_1/">
+        <span class="next-text nav-default">nasm 基础之基本语法</span>
         <span class="prev-text nav-mobile">下一篇</span>
         <i class="iconfont icon-right"></i>
       </a>
