@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="cn">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="x86 8086 指令枚举">
+
+
+
+
+  <meta name="keywords" content="Note, Lago">
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/Lago/atom.xml" title="Lago">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/Lago/favicon.ico?v=2.10.2">
+
+
+
+<link rel="canonical" href="https://memorytoco.github.io/Lago/2019/03/07/instruction/">
+
+
+
+  <link rel="stylesheet" type="text/css" href="/Lago/lib/fancybox/jquery.fancybox.css">
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/Lago/lib/nprogress/nprogress.min.css">
+
+
+
+<link rel="stylesheet" type="text/css" href="/Lago/css/style.css?v=2.10.2">
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
+</script>
+
+    <title> x86 8086 指令枚举 - Lago </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/Lago/." class="logo">Lago</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/Lago/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/categories">
+        <li class="mobile-menu-item">
+          
+          
+            分类
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/about">
+        <li class="mobile-menu-item">
+          
+          
+            关于
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/melt">
+        <li class="mobile-menu-item">
+          
+          
+            Melt
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/Lago/." class="logo">Lago</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/about">
+            
+            
+              关于
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/melt">
+            
+            
+              Melt
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          x86 8086 指令枚举
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-03-07
+        </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#转移指令"><span class="toc-text">转移指令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#jmp-指令"><span class="toc-text">jmp 指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jcxz-指令"><span class="toc-text">jcxz 指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#loop"><span class="toc-text">loop</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#call-指令"><span class="toc-text">call 指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ret-指令"><span class="toc-text">ret 指令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算数指令"><span class="toc-text">算数指令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#adc-指令"><span class="toc-text">adc 指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sbb-指令"><span class="toc-text">sbb 指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#div-指令"><span class="toc-text">div 指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mul-指令"><span class="toc-text">mul 指令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#逻辑指令"><span class="toc-text">逻辑指令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#and-和-or-指令"><span class="toc-text">and 和 or 指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cmp-指令"><span class="toc-text">cmp 指令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#offset-操作符"><span class="toc-text">offset 操作符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pushf-和-popf-指令"><span class="toc-text">pushf 和 popf 指令</span></a></li></ol>
+    </div>
+  </div>
+
+
+
+    <div class="post-content">
+      
+        <p>最后编辑时间: <code>03-07</code></p>
+<p>8086指令枚举. 这里的指令依然是用的nasm语法.<br><a id="more"></a></p>
+<h2 id="转移指令"><a href="#转移指令" class="headerlink" title="转移指令"></a>转移指令</h2><hr>
+<h3 id="jmp-指令"><a href="#jmp-指令" class="headerlink" title="jmp 指令"></a>jmp 指令</h3><p>使用<code>jmp 段地址:偏移地址</code>同时改变<code>CS</code>和<code>IP</code>两个寄存器中的内容或者使用<code>jmp 合法寄存器</code>只改变<code>IP</code>中的值.</p>
+<p>jmp 指令可以只改变<code>IP</code>寄存器的内容或者改变<code>CS:IP</code>两个寄存器的内容. 同时<code>jmp</code>也有<code>jmp short 标号</code>, 跳转到标号处. 其功能为<code>(IP) = (IP) + 8位位移</code> 这也称为短转移. 此外还有近转移指令<code>jmp near ptr 标号</code>, 其功能为<code>(IP) = (IP) + 16位位移</code>. 远转移指令<code>jmp far ptr 标号</code>, 又称段转移指令, 其功能为<code>(CS) = 标号所在的段的段地址</code>与<code>(IP) = 标号所在段的偏移地址</code>.</p>
+<p>在内存中, jmp 指令为:</p>
+<ol>
+<li><code>jmp word ptr 内存单元</code> 段内转移</li>
+<li><code>jmp dword ptr 内存单元</code> 段间转移<blockquote>
+<p>高地址处是目的地的段地址, 低地址处是目的地的偏移地址</p>
+</blockquote>
+</li>
+</ol>
+<hr>
+<h3 id="jcxz-指令"><a href="#jcxz-指令" class="headerlink" title="jcxz 指令"></a>jcxz 指令</h3><p><code>jcxz</code>指令是有条件转移指令, 并且所有的有条件转移指令都是短转移, 在对应的机器码中包含的是转移的位移而不是目的地址.</p>
+<p>基本格式为<code>jcxz 标号</code></p>
+<p>基本过程为:<br>当<code>(cx) = 0</code>时, 跳转, 否则什么也不做.<br>8 位位移是标号处的地址减去 jcxz 指令后的第一个字节的地址. 范围是<code>-128~127</code>.</p>
+<hr>
+<h3 id="loop"><a href="#loop" class="headerlink" title="loop"></a>loop</h3><p>基本格式是<code>loop 标号</code>, 执行时</p>
+<ol>
+<li>(cx) = (cx) - 1</li>
+<li>判断 cx 中的值是否为零, 如果为零则向下执行, 不为零就跳转到标号.</li>
+</ol>
+<p><strong>一般来说</strong>, 使用<code>CX</code>来存放循环的次数.</p>
+<p>在程序中的结构是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">        ....</span><br><span class="line">        codes</span><br><span class="line">alabel: code2</span><br><span class="line">        codes</span><br><span class="line">        ...</span><br><span class="line">        loop alabel</span><br><span class="line">;; 执行到loop这里时进行判断, 为零就继续向后执行, 否则跳到标签那里,</span><br><span class="line">;; 执行code2以及继续向后执行, 再次到达loop那一行.</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="call-指令"><a href="#call-指令" class="headerlink" title="call 指令"></a>call 指令</h3><p><code>call</code>指令</p>
+<ol>
+<li>将当前<code>CS</code>和<code>IP</code>或者<code>IP</code>压入栈中.</li>
+<li>转移</li>
+</ol>
+<p><code>call</code>有两种转移方式. 一个是近转移<code>call 标号</code>, 一个是远转移<code>call far 段地址:偏移地址</code>.</p>
+<p>同样的, 近转移将<code>IP</code>入栈, 跳转到标号所在处. 远转移将当前<code>CS</code> <code>IP</code>入栈, 进行段转移, 跳转到标号所在地址, 同时, 段地址为标号的段地址, 偏移地址同样.</p>
+<p>对于<code>call reg</code>来说, 先将<code>IP</code>入栈, 然后将<code>reg</code>赋值给<code>IP</code>. 跳转.</p>
+<p>对于<code>call</code>在内存中的跳转:</p>
+<ol>
+<li><code>call word ptr 内存</code> ==&gt; <code>push ip, jmp word ptr 内存</code></li>
+<li><code>call dword ptr 内存</code> ==&gt; <code>push cs, push ip, jmp dword ptr 内存</code></li>
+</ol>
+<p>如果是近转移的话, 编译后的机器码参数使用的偏移地址不是目标函数的绝对地址, 而是使用目标函数的地址减去当前call地址的<strong>相对地址</strong>.</p>
+<hr>
+<h3 id="ret-指令"><a href="#ret-指令" class="headerlink" title="ret 指令"></a>ret 指令</h3><p><code>ret</code>指令有两种</p>
+<p>对于<code>ret</code>来说, 相当于执行了<code>pop IP</code>, 为近转移指令. 而执行<code>retf</code>时, 相当于执行<code>pop IP</code> <code>pop CS</code>指令, 为远转移指令. 栈顶处的2字节给IP, 另外再弹出两个字节给CS.</p>
+<h2 id="算数指令"><a href="#算数指令" class="headerlink" title="算数指令"></a>算数指令</h2><hr>
+<h3 id="adc-指令"><a href="#adc-指令" class="headerlink" title="adc 指令"></a>adc 指令</h3><p><code>adc</code>是带进位的加法指令. 格式: <code>adc op1, op2</code>. 功能是<code>op1 = op1 + op2 + CF</code>.</p>
+<blockquote>
+<p>出现这个命令原因就是计算中产生的进位. 比如加法的计算过程是低位相加再高位相加, 从而得到最后的结果. 那么, 如果低位相加的时候产生了进位, 那么在进行高位相加的时候也需要加上这个进位值<code>1</code>.</p>
+</blockquote>
+<hr>
+<h3 id="sbb-指令"><a href="#sbb-指令" class="headerlink" title="sbb 指令"></a>sbb 指令</h3><p><code>sbb</code>是带位减指令. 格式<code>sbb op1, op2</code>. 功能是<code>op1 = op1 - op2 - CF</code>.</p>
+<hr>
+<h3 id="div-指令"><a href="#div-指令" class="headerlink" title="div 指令"></a>div 指令</h3><p><code>div</code>接受两个操作数, 一个是除数, 有 8 位和 16 位两种, 在一个寄存器中或者内存单元中. 一个是被除数. 如果除数是 8 位, 被除数就是 16 位, 默认放在<code>AX</code>中. 如果除数是 16 位, 那么被除数是 32 位, 存放在<code>AX</code>,<code>DX</code>中. 其中, <code>DX</code>存放高 16 位, <code>AX</code>存放低 16 位. 最后, 如果除数为 8 位, 则<code>AL</code>中存放商,<code>AH</code>中存放余数. 如果除数是 16 位的, 那么<code>AX</code>中存放商, <code>DX</code>中存放余数.</p>
+<p>基本格式是<code>div reg</code>或者<code>div 内存单元</code>. 这里的参数是除数, 而被除数放在<code>AX</code>或者<code>AX,DX</code>中.</p>
+<hr>
+<h3 id="mul-指令"><a href="#mul-指令" class="headerlink" title="mul 指令"></a>mul 指令</h3><p>注意两点:</p>
+<ol>
+<li>两个相乘的数字要么都是 16 位要么都是 8 位. 若是 16 位, 一个默认放在<code>AX</code>中, 一个在寄存器中或者内存中. 若是 8 位, 一个默认放在<code>AL</code>中, 另一个在 8 位寄存器中或者内存中.</li>
+<li>执行的结果默认放在<code>AX</code>中若乘数都是 8 位. 结果放在<code>DX</code>,<code>AX</code>中, 高位为<code>DX</code>,低位为<code>AX</code>, 当乘数都是 16 位的时候.</li>
+</ol>
+<p><code>mul reg</code>或<code>mul byte 内存</code>或者<code>mul word 内存</code><br>v</p>
+<h2 id="逻辑指令"><a href="#逻辑指令" class="headerlink" title="逻辑指令"></a>逻辑指令</h2><h3 id="and-和-or-指令"><a href="#and-和-or-指令" class="headerlink" title="and 和 or 指令"></a>and 和 or 指令</h3><p><code>and</code>是按位与, <code>or</code>是按位或.</p>
+<hr>
+<h3 id="cmp-指令"><a href="#cmp-指令" class="headerlink" title="cmp 指令"></a>cmp 指令</h3><p><code>cmp</code>是比较指令, 实际上是一个减法指令, 会影响标志位, 但是不保留结果.</p>
+<hr>
+<h2 id="offset-操作符"><a href="#offset-操作符" class="headerlink" title="offset 操作符"></a>offset 操作符</h2><p>这个操作符可以用来获取标号的偏移地址.</p>
+<hr>
+<h2 id="pushf-和-popf-指令"><a href="#pushf-和-popf-指令" class="headerlink" title="pushf 和 popf 指令"></a>pushf 和 popf 指令</h2><p>将标志寄存器的值入栈和出栈.</p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="https://memorytoco.github.io/Lago">Memorytoco</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="https://memorytoco.github.io/Lago/2019/03/07/instruction/">https://memorytoco.github.io/Lago/2019/03/07/instruction/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/Lago/tags/Note/">Note</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/Lago/2019/03/07/address_mode/">
+        <span class="next-text nav-default">x86 8086 寻址模式</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:memorytoco@gmail.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/memorytoco" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+    
+      <a href="/Lago/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+    
+    2019
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Memorytoco</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+
+  
+
+
+
+    
+  
+
+
+
+  
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/Lago/lib/jquery/jquery.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/Lago/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/Lago/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/Lago/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/Lago/lib/nprogress/nprogress.min.js"></script>
+  
+
+
+    <script type="text/javascript" src="/Lago/js/src/even.js?v=2.10.2"></script>
+
+  </body>
+</html>

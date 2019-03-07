@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="cn">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="nasm 段重定位问题以及内存访问">
+
+
+
+
+  <meta name="keywords" content=", , , , Lago">
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/Lago/atom.xml" title="Lago">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/Lago/favicon.ico?v=2.10.2">
+
+
+
+<link rel="canonical" href="https://memorytoco.github.io/Lago/nasm_4.html">
+
+
+
+  <link rel="stylesheet" type="text/css" href="/Lago/lib/fancybox/jquery.fancybox.css">
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/Lago/lib/nprogress/nprogress.min.css">
+
+
+
+<link rel="stylesheet" type="text/css" href="/Lago/css/style.css?v=2.10.2">
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
+</script>
+
+    <title> nasm 段重定位问题以及内存访问 - Lago </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/Lago/." class="logo">Lago</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/Lago/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/categories">
+        <li class="mobile-menu-item">
+          
+          
+            分类
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/about">
+        <li class="mobile-menu-item">
+          
+          
+            关于
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/melt">
+        <li class="mobile-menu-item">
+          
+          
+            Melt
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/Lago/." class="logo">Lago</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/about">
+            
+            
+              关于
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/melt">
+            
+            
+              Melt
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  <article class="post">
+    <div class="post-content">
+      <p>之前一直在看<code>X86 从实模式到保护模式</code>这本书, 现在已经到了保护模式这块了, 遇见的一个重要的麻烦的问题就是<code>nasm</code>对段重定位的处理. 以及<code>nasm</code>有关的神奇<code>$</code>和<code>$$</code>指令以及<code>vstart</code>和<code>align</code>指令.</p>
+<p>这些指令都涉及到内存的访问和段重定位问题. 而这个是非常关键的问题. 我个人感觉这些内存访问搞定了, 汇编的一大半都搞定了. 要是搞不定那么汇编就会学得很模糊. 这里就将这些尽力讲清楚. 依然是特定于<code>nasm</code>的.</p>
+<a id="more"></a>
+<p>由于有了对齐操作, 这使得<code>ndisasm</code>工具不能正确的反汇编出指令, 而使用类似<code>hexdump</code>也是非常的鸡肋和不方便. 因为想要弄清楚还要暂时阅读一下<code>opcode</code>操作码(也就是直接的2进制文件, 对的, 直接阅读).</p>
+<p>经过我的努力, 这里还要推荐一个非常好用的反汇编工具<code>radare2</code>和它的图形界面<code>cutter</code>. 之后的一些分析就会使用这个工具, 当然你也可以使用r2命令行工具或者xxd工具.</p>
+<h2 id="关于汇编地址"><a href="#关于汇编地址" class="headerlink" title="关于汇编地址"></a>关于汇编地址</h2><p>在进行网络编程时, 一个问题总是会不可避免的出现, 那就是大端字节序和小端字节序. 不过这里不讲网络编程哈哈, 作为引子引出两个字节序而已. </p>
+<p>在内存里面, 地址是由低到高排列的. 同样的, 我们写的汇编代码, 编译后的机器指令排列也是从低到高排列的. 也和内存中一样, 我们也会给这里面的机器指令和数据编上地址, 这个称为汇编地址. 汇编地址永远都是从0开始起算的. 如果使用了<code>ndisasm</code>的话, 就可以看到这个汇编地址了. 对应的还有机器指令.</p>
+<p>既然有了地址, 那么也就有高地址和低地址之分. 就和它的字面意思一样, 那么这里的字节序就出来了. x86cpu使用的是小端字节序, 也就是低位数字放在低地址, 高位数字放在高地址. 比如一个十六进制数字<code>1234H</code>, 这里的低位数字是<code>34</code>, 高位数字是<code>12</code>. 那么以字节为基本单位解释内存中的内容时, 它的分布是<code>34</code> <code>12</code>.</p>
+<p>可以作如下的实验来验证这一点:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dw 0x1234</span><br><span class="line">db 0x34, 0x12</span><br></pre></td></tr></table></figure></p>
+<p>使用nasm编译, 然后使用hexdump可以看到如下内容.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0000000 1234 1234                              </span><br><span class="line">0000004</span><br></pre></td></tr></table></figure></p>
+<p>看到上面两个数字是一样的, 这是因为hexdump也是以小端字节序解释内存中的内容的. 而两个一样的数字也说明了, 在我们写汇编代码时, 汇编地址的分布是从文件开始<code>0</code>到文件结尾依次增长的.</p>
+<p>同样也可以使用xxd或者cutter来查看真实的内存中的内容.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">00000000: 3412 3412                                4.4.</span><br></pre></td></tr></table></figure></p>
+<p>虽然这里依然是以4个数字来表示的, 但是它不是一个完整的2字节十六进制数字, 只是连在一起表示而已.</p>
+<h2 id="段对齐"><a href="#段对齐" class="headerlink" title="段对齐"></a>段对齐</h2><p>先看一下这段代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">section good vstart=0x7c01</span><br><span class="line">db 0x11</span><br><span class="line"></span><br><span class="line">section another vstart=0x7c02 align=2</span><br><span class="line">add ax, $</span><br><span class="line">add al, $</span><br><span class="line"></span><br><span class="line">onelabel:</span><br><span class="line">section endt </span><br><span class="line">anotherlabel:</span><br><span class="line">add ax, $$</span><br><span class="line">add ax, $</span><br><span class="line">add ax, onelabel</span><br><span class="line">add ax, anotherlabel</span><br><span class="line"></span><br><span class="line">times 510-($-$$) db 0x00</span><br><span class="line">db 0x55</span><br><span class="line">db 0xaa</span><br></pre></td></tr></table></figure>
+<p>使用xxd查看编译结果.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">00000000: 1100 0502 7c04 0500 0508 0005 0b00 0507</span><br><span class="line">          ----</span><br><span class="line">00000010: 7c05 0800 0000 0000 0000 0000 0000 0000</span><br><span class="line">......</span><br></pre></td></tr></table></figure></p>
+<p>这里解释<code>add ax</code>的机器码为<code>05</code>,后面跟2字节操作数. <code>add al</code>机器码为<code>04</code>后面跟1字节操作数. 然后<code>db</code>指令定义1字节数据. 可以看到another段有一个<code>align=2</code>的对齐指令. 所谓对齐<code>align=n</code>就是保证段的起始地址可以整除<code>n</code>, 同时<code>n</code>也必须是<code>2</code>,<code>4</code>或者<code>8</code>,<code>16</code>满足2的某次方. 在这个代码中可以看到第一个段定义了一个字节<code>11</code>后紧跟着不是第二个段的<code>05</code>开头的指令, 而是<code>00</code>. 这里就是编译器为了使another段对齐而填充的无意义数据. 可以试着将这个align改为4看看什么效果. 得到的xxd结果为:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">00000000: 1100 0000 0502 7c04 0500 0000 050c 0005</span><br><span class="line">          ---------             -------</span><br><span class="line">00000010: 0f00 0507 7c05 0c00 0000 0000 0000 0000</span><br></pre></td></tr></table></figure></p>
+<p>发现<code>11</code>后边有了三个<code>00</code>. 这个就是填充的效果. 除了增加额外的<code>00</code>来填充内存外, 其它的机器指令没有任何变化. 还可以发现之后的每个4位数字都是一样的(由于这里的代码使用了<code>$</code>和<code>$$</code>, 所以在前面的地址改变后也改变了<code>05</code>机器指令的操作数). 同样, 在之后的<code>05</code>操作数后面也填充了3个字节的<code>0</code>.</p>
+<h2 id="vstart作用"><a href="#vstart作用" class="headerlink" title="vstart作用"></a>vstart作用</h2>
+    </div>
+  </article>
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:memorytoco@gmail.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/memorytoco" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+    
+      <a href="/Lago/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+    
+    2019
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Memorytoco</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+
+  
+
+
+
+    
+  
+
+
+
+  
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/Lago/lib/jquery/jquery.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/Lago/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/Lago/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/Lago/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/Lago/lib/nprogress/nprogress.min.js"></script>
+  
+
+
+    <script type="text/javascript" src="/Lago/js/src/even.js?v=2.10.2"></script>
+
+  </body>
+</html>

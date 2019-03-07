@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="cn">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="x86 8086 寻址模式">
+
+
+
+
+  <meta name="keywords" content="Note, Lago">
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/Lago/atom.xml" title="Lago">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/Lago/favicon.ico?v=2.10.2">
+
+
+
+<link rel="canonical" href="https://memorytoco.github.io/Lago/2019/03/07/address_mode/">
+
+
+
+  <link rel="stylesheet" type="text/css" href="/Lago/lib/fancybox/jquery.fancybox.css">
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/Lago/lib/nprogress/nprogress.min.css">
+
+
+
+<link rel="stylesheet" type="text/css" href="/Lago/css/style.css?v=2.10.2">
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
+</script>
+
+    <title> x86 8086 寻址模式 - Lago </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/Lago/." class="logo">Lago</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/Lago/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/categories">
+        <li class="mobile-menu-item">
+          
+          
+            分类
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/about">
+        <li class="mobile-menu-item">
+          
+          
+            关于
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/melt">
+        <li class="mobile-menu-item">
+          
+          
+            Melt
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/Lago/." class="logo">Lago</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/about">
+            
+            
+              关于
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/melt">
+            
+            
+              Melt
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          x86 8086 寻址模式
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-03-07
+        </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#寄存器寻址与立即数寻址"><span class="toc-text">寄存器寻址与立即数寻址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#内存寻址"><span class="toc-text">内存寻址</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#直接寻址"><span class="toc-text">直接寻址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基址寻址"><span class="toc-text">基址寻址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#变址寻址"><span class="toc-text">变址寻址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基址变址寻址"><span class="toc-text">基址变址寻址</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+
+
+    <div class="post-content">
+      
+        <p>这里将寻址模式列举出来, 方便之后学习, 之后即使再增加寄存器, 基本的寻址方式还是不会有太大变化的!</p>
+<a id="more"></a>
+<p>一共有三大类寻址方式</p>
+<ol>
+<li>寄存器寻址</li>
+<li>立即数寻址</li>
+<li>内存寻址</li>
+</ol>
+<p>其中，<strong>内存寻址</strong>又有四个分类:</p>
+<ol>
+<li>直接寻址</li>
+<li>基址寻址</li>
+<li>变址寻址</li>
+<li>基址变址寻址</li>
+</ol>
+<p>这里继续之前先作几个约定. 立即数, 使用<code>idata</code>符号代替. 立即数也就是一个常数, 放在cpu的指令里面, 在cpu读取指令后也就顺便将这个数字当作指令的一部分, 可以直接供cpu使用. 所以称为立即数, 不需要让cpu额外的再去执行动作.</p>
+<p>这里再将这个”寻址”的含义扩大. 不仅是将它理解为内存单元的编号. 而是把它当作任意一个符号的索引. 说的有点玄乎, 不过还是有必要这么说一下的. 因为下面的寻址介绍如果在没有扩大这个含义的时候会引起混乱. </p>
+<p>cpu寻址是寻什么东西的”址”呢? 答案就是”数”的地址. 计算机里面全部都是二进制数字, 不存在什么特殊的东西, 所有额外的含义都是人为的加上的. 所以cpu只认得二进制数字, 其它什么都不认得. 它要找的就是那个”数字”. 就上一段的解释, 将这个”址”当成一种索引, 告诉这个”数字”在哪里. 注意这里的”址”上升为了一种表述方式, 理解接受就行.</p>
+<h2 id="寄存器寻址与立即数寻址"><a href="#寄存器寻址与立即数寻址" class="headerlink" title="寄存器寻址与立即数寻址"></a>寄存器寻址与立即数寻址</h2><p>寄存器寻址的表现很简单, 就是在指令中出现了寄存器就是寄存器寻址. 同时如果指令中出现了<code>idata</code>, 那么这个也是立即数寻址. <code>mov ax, 0x33</code>这个指令就是寄存器寻址, 因为出现了<code>idata</code> <code>0x33</code>, 所以也是立即数寻址.</p>
+<p>同时用上面的对”址”的含义的扩充, 这里寄存器寻址就是告诉cpu要找的数字就在某个cpu里面. 而立即数同样的解释方式, 就是告诉cpu不要找了, 我就是你要的!</p>
+<p>使用<code>mov</code>这个指令来描述或许会引起歧义, 尤其冒出了寄存器寻址这个奇怪的东西. 因为在我们看来<code>mov ax, 0x33</code>这个指令的含义不就是将<code>0x33</code>这个数字放到寄存器<code>ax</code>中吗? 还要什么寻址? </p>
+<p>前面也说了, cpu只认二进制数字, 不知道这个数字的”含义”. 而一个cpu指令是有构成的, 在intel语法中那就是<code>指令 目的操作数, 源操作数</code>这个格式. 也就是cpu先要通过一个东西识别这个”指令”的”含义”, 然后找到目的操作数, 再然后找到源操作数. 最后执行这个指令. 有这么一个过程在这里. 而这个”寻址”就是指代这个过程. 先找数, 再执行的过程. </p>
+<p>下面的重头戏, 内存寻址来了!</p>
+<h2 id="内存寻址"><a href="#内存寻址" class="headerlink" title="内存寻址"></a>内存寻址</h2><p>在使用内存寻址时, 仍然使用<strong>段基址</strong>和<strong>段内偏移地址</strong>的方式. 默认情况下使用<code>DS</code>段寄存器. 在具体的访问某一个内存单元的时候, 还要给出段内偏移地址, 这个也称为有效地址(effective address).</p>
+<h3 id="直接寻址"><a href="#直接寻址" class="headerlink" title="直接寻址"></a>直接寻址</h3><p>直接寻址就是使用<code>[idata]</code>的形式来访问内存单元. 偏移地址或者有效地址是由一个立即数给出的(之后一律称偏移地址为有效地址). 这个和”立即数寻址”不一样! 需要作区分! 不一样! 这个直接寻址是内存寻址的一个方式!</p>
+<h3 id="基址寻址"><a href="#基址寻址" class="headerlink" title="基址寻址"></a>基址寻址</h3><p>基址寻址就是使用<code>BX</code>或者<code>BP</code>作为有效地址, 形式就是这两个<code>[BX]</code>和<code>[BP]</code>. 再使用<code>BX</code>寻址的时候, 默认的段寄存器是<code>DX</code>, 而使用<code>BP</code>的寄存器寻址的时候默认的段寄存器是<code>SS</code>. </p>
+<p>在使用基址寻址的时候也可以是这种形式<code>[BX+idata]</code>或者<code>[BX-idata]</code>, <code>BP</code>也行. 也就是再加上一个偏移量.</p>
+<h3 id="变址寻址"><a href="#变址寻址" class="headerlink" title="变址寻址"></a>变址寻址</h3><p>变址寻址就是使用<code>DI</code>, 和<code>SI</code>来当作有效地址. 形式这样<code>[DI]</code>和<code>[SI]</code>. 默认的段寄存器是<code>DS</code>. 同样的, 它也允许加上一个偏移量.</p>
+<h3 id="基址变址寻址"><a href="#基址变址寻址" class="headerlink" title="基址变址寻址"></a>基址变址寻址</h3><p>基址变址寻址就是同时使用<code>BX</code>和<code>BP</code>以及<code>DI</code>和<code>SI</code>. 中的两个来组合寻址. 就是基址和变址结合起来寻址. 基址寄存器中的一个和变址寄存器中的一个配对使用. 与上面两个一样, 同样可以加上一个偏移量.</p>
+<hr>
+<p>现在, 总共就这么几种寻址方式. </p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="https://memorytoco.github.io/Lago">Memorytoco</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="https://memorytoco.github.io/Lago/2019/03/07/address_mode/">https://memorytoco.github.io/Lago/2019/03/07/address_mode/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/Lago/tags/Note/">Note</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/Lago/2019/03/07/instruction/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">x86 8086 指令枚举</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/Lago/2019/03/05/8086register/">
+        <span class="next-text nav-default">x86 8086 寄存器</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:memorytoco@gmail.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/memorytoco" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+    
+      <a href="/Lago/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+    
+    2019
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Memorytoco</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+
+  
+
+
+
+    
+  
+
+
+
+  
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/Lago/lib/jquery/jquery.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/Lago/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/Lago/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/Lago/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/Lago/lib/nprogress/nprogress.min.js"></script>
+  
+
+
+    <script type="text/javascript" src="/Lago/js/src/even.js?v=2.10.2"></script>
+
+  </body>
+</html>
