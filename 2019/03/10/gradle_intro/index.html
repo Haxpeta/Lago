@@ -17,7 +17,7 @@
 
 
 
-  <meta name="description" content="x86 8086 寻址模式">
+  <meta name="description" content="gradle 基本使用介绍">
 
 
 
@@ -42,7 +42,7 @@
 
 
 
-<link rel="canonical" href="https://memorytoco.github.io/Lago/2019/03/07/address_mode/">
+<link rel="canonical" href="https://memorytoco.github.io/Lago/2019/03/10/gradle_intro/">
 
 
 
@@ -90,7 +90,7 @@
   window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
 </script>
 
-    <title> x86 8086 寻址模式 - Lago </title>
+    <title> gradle 基本使用介绍 - Lago </title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -242,13 +242,13 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          x86 8086 寻址模式
+          gradle 基本使用介绍
         
       </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2019-03-07
+          2019-03-09
         </span>
         
         
@@ -260,7 +260,7 @@
   <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">文章目录</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#寄存器寻址与立即数寻址"><span class="toc-text">寄存器寻址与立即数寻址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#内存寻址"><span class="toc-text">内存寻址</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#直接寻址"><span class="toc-text">直接寻址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基址寻址"><span class="toc-text">基址寻址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#变址寻址"><span class="toc-text">变址寻址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基址变址寻址"><span class="toc-text">基址变址寻址</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一个基本流程"><span class="toc-text">一个基本流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建新的-task"><span class="toc-text">创建新的 task</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用插件"><span class="toc-text">使用插件</span></a></li></ol>
     </div>
   </div>
 
@@ -268,37 +268,27 @@
 
     <div class="post-content">
       
-        <p>这里将寻址模式列举出来, 方便之后学习, 之后即使再增加寄存器, 基本的寻址方式还是不会有太大变化的!</p>
+        <p>因为最近有了 Android 的课程, 本意确是想做一些 app 放着自己用但是还是想往后拖拖, 不过现在看来似乎不行了. 就将这个提前吧.</p>
+<p>这个先介绍一下 gradle 的基本使用和一个 android 项目的构建.</p>
+<p>参考网页:<br><a href="https://guides.gradle.org/creating-new-gradle-builds/" target="_blank" rel="noopener">gradle 11 分钟入门</a></p>
 <a id="more"></a>
-<p>一共有三大类寻址方式</p>
-<ol>
-<li>寄存器寻址</li>
-<li>立即数寻址</li>
-<li>内存寻址</li>
-</ol>
-<p>其中，<strong>内存寻址</strong>又有四个分类:</p>
-<ol>
-<li>直接寻址</li>
-<li>基址寻址</li>
-<li>变址寻址</li>
-<li>基址变址寻址</li>
-</ol>
-<p>这里继续之前先作几个约定. 立即数, 使用<code>idata</code>符号代替. 立即数也就是一个常数, 放在cpu的指令里面, 在cpu读取指令后也就顺便将这个数字当作指令的一部分, 可以直接供cpu使用. 所以称为立即数, 不需要让cpu额外的再去执行动作.</p>
-<p>这里再将这个”寻址”的含义扩大. 不仅是将它理解为内存单元的编号. 而是把它当作任意一个符号的索引. 说的有点玄乎, 不过还是有必要这么说一下的. 因为下面的寻址介绍如果在没有扩大这个含义的时候会引起混乱. </p>
-<p>cpu寻址是寻什么东西的”址”呢? 答案就是”数”的地址. 计算机里面全部都是二进制数字, 不存在什么特殊的东西, 所有额外的含义都是人为的加上的. 所以cpu只认得二进制数字, 其它什么都不认得. 它要找的就是那个”数字”. 就上一段的解释, 将这个”址”当成一种索引, 告诉这个”数字”在哪里. 注意这里的”址”上升为了一种表述方式, 理解接受就行.</p>
-<h2 id="寄存器寻址与立即数寻址"><a href="#寄存器寻址与立即数寻址" class="headerlink" title="寄存器寻址与立即数寻址"></a>寄存器寻址与立即数寻址</h2><p>寄存器寻址的表现很简单, 就是在指令中出现了寄存器就是寄存器寻址. 同时如果指令中出现了<code>idata</code>, 那么这个也是立即数寻址. <code>mov ax, 0x33</code>这个指令就是寄存器寻址, 因为出现了<code>idata</code> <code>0x33</code>, 所以也是立即数寻址.</p>
-<p>同时用上面的对”址”的含义的扩充, 这里寄存器寻址就是告诉cpu要找的数字就在某个cpu里面. 而立即数同样的解释方式, 就是告诉cpu不要找了, 我就是你要的!</p>
-<p>使用<code>mov</code>这个指令来描述或许会引起歧义, 尤其冒出了寄存器寻址这个奇怪的东西. 因为在我们看来<code>mov ax, 0x33</code>这个指令的含义不就是将<code>0x33</code>这个数字放到寄存器<code>ax</code>中吗? 还要什么寻址? </p>
-<p>前面也说了, cpu只认二进制数字, 不知道这个数字的”含义”. 而一个cpu指令是有构成的, 在intel语法中那就是<code>指令 目的操作数, 源操作数</code>这个格式. 也就是cpu先要通过一个东西识别这个”指令”的”含义”, 然后找到目的操作数, 再然后找到源操作数. 最后执行这个指令. 有这么一个过程在这里. 而这个”寻址”就是指代这个过程. 先找数, 再执行的过程. </p>
-<p>下面的重头戏, 内存寻址来了!</p>
-<h2 id="内存寻址"><a href="#内存寻址" class="headerlink" title="内存寻址"></a>内存寻址</h2><p>在使用内存寻址时, 仍然使用<strong>段基址</strong>和<strong>段内偏移地址</strong>的方式. 默认情况下使用<code>DS</code>段寄存器. 在具体的访问某一个内存单元的时候, 还要给出段内偏移地址, 这个也称为有效地址(effective address).</p>
-<h3 id="直接寻址"><a href="#直接寻址" class="headerlink" title="直接寻址"></a>直接寻址</h3><p>直接寻址就是使用<code>[idata]</code>的形式来访问内存单元. 偏移地址或者有效地址是由一个立即数给出的(之后一律称偏移地址为有效地址). 这个和”立即数寻址”不一样! 需要作区分! 不一样! 这个直接寻址是内存寻址的一个方式!</p>
-<h3 id="基址寻址"><a href="#基址寻址" class="headerlink" title="基址寻址"></a>基址寻址</h3><p>基址寻址就是使用<code>BX</code>或者<code>BP</code>作为有效地址, 形式就是这两个<code>[BX]</code>和<code>[BP]</code>. 再使用<code>BX</code>寻址的时候, 默认的段寄存器是<code>DX</code>, 而使用<code>BP</code>的寄存器寻址的时候默认的段寄存器是<code>SS</code>. </p>
-<p>在使用基址寻址的时候也可以是这种形式<code>[BX+idata]</code>或者<code>[BX-idata]</code>, <code>BP</code>也行. 也就是再加上一个偏移量.</p>
-<h3 id="变址寻址"><a href="#变址寻址" class="headerlink" title="变址寻址"></a>变址寻址</h3><p>变址寻址就是使用<code>DI</code>, 和<code>SI</code>来当作有效地址. 形式这样<code>[DI]</code>和<code>[SI]</code>. 默认的段寄存器是<code>DS</code>. 同样的, 它也允许加上一个偏移量.</p>
-<h3 id="基址变址寻址"><a href="#基址变址寻址" class="headerlink" title="基址变址寻址"></a>基址变址寻址</h3><p>基址变址寻址就是同时使用<code>BX</code>和<code>BP</code>以及<code>DI</code>和<code>SI</code>. 中的两个来组合寻址. 就是基址和变址结合起来寻址. 基址寄存器中的一个和变址寄存器中的一个配对使用. 与上面两个一样, 同样可以加上一个偏移量.</p>
-<hr>
-<p>现在, 总共就这么几种寻址方式. </p>
+<h2 id="一个基本流程"><a href="#一个基本流程" class="headerlink" title="一个基本流程"></a>一个基本流程</h2><p>要使用 gradle 来构建项目, 首先就是初始化了.</p>
+<p>在一个项目文件夹里面使用<code>gradle init</code>来启动一个项目. 随后, gradle 将会依次提示用户输入项目类型, 项目配置文件使用的语言(groovy 和 kotlin)等. 这里如果按下<code>Ctrl-D</code>就会直接给出基本的<code>base</code>默认配置. 在一些情况下, 可以避免繁琐的输入. 同时, 也可以使用<code>--</code>选项来代替这些输入.</p>
+<p>基本构造如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1. ├── build.gradle</span><br><span class="line">2. ├── gradle</span><br><span class="line">3. │   └── wrapper</span><br><span class="line">4. │       ├── gradle-wrapper.jar</span><br><span class="line">5. │       └── gradle-wrapper.properties</span><br><span class="line">6. ├── gradlew</span><br><span class="line">7. ├── gradlew.bat</span><br><span class="line">8. └── settings.gradle</span><br></pre></td></tr></table></figure>
+<p>这里面最重要的是<code>1</code>. 在里面使用启动项目时选的 DSL 来控制 gradle 的行为. 同时, <code>gradlew</code>和<code>gradle.bat</code>是执行脚本(分别是 linux 下的和 windows 下的). 在执行构建或者一些任务时, 应该使用<code>gradlew</code>脚本.</p>
+<p>这里的逻辑是, 使用<code>gradlew</code>的好处就是, 它不要求机器预先安装<code>gradle</code>, 而是会先判断机器是否有 gradle, 如果没有那么就下载<code>build.gradle</code>中指定的 gradle 版本, 然后调用这个 gradle. 这样, 项目构建就不需要担心 gradle 升级换代导致的不一致行为.</p>
+<h2 id="创建新的-task"><a href="#创建新的-task" class="headerlink" title="创建新的 task"></a>创建新的 task</h2><p>一个项目包含了一个 task 集合, 每一个 task 都会执行一个基本的操作.</p>
+<p>使用 groovy 领域专用语言在<code>build.gradle</code>中创建的一个 copy task 代码如下:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">task copy(<span class="string">type:</span> Copy, <span class="string">group:</span> <span class="string">"Custom"</span>, <span class="string">description:</span> <span class="string">"Copies sources to the dest directory"</span>) &#123;</span><br><span class="line">    from <span class="string">"src"</span></span><br><span class="line">    into <span class="string">"dest"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>行为是将<code>src</code>中的文件复制到<code>dest</code>中.</p>
+<p>使用方式就是<code>./gradlew copy</code>.</p>
+<h2 id="使用插件"><a href="#使用插件" class="headerlink" title="使用插件"></a>使用插件</h2><p>gradle 还可以使用插件, 这些插件可以从<a href="http://plugins.gradle.org/" target="_blank" rel="noopener">这里</a>获得.</p>
+<p>同时, gradle 自带一个<code>base</code>插件, 提供了一个<code>Zip</code>类型. 可以将文件用 zip 格式压缩.</p>
+<p>在 build.gradle 中使用如下代码应用插件:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plugins &#123;</span><br><span class="line">    id <span class="string">"base"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">... rest of the build file ...</span><br></pre></td></tr></table></figure>
+<p>之后就可以使用<code>Zip</code>类型创建 task.</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">task zip(<span class="string">type:</span> Zip, <span class="string">group:</span> <span class="string">"Archive"</span>, <span class="string">description:</span> <span class="string">"Archives sources in a zip file"</span>) &#123;</span><br><span class="line">    from <span class="string">"src"</span></span><br><span class="line">    setArchiveName <span class="string">"basic-demo-1.0.zip"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -314,7 +304,7 @@
     </p>
     <p class="copyright-item">
       <span>原文链接: </span>
-      <a href="https://memorytoco.github.io/Lago/2019/03/07/address_mode/">https://memorytoco.github.io/Lago/2019/03/07/address_mode/</a>
+      <a href="https://memorytoco.github.io/Lago/2019/03/10/gradle_intro/">https://memorytoco.github.io/Lago/2019/03/10/gradle_intro/</a>
     </p>
     <p class="copyright-item">
       <span>许可协议: </span>
@@ -342,15 +332,9 @@
         
   <nav class="post-nav">
     
-      <a class="prev" href="/Lago/2019/03/10/gradle_intro/">
-        <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">gradle 基本使用介绍</span>
-        <span class="prev-text nav-mobile">上一篇</span>
-      </a>
     
-    
-      <a class="next" href="/Lago/2019/03/07/instruction/">
-        <span class="next-text nav-default">x86 8086 指令枚举</span>
+      <a class="next" href="/Lago/2019/03/07/address_mode/">
+        <span class="next-text nav-default">x86 8086 寻址模式</span>
         <span class="prev-text nav-mobile">下一篇</span>
         <i class="iconfont icon-right"></i>
       </a>

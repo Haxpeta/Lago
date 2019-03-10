@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://memorytoco.github.io/Lago/melt/index.html</loc>
+    
+    <lastmod>2019-03-10T08:33:26.392Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://memorytoco.github.io/Lago/2019/03/10/gradle_intro/</loc>
+    
+    <lastmod>2019-03-09T16:03:29.283Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://memorytoco.github.io/Lago/nasm_4.html</loc>
     
     <lastmod>2019-03-07T15:16:05.227Z</lastmod>
@@ -89,13 +103,6 @@
     <loc>https://memorytoco.github.io/Lago/2019/02/20/shell-code-sequence/</loc>
     
     <lastmod>2019-02-24T10:07:36.564Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://memorytoco.github.io/Lago/melt/index.html</loc>
-    
-    <lastmod>2019-02-24T07:17:58.115Z</lastmod>
     
   </url>
   
