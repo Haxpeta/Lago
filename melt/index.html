@@ -283,25 +283,33 @@
 <hr>
 <hr>
 <h2 id="melt-目前的困难"><a href="#melt-目前的困难" class="headerlink" title="melt 目前的困难"></a>melt 目前的困难</h2><ul>
-<li><p>[x] 考虑加入缓存系统, 也就是一个全局的数据文件, 这个用来处理诸如 index 页面 post 预览顺序的问题</p>
-<blockquote>
-<p>是不是要加还是有待探索, 个人认为最好元数据不会依赖于除了原 post 之外的一些数据<br>也就是说, 所有的关于 post 的信息都只从原文件获取</p>
+<li style="list-style: none"><input type="checkbox" checked> 考虑加入缓存系统, 也就是一个全局的数据文件, 这个用来处理诸如 index 页面 post 预览顺序的问题<blockquote>
+<p>是不是要加还是有待探索, 个人认为最好元数据不会依赖于除了原 post 之外的一些数据</p>
 </blockquote>
-<p>引入<code>.melt</code>配置文件, 提供临时文件存储地点</p>
 </li>
+</ul>
+<blockquote>
+<p>也就是说, 所有的关于 post 的信息都只从原文件获取</p>
+</blockquote>
+<p>  引入<code>.melt</code>配置文件, 提供临时文件存储地点</p>
+<ul>
 <li>markdown 的支持<blockquote>
 <p>现在最麻烦的可能就是这个解析器了…</p>
 </blockquote>
 </li>
 <li>内部的 url 连接问题, 以及在写 post 时对于其它 post 或者资源文件引用的问题</li>
-<li>单个 post 或者单个页面的资源位置存放问题</li>
+<li><p>单个 post 或者单个页面的资源位置存放问题</p>
+</li>
 <li><p>[x] 插件系统</p>
 <blockquote>
-<p>从工作流程上来看, 所谓的插件可能不是特别需要. 直接开箱即用的定义好的主题可能就够了.<br>而这个主题本身就是一个程序, 它的配置选项,对应用户的额外需求似乎不需要我来插手.</p>
+<p>从工作流程上来看, 所谓的插件可能不是特别需要. 直接开箱即用的定义好的主题可能就够了.</p>
 </blockquote>
-<p>将每个部件定义为数据, 用户提供这种数据(也就是不同类部件的不同功能), 以供内部调用. 支持自定义命令. subcommand 特性支持.</p>
 </li>
 </ul>
+<blockquote>
+<p>而这个主题本身就是一个程序, 它的配置选项,对应用户的额外需求似乎不需要我来插手.</p>
+</blockquote>
+<p>  将每个部件定义为数据, 用户提供这种数据(也就是不同类部件的不同功能), 以供内部调用. 支持自定义命令. subcommand 特性支持.</p>
 <h2 id="melt-预备特性"><a href="#melt-预备特性" class="headerlink" title="melt 预备特性"></a>melt 预备特性</h2><ul>
 <li>更加智能, 机智的知道哪些需要删除哪些可以添加<blockquote>
 <p>它是半个活的程序…<br>目前好像<code>Hexo</code>做到了这一点</p>
