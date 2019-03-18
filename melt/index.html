@@ -238,14 +238,12 @@
   <article class="post">
     <div class="post-content">
       <h1 id="关于-melt-近期的信息"><a href="#关于-melt-近期的信息" class="headerlink" title="关于 melt 近期的信息"></a>关于 melt 近期的信息</h1><ul>
-<li>更新时间 : <code>2019-3-10</code></li>
-<li><code>melt</code> 最新开发信息: <code>v 0.0.1</code> 重新定义版本号, 重新构思基本组件. 重新决定 melt 工作方式.</li>
+<li>更新时间 : <code>2019-3-19</code></li>
+<li><code>melt</code> 最新开发信息: <code>v 0.0.2</code> markdown解析开发完成, 能够实现基本的markdown语法. 对模板有了新的想法, 可以使用完全的scheme来表示, 在运行的时候进行动态加载. 思考page的组件域和进行基本流程创建. 开始写lesh帮助shell. 着手进行serve命令创建.</li>
 </ul>
-<blockquote>
-<p>以下的内容可能受限于我个人的知识面和经验让你看得很尬, 所以如果有任何好的建议, 欢迎通过邮件与我交流.</p>
-</blockquote>
-<h2 id="melt-工作流程"><a href="#melt-工作流程" class="headerlink" title="melt 工作流程"></a>melt 工作流程</h2><p>首先<strong>parser</strong>读取源文件,得到初始数据,将其存于自己的 resr 域中.<br>根据具体的设计可能对初始的原<code>post</code>进行修改与提炼.</p>
-<p>然后交由<strong>post</strong>对数据进一步处理,得到完整的 <code>post sxml</code> 数据以及相关的原始文件信息<br>以及关于<strong>post</strong>的一些属性, 类似 <em>tag, categories</em> 这类.<br>得到<strong>post</strong>之后, 这个就算最初始的处理了. 对于后面的过程来讲, 最小的数据单元就是这个 <strong>post</strong> 了.</p>
+<p>如果有任何好的建议, 欢迎通过邮件与我交流.</p>
+<h2 id="melt-工作流程"><a href="#melt-工作流程" class="headerlink" title="melt 工作流程"></a>melt 工作流程</h2><p>首先<strong>parser</strong>读取源文件, 解析源文件, 将得到的数据返回, 然后调用refine中的函数判断是否进行额外的处理. 根据具体的设计可能对初始的原<code>post</code>进行修改与提炼.</p>
+<p>返回的数据交由<strong>post</strong>进行封装,得到完整的 <code>post sxml</code> 数据以及相关的原始文件信息以及关于<strong>post</strong>的一些属性, 类似 <em>tag, categories</em> 这类.<br>得到<strong>post</strong>之后, 这个就算最初始的处理了. 对于后面的过程来讲, 最小的数据单元就是这个 <strong>post</strong> 了.</p>
 <blockquote>
 <p><strong>post</strong> 包含了由解析器处理后的<code>sxml</code>数据以及相关的文件,post 属性</p>
 </blockquote>
@@ -284,17 +282,11 @@
 <hr>
 <h2 id="melt-目前的困难"><a href="#melt-目前的困难" class="headerlink" title="melt 目前的困难"></a>melt 目前的困难</h2><ul>
 <li style="list-style: none"><input type="checkbox" checked> 考虑加入缓存系统, 也就是一个全局的数据文件, 这个用来处理诸如 index 页面 post 预览顺序的问题<blockquote>
-<p>是不是要加还是有待探索, 个人认为最好元数据不会依赖于除了原 post 之外的一些数据</p>
+<p>引入<code>.melt</code>配置目录, 提供临时文件存储地点, 以及模板配置等等.</p>
 </blockquote>
 </li>
-</ul>
-<blockquote>
-<p>也就是说, 所有的关于 post 的信息都只从原文件获取</p>
-</blockquote>
-<p>  引入<code>.melt</code>配置文件, 提供临时文件存储地点</p>
-<ul>
-<li>markdown 的支持<blockquote>
-<p>现在最麻烦的可能就是这个解析器了…</p>
+<li style="list-style: none"><input type="checkbox" checked> markdown 的支持<blockquote>
+<p>19-3-12 更新: markdown完成.</p>
 </blockquote>
 </li>
 <li>内部的 url 连接问题, 以及在写 post 时对于其它 post 或者资源文件引用的问题</li>
@@ -311,11 +303,8 @@
 </blockquote>
 <p>  将每个部件定义为数据, 用户提供这种数据(也就是不同类部件的不同功能), 以供内部调用. 支持自定义命令. subcommand 特性支持.</p>
 <h2 id="melt-预备特性"><a href="#melt-预备特性" class="headerlink" title="melt 预备特性"></a>melt 预备特性</h2><ul>
-<li>更加智能, 机智的知道哪些需要删除哪些可以添加<blockquote>
-<p>它是半个活的程序…<br>目前好像<code>Hexo</code>做到了这一点</p>
-</blockquote>
-</li>
-<li>加大其适用性</li>
+<li>git 集成</li>
+<li>shell集成(方便定义二级命令来调用外部的工具)</li>
 </ul>
 <hr>
 <hr>
@@ -357,8 +346,10 @@
 </blockquote>
 <h3 id="melt-文件夹"><a href="#melt-文件夹" class="headerlink" title=".melt 文件夹"></a>.melt 文件夹</h3><p>这里面就是整个的真身. 在使用 init 命令时, 会生成这个文件. 里面的有<code>settings.scm</code>定义 melt 配置, 然后由这个定义工作文件夹的布局, 提供命令什么的.</p>
 <h2 id="急需解决的问题"><a href="#急需解决的问题" class="headerlink" title="急需解决的问题"></a>急需解决的问题</h2><ul>
-<li style="list-style: none"><input type="checkbox"> markdown 的支持</li>
+<li style="list-style: none"><input type="checkbox" checked> markdown 的支持</li>
 <li style="list-style: none"><input type="checkbox" checked> 内部的 url 连接问题以及单个 post 或者单个页面的资源位置存放问题</li>
+<li style="list-style: none"><input type="checkbox"> serve命令</li>
+<li style="list-style: none"><input type="checkbox"> 基本的工作流程确定</li>
 </ul>
 
     </div>

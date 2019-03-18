@@ -17,10 +17,12 @@
 
 
 
-  <meta name="description" content="Another temp blog.">
+  <meta name="description" content="build.gradle 基本结构与使用">
 
 
 
+
+  <meta name="keywords" content="Note, Lago">
 
 
 
@@ -40,7 +42,7 @@
 
 
 
-<link rel="canonical" href="https://memorytoco.github.io/Lago/tags/Note/">
+<link rel="canonical" href="https://memorytoco.github.io/Lago/2019/03/13/build_gradle/">
 
 
 
@@ -88,11 +90,7 @@
   window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
 </script>
 
-    <title>
-  
-    Note · Lago
-  
-</title>
+    <title> build.gradle 基本结构与使用 - Lago </title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -240,107 +238,104 @@
           <div id="content" class="content">
             
   
-  
-  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          build.gradle 基本结构与使用
+        
+      </h1>
 
-  <section id="archive" class="archive">
-    
-      
-        <div class="archive-title tag">
-          <h2 class="archive-name">Note</h2>
-        </div>
-      
-    
-
-    
-      
-
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            2019-03-13
-          
+      <div class="post-meta">
+        <span class="post-time">
+          2019-03-13
         </span>
-        <span class="archive-post-title">
-          <a href="/Lago/2019/03/13/build_gradle/" class="archive-post-link">
-            build.gradle 基本结构与使用
-          </a>
-        </span>
+        
+        
       </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#groovy-DSL"><span class="toc-text">groovy DSL</span></a></li></ol>
+    </div>
+  </div>
+
+
+
+    <div class="post-content">
+      
+        <p>其实<code>gradle</code>一般要用的话只有几个常用的命令会被频繁使用， 而且这个还是和项目的类型相关的. 所以命令的话其实不是特别重要, 使用的时候知道去哪里找文档就行了. 但是, 需要熟悉 build.gradle. 因为这个文件可以说是定义了整个gradle的行为. 如果项目构建失败的问题是依赖库或者某些任务的问题, 那么熟悉build.gradle的话就可以比较方便的定位问题和解决问题.</p>
+<p>这里就稍稍看一下build.gralde的结构. 这篇还是会用android项目举例.</p>
+<a id="more"></a>
+<h1 id="groovy-DSL"><a href="#groovy-DSL" class="headerlink" title="groovy DSL"></a>groovy DSL</h1>
+      
+    </div>
+
     
       
-
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            2019-03-09
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/Lago/2019/03/10/gradle_intro/" class="archive-post-link">
-            gradle 基本使用介绍
-          </a>
-        </span>
-      </div>
-    
       
 
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            2019-03-07
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/Lago/2019/03/07/address_mode/" class="archive-post-link">
-            x86 8086 寻址模式
-          </a>
-        </span>
-      </div>
-    
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="https://memorytoco.github.io/Lago">Memorytoco</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="https://memorytoco.github.io/Lago/2019/03/13/build_gradle/">https://memorytoco.github.io/Lago/2019/03/13/build_gradle/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span>
       
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
 
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            2019-03-07
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/Lago/2019/03/07/instruction/" class="archive-post-link">
-            x86 8086 指令枚举
-          </a>
-        </span>
-      </div>
-    
+
+
       
-
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            2019-03-04
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/Lago/2019/03/05/8086register/" class="archive-post-link">
-            x86 8086 寄存器
-          </a>
-        </span>
-      </div>
+      
     
-  </section>
 
-  
-  <nav class="pagination">
     
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/Lago/tags/Note/">Note</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/Lago/2019/03/10/gradle_intro/">
+        <span class="next-text nav-default">gradle 基本使用介绍</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
     
   </nav>
 
 
+      </footer>
+    
+
+  </article>
 
 
           </div>
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
       </main>
