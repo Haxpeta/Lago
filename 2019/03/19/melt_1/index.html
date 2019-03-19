@@ -17,12 +17,12 @@
 
 
 
-  <meta name="description" content="gradle 基本使用介绍">
+  <meta name="description" content="melt 的git仓库发布啦">
 
 
 
 
-  <meta name="keywords" content="Note, Lago">
+  <meta name="keywords" content="melt, Lago">
 
 
 
@@ -42,7 +42,7 @@
 
 
 
-<link rel="canonical" href="https://memorytoco.github.io/Lago/2019/03/10/gradle_intro/">
+<link rel="canonical" href="https://memorytoco.github.io/Lago/2019/03/19/melt_1/">
 
 
 
@@ -90,7 +90,7 @@
   window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
 </script>
 
-    <title> gradle 基本使用介绍 - Lago </title>
+    <title> melt 的git仓库发布啦 - Lago </title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -242,14 +242,20 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          gradle 基本使用介绍
+          melt 的git仓库发布啦
         
       </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2019-03-09
+          2019-03-19
         </span>
+        
+          <span class="post-category">
+            
+              <a href="/Lago/categories/Tech/">Tech</a>
+            
+          </span>
         
         
       </div>
@@ -257,38 +263,16 @@
 
     
     
-  <div class="post-toc" id="post-toc">
-    <h2 class="post-toc-title">文章目录</h2>
-    <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一个基本流程"><span class="toc-text">一个基本流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建新的-task"><span class="toc-text">创建新的 task</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用插件"><span class="toc-text">使用插件</span></a></li></ol>
-    </div>
-  </div>
-
 
 
     <div class="post-content">
       
-        <p>因为最近有了 Android 的课程, 本意确是想做一些 app 放着自己用但是还是想往后拖拖, 不过现在看来似乎不行了. 就将这个提前吧.</p>
-<p>这个先介绍一下 gradle 的基本使用和一个 android 项目的构建.</p>
-<p>参考网页:<br><a href="https://guides.gradle.org/creating-new-gradle-builds/" target="_blank" rel="noopener">gradle 11 分钟入门</a></p>
-<a id="more"></a>
-<h2 id="一个基本流程"><a href="#一个基本流程" class="headerlink" title="一个基本流程"></a>一个基本流程</h2><p>要使用 gradle 来构建项目, 首先就是初始化了.</p>
-<p>在一个项目文件夹里面使用<code>gradle init</code>来启动一个项目. 随后, gradle 将会依次提示用户输入项目类型, 项目配置文件使用的语言(groovy 和 kotlin)等. 这里如果按下<code>Ctrl-D</code>就会直接给出基本的<code>base</code>默认配置. 在一些情况下, 可以避免繁琐的输入. 同时, 也可以使用<code>--</code>选项来代替这些输入.</p>
-<p>基本构造如下:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1. ├── build.gradle</span><br><span class="line">2. ├── gradle</span><br><span class="line">3. │   └── wrapper</span><br><span class="line">4. │       ├── gradle-wrapper.jar</span><br><span class="line">5. │       └── gradle-wrapper.properties</span><br><span class="line">6. ├── gradlew</span><br><span class="line">7. ├── gradlew.bat</span><br><span class="line">8. └── settings.gradle</span><br></pre></td></tr></table></figure>
-<p>这里面最重要的是<code>1</code>. 在里面使用启动项目时选的 DSL 来控制 gradle 的行为. 同时, <code>gradlew</code>和<code>gradle.bat</code>是执行脚本(分别是 linux 下的和 windows 下的). 在执行构建或者一些任务时, 应该使用<code>gradlew</code>脚本.</p>
-<p>这里的逻辑是, 使用<code>gradlew</code>的好处就是, 它不要求机器预先安装<code>gradle</code>, 而是会先判断机器是否有 gradle, 如果没有那么就下载<code>build.gradle</code>中指定的 gradle 版本, 然后调用这个 gradle. 这样, 项目构建就不需要担心 gradle 升级换代导致的不一致行为.</p>
-<h2 id="创建新的-task"><a href="#创建新的-task" class="headerlink" title="创建新的 task"></a>创建新的 task</h2><p>一个项目包含了一个 task 集合, 每一个 task 都会执行一个基本的操作.</p>
-<p>使用 groovy 领域专用语言在<code>build.gradle</code>中创建的一个 copy task 代码如下:</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">task copy(<span class="string">type:</span> Copy, <span class="string">group:</span> <span class="string">"Custom"</span>, <span class="string">description:</span> <span class="string">"Copies sources to the dest directory"</span>) &#123;</span><br><span class="line">    from <span class="string">"src"</span></span><br><span class="line">    into <span class="string">"dest"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>行为是将<code>src</code>中的文件复制到<code>dest</code>中.</p>
-<p>使用方式就是<code>./gradlew copy</code>.</p>
-<h2 id="使用插件"><a href="#使用插件" class="headerlink" title="使用插件"></a>使用插件</h2><p>gradle 还可以使用插件, 这些插件可以从<a href="http://plugins.gradle.org/" target="_blank" rel="noopener">这里</a>获得.</p>
-<p>同时, gradle 自带一个<code>base</code>插件, 提供了一个<code>Zip</code>类型. 可以将文件用 zip 格式压缩.</p>
-<p>在 build.gradle 中使用如下代码应用插件:</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plugins &#123;</span><br><span class="line">    id <span class="string">"base"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">... rest of the build file ...</span><br></pre></td></tr></table></figure>
-<p>之后就可以使用<code>Zip</code>类型创建 task.</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">task zip(<span class="string">type:</span> Zip, <span class="string">group:</span> <span class="string">"Archive"</span>, <span class="string">description:</span> <span class="string">"Archives sources in a zip file"</span>) &#123;</span><br><span class="line">    from <span class="string">"src"</span></span><br><span class="line">    setArchiveName <span class="string">"basic-demo-1.0.zip"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>最近一直都在更新melt和它的markdown代码, 都没时间搞网络了…</p>
+<p>melt的<code>v0.0.3</code>版本放出来啦, 终于加入了markdown了, 之后也会把markdown的代码放出来(就在melt的lib里面啊). 这次不同的是这个markdown是纯手撸出来的, 所以我对它知根知底. 现在能够支持一般的markdown的语法, 不支持缩进和列表以及带复选框的列表, 不过后边会继续跟进的. 同时, 我也想把这个再次扩展通用话, 提供扩展功能. 所以这个会单独建一个仓库. 也方便之后有人想用scheme来解析markdown.</p>
+<p>现在melt的目标是一个本地的笔记系统, 而静态站只是一个附属功能, 具体的内容还在构思. 既然可以使用markdown进行内容的发布, 为什么不能使用markdown和网页技术打造一个漂亮的笔记本呢, 是不是? 哈哈.</p>
+<p>melt本身也从一个构建系统转为一个shell的工具(原来好像就是哦), 会尽量增加多多的命令行特性的. 不过我目前使用的经验也是十分的少, 这个也需要慢慢来哈哈.</p>
+<p>经过两个星期的准备, 对melt的开发终于进入了一个正常的更新迭代的过程了, 而且可以使用了. 当然, 现在用的话你可能还需要码大量的代码, 这个可用只是对我说的哈哈. 尽量在4月份之前搞定这个吧.</p>
+<p>欢迎关注啊!</p>
 
       
     </div>
@@ -304,7 +288,7 @@
     </p>
     <p class="copyright-item">
       <span>原文链接: </span>
-      <a href="https://memorytoco.github.io/Lago/2019/03/10/gradle_intro/">https://memorytoco.github.io/Lago/2019/03/10/gradle_intro/</a>
+      <a href="https://memorytoco.github.io/Lago/2019/03/19/melt_1/">https://memorytoco.github.io/Lago/2019/03/19/melt_1/</a>
     </p>
     <p class="copyright-item">
       <span>许可协议: </span>
@@ -324,7 +308,7 @@
         
           <div class="post-tags">
             
-              <a href="/Lago/tags/Note/">Note</a>
+              <a href="/Lago/tags/melt/">melt</a>
             
           </div>
         
@@ -332,15 +316,15 @@
         
   <nav class="post-nav">
     
-      <a class="prev" href="/Lago/2019/03/19/melt_1/">
+      <a class="prev" href="/Lago/2019/03/19/nasm_4/">
         <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">melt 的git仓库发布啦</span>
+        <span class="prev-text nav-default">nasm 段重定位问题以及内存访问</span>
         <span class="prev-text nav-mobile">上一篇</span>
       </a>
     
     
-      <a class="next" href="/Lago/2019/03/07/instruction/">
-        <span class="next-text nav-default">x86 8086 指令枚举</span>
+      <a class="next" href="/Lago/2019/03/10/gradle_intro/">
+        <span class="next-text nav-default">gradle 基本使用介绍</span>
         <span class="prev-text nav-mobile">下一篇</span>
         <i class="iconfont icon-right"></i>
       </a>
