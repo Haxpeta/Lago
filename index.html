@@ -244,14 +244,20 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/Lago/2019/03/13/build_gradle/">build.gradle 基本结构与使用</a>
+          <a class="post-link" href="/Lago/2019/03/19/nasm_4/">nasm 段重定位问题以及内存访问</a>
         
       </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2019-03-13
+          2019-03-19
         </span>
+        
+          <span class="post-category">
+            
+              <a href="/Lago/categories/Note/">Note</a>
+            
+          </span>
         
         
       </div>
@@ -269,10 +275,10 @@
         
 
         
-          <p>其实<code>gradle</code>一般要用的话只有几个常用的命令会被频繁使用， 而且这个还是和项目的类型相关的. 所以命令的话其实不是特别重要, 使用的时候知道去哪里找文档就行了. 但是, 需要熟悉 build.gradle. 因为这个文件可以说是定义了整个gradle的行为. 如果项目构建失败的问题是依赖库或者某些任务的问题, 那么熟悉build.gradle的话就可以比较方便的定位问题和解决问题.</p>
-<p>这里就稍稍看一下build.gralde的结构. 这篇还是会用android项目举例.</p>
+          <p>之前一直在看<code>X86 从实模式到保护模式</code>这本书, 现在已经到了保护模式这块了, 遇见的一个重要的麻烦的问题就是<code>nasm</code>对段重定位的处理(也包括了实际程序加载时对段的处理). 以及<code>nasm</code>有关的神奇<code>$</code>和<code>$$</code>指令以及<code>vstart</code>和<code>align</code>指令.</p>
+<p>这些指令都涉及到内存的访问和段重定位问题. 而这个是非常关键的问题. 我个人感觉这些内存访问搞定了, 汇编的一大半都搞定了. 要是搞不定那么汇编就会学得很模糊. 这里就将这些尽力讲清楚. 依然是特定于<code>nasm</code>的.</p>
           <div class="read-more">
-            <a href="/Lago/2019/03/13/build_gradle/" class="read-more-link">阅读更多</a>
+            <a href="/Lago/2019/03/19/nasm_4/" class="read-more-link">阅读更多</a>
           </div>
         
       
@@ -526,6 +532,57 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/Lago/2019/03/01/nasm_2/">nasm 基础之编译器指令</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-03-01
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/Lago/categories/Note/">Note</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <p>这个紧随之前的基本语法, 要把这个看完才能基本看懂<code>nasm</code>风格的代码. 当然也可以看不懂的时候再来看就是了. 其中有些只是列出了指令名, 这是出于强迫症考虑的. 虽然不大可能用得到, 但还是写上, 之后若要用再来补充就是了. 还有一些指令直接将原来的复制来了, 这是因为我也不明白它的作用, 不好翻译. 所以直接贴原文, 不过只有一个指令.</p>
+          <div class="read-more">
+            <a href="/Lago/2019/03/01/nasm_2/" class="read-more-link">阅读更多</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/Lago/2019/03/01/nasm_1/">nasm 基础之基本语法</a>
         
       </h1>
@@ -561,57 +618,6 @@
 <p>这里的前提是对汇编有个基本的了解, 不然看了还是会懵的. 这个是解释在<code>nasm</code>下的汇编语法, 而不是教授汇编<code>Intel</code>语法的. 去看王爽的书, 熟悉一下汇编代码的编写吧!</p>
           <div class="read-more">
             <a href="/Lago/2019/03/01/nasm_1/" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/Lago/2019/03/01/nasm_2/">nasm 基础之编译器指令</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-03-01
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/Lago/categories/Note/">Note</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <p>这个紧随之前的基本语法, 要把这个看完才能基本看懂<code>nasm</code>风格的代码. 当然也可以看不懂的时候再来看就是了. 其中有些只是列出了指令名, 这是出于强迫症考虑的. 虽然不大可能用得到, 但还是写上, 之后若要用再来补充就是了. 还有一些指令直接将原来的复制来了, 这是因为我也不明白它的作用, 不好翻译. 所以直接贴原文, 不过只有一个指令.</p>
-          <div class="read-more">
-            <a href="/Lago/2019/03/01/nasm_2/" class="read-more-link">阅读更多</a>
           </div>
         
       
