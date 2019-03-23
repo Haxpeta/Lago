@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="cn">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="日常之稍稍谈一下linux桌面">
+
+
+
+
+  <meta name="keywords" content="diary, Lago">
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/Lago/atom.xml" title="Lago">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/Lago/favicon.ico?v=2.10.2">
+
+
+
+<link rel="canonical" href="https://memorytoco.github.io/Lago/2019/03/23/diary_1/">
+
+
+
+  <link rel="stylesheet" type="text/css" href="/Lago/lib/fancybox/jquery.fancybox.css">
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/Lago/lib/nprogress/nprogress.min.css">
+
+
+
+<link rel="stylesheet" type="text/css" href="/Lago/css/style.css?v=2.10.2">
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
+</script>
+
+    <title> 日常之稍稍谈一下linux桌面 - Lago </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/Lago/." class="logo">Lago</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/Lago/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/categories">
+        <li class="mobile-menu-item">
+          
+          
+            分类
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/about">
+        <li class="mobile-menu-item">
+          
+          
+            关于
+          
+        </li>
+      </a>
+    
+      <a href="/Lago/melt">
+        <li class="mobile-menu-item">
+          
+          
+            Melt
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/Lago/." class="logo">Lago</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/about">
+            
+            
+              关于
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/Lago/melt">
+            
+            
+              Melt
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          日常之稍稍谈一下linux桌面
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-03-22
+        </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#为啥愿意花这些时间"><span class="toc-text">为啥愿意花这些时间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#这么做有什么意义"><span class="toc-text">这么做有什么意义?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#黑客-嗯"><span class="toc-text">黑客? 嗯!</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#历程"><span class="toc-text">历程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最后"><span class="toc-text">最后</span></a></li></ol>
+    </div>
+  </div>
+
+
+
+    <div class="post-content">
+      
+        <p>本来挺好的gnome因为最近的gnomeshell更新给我把桌面搞崩掉了, 本来还想一生吹gnome来着, 无奈只能换桌面,卸载gnome了. 不过现在严格来说只是换了一个窗口管理器, 桌面给卸了.</p>
+<p>于是这几天就一直在查资料配置新的i3环境, 经过两天的努力, 终于到了可看的程度, 现在也一直在根据新的wm设置workflow. 暂时还有一些问题还未解决. 也遇到了一些新的问题. 这个就是这个post的目的, 借这个机会说一下花这么多力气折腾linux的原因以及这中间出现的波折.(尝试一下真正博客的写法,嘿嘿,得先模仿嘛)</p>
+<a id="more"></a>
+<h2 id="为啥愿意花这些时间"><a href="#为啥愿意花这些时间" class="headerlink" title="为啥愿意花这些时间"></a>为啥愿意花这些时间</h2><p>第一点就是自己的追求, linux本身作为个人桌面系统就有一定的特殊性. 什么上手难度高, 要用shell终端, 要自己找驱动进行调试配置, 有很多的发行版可供选择等等, 这些放出来对于我来说就是一个让我兴奋的点. 也就是这些点让我有动力去解决一个又一个问题. (换句话说, 如果linux对你没有足够的吸引力的话, 你有极大可能会在中途放弃, 这是正常的). </p>
+<p>第二点就是linux的开放性. 嗯, 我想我把这句话说出来的时候, 只要听说过linux的都知道这点, 但是我估计只有极少的人能真正的体会到这个说法背后蕴含的可能性. 它的开放性意味着你可以控制自BIOS(或者UEFI)之后的所有过程. 划重点, <strong>开机第一棒之后的所有过程</strong>. 对开机的动画(除了厂商动画)不满意? 可以换啊! 对自己的内核不满意? 可以换啊! 对用户登录界面不满意? 可以换啊! 对之后的桌面不满意? 可以换啊! 只要你想换, 你敢想有能力, 那么你就能做到你想做的. 这个就是开放性. 同时, 除了”换”这个基本操作, 它还开放源码, 可以自行编译安装, 允许从源码控制软件行为. 你可以自己找到使用的软件代码, 自己更改让它适应自己的需求.</p>
+<p>总而言之就是<strong>系统的易用性和本人直接相关, 完全自主可控</strong>.</p>
+<h2 id="这么做有什么意义"><a href="#这么做有什么意义" class="headerlink" title="这么做有什么意义?"></a>这么做有什么意义?</h2><p>我上面提到的几个可以更换的点其实就是一个linux启动的过程. 从一开始的系统引导,到内核加载. 如果除去图形界面的话, 内核启动之后就是弹出一个黑乎乎的tty登录界面, 进去了就完事了. 如果有gui的话那会先启动<em>display manager</em>, 然后在登录的时候选择<em>window manager</em>, 进去了就完事了. 这里还没有提及内核启动的时候做的一些工作, 只是把肉眼可见的说出来了. 这些都是背后的原理.</p>
+<p>所以! 对于学习计算机的人来说这是了解一个系统的绝佳机会. 这个就是意义的一个点. 问意义的就是想问我这么做有什么好处嘛, 这就是好处. 它既是一个可以玩的玩具也是一个可以研究的东西. 你想要的它都有, 没想到的也有人已经有了成果出来.</p>
+<p>“我想要一个稳定易用的系统, 平常用用ps修修图, 用用pr剪辑还想顺带玩玩最近的3A大作”</p>
+<p>呃, 你是来找茬的吗?</p>
+<p>这是另外一个需要提到的, 那就是上面谈的所有的点的适用人群. 只限学计算机的!(从我的角度) 因为我本身就是这个专业的, 除了代码编辑和一些基本的浏览需求外, 不会使用到这些专业软件. 有这些需求的估计得找软件的出品公司了.</p>
+<p>除了系统层面的, 还有一些市面图书不会教你的但又是一个基石的东西. 比如字体渲染, 比如图形显示的原理, 声音如何传输外放的. 这些都可以让linux从代码层面给你一个具体的感知. 这里涉及的专业渐渐多了起来, 我具体也不是很了解, 就此打住. 再往下我就hold不住了. 不过这些驱动代码还是看过的, 只是看不懂而已(感受还是有的). (-=-)</p>
+<h2 id="黑客-嗯"><a href="#黑客-嗯" class="headerlink" title="黑客? 嗯!"></a>黑客? 嗯!</h2><p>另外值得一提的就是, 在折腾过程中, 你肯定需要别人的帮助, 也肯定会和别人交流(而且是不想交流也要交流). 在这个过程中, 你会逐渐了解”社区”的概念, 知道人们是如何以这种方式集结在一起, 如何处理矛盾, 如何帮助别人等等. 因为有了共同的语言, 所以也会在这过程中看到一些人和事. 你会逐渐了解计算的历史和文化, 你会感受到西方的黑客文化. 受人尊敬实力强劲的人才能被社区承认为<strong>黑客</strong>.</p>
+<p>linux会给你敲开一个大门, 你可以把这个当成起点, 逐步融入到背后的社区中.</p>
+<p>其实国内也是有百度贴吧这个的, 能人也有很多, 也不少人有激情, 但是…</p>
+<h2 id="历程"><a href="#历程" class="headerlink" title="历程"></a>历程</h2><p>从最初的ubuntu unity桌面, 转到18版本的gnome桌面, 再kali发行版. 这几次转换要么是遇到无法解决的问题, 强行重装要么是看到有直接推送的更新自行无缝转换. 本着求新的渴望一直在换, 然后逐步把系统的安装分区等等步骤摸熟. </p>
+<p>最后到现在的arch. 不得不说, 它的wiki真的不错, 安装的过程也是学了很多(也是下了狠心折腾出来的). 既然到了这一步了, 其实也就不太再想换了, 因为前面的积累已经让我对系统有了自己的认识. 其它发行版说白了就是包管理器和桌面. 再进一步就是背后的社区支持, 对我来说区别已经不大. </p>
+<p>我也已经把基本的开发环境确定下来了, 没有必要再次更换了. 这也保证了, 我能够在任意一台机器上快速的构建我的环境, 不会再像之前那样翻个几天的网页找配置解决问题了. 这也是好处之一吧. 现在作为个人使用的linux我已经摸熟, 剩下的就是LFS和服务器linux管理这两块. 也是之后的目标之一. </p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>之所以想到写这个就是因为意识到了这里似乎没有值的进一步探索的东西了. 剩下的就是基本的迭代, 更换. 某某有个特好的东西, 感兴趣拿来用用这样. 这是一个阶段的结束, 我觉的有必要搞点什么, 就写了这个总结.</p>
+<p>然后这个也是作为构建LFS计划的一部分, 选择一个轻量级的甚至自己写一个窗口管理器当作自己桌面的一部分, 这个实行起来一定很爽. 慢慢给自己的lfs做铺垫.</p>
+<p>作为一次模仿似乎有点不成功, 还要再积淀积淀才行啊.</p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="https://memorytoco.github.io/Lago">Memorytoco</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="https://memorytoco.github.io/Lago/2019/03/23/diary_1/">https://memorytoco.github.io/Lago/2019/03/23/diary_1/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/Lago/tags/diary/">diary</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/Lago/2019/03/19/nasm_4/">
+        <span class="next-text nav-default">nasm 段重定位问题以及内存访问</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:memorytoco@gmail.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/memorytoco" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+    
+      <a href="/Lago/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+    
+    2019
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Memorytoco</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+
+  
+
+
+
+    
+  
+
+
+
+  
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/Lago/lib/jquery/jquery.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/Lago/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/Lago/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/Lago/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/Lago/lib/nprogress/nprogress.min.js"></script>
+  
+
+
+    <script type="text/javascript" src="/Lago/js/src/even.js?v=2.10.2"></script>
+
+  </body>
+</html>
