@@ -238,52 +238,47 @@
   <article class="post">
     <div class="post-content">
       <h1 id="关于-melt-近期的信息"><a href="#关于-melt-近期的信息" class="headerlink" title="关于 melt 近期的信息"></a>关于 melt 近期的信息</h1><ul>
-<li>更新时间 : <code>2019-3-20</code></li>
-<li><code>melt</code> 最新开发信息: <code>v 0.0.3</code> 完成基本parser的构建. 现在可以使用<code>(import (melt parser markdown))</code>来得到解析器了. 对模板有了新的想法, 可以使用完全的scheme来表示, 在运行的时候进行动态加载. 思考page的组件域和进行基本流程创建. 开始写lesh帮助shell. 着手进行serve命令创建.</li>
+<li>更新时间 : <code>2019-3-24</code></li>
+<li><code>melt</code> 最新开发信息: <code>v 0.0.3-1</code> 实现了scheme sxml模板的应用模式, 已经完成了一个demo页面的创建. 目前使用的函数是<code>load-source</code>, 发现可以使用这个达到更多的效果, 比如将一个命令编译成二进制的代码文件, 然后给出环境之后直接加载这个文件. 更加的灵活了. 另外markdown还是有点问题, 学了一些算法之后打算使用算法来更新这个.</li>
 </ul>
 <p>如果有任何好的建议, 欢迎通过邮件与我交流.</p>
-<h2 id="melt-工作流程"><a href="#melt-工作流程" class="headerlink" title="melt 工作流程"></a>melt 工作流程</h2><p>首先<strong>parser</strong>读取源文件, 解析源文件, 将得到的数据返回, 然后调用refine中的函数判断是否进行额外的处理. 根据具体的设计可能对初始的原文件进行更新.</p>
-<p>返回的数据交由<strong>post</strong>进行封装,得到完整的 <code>post sxml</code> 数据以及相关的原始文件信息以及关于<strong>post</strong>的一些属性, 类似 <em>tag, categories</em> 这类.得到<strong>post</strong>之后, 这个就算最初始的处理了. 对于后面的过程来讲, 最小的数据单元就是这个 <strong>post</strong> 了.</p>
+<h2 id="melt-工作流程"><a href="#melt-工作流程" class="headerlink" title="melt 工作流程"></a>melt 工作流程</h2><p>首先<strong>parser</strong>读取源文件, 解析源文件, 将得到的数据返回, 然后调用refine中的函数判断是否进行额外的处理. 根据具体的设计可能对初始的原文件进行更新. 目前没有实现这个refine的功能, 之后考虑给parser加上一些配置功能, 同时给出几个成熟的refine的选项, 由使用者决定refine的行为.</p>
+<p>返回的数据交由<strong>post</strong>进行封装,得到完整的 <code>post sxml</code> 数据以及相关的原始文件信息以及关于<strong>post</strong>的一些属性, 类似 <em>tag, categories</em> 这类, 还有原始文件的路径, 原始文件名字, 原始文件的修改日期. 得到<strong>post</strong>之后, 这个就算最初始的处理了. 对于后面的过程来讲, 最小的数据单元就是这个 <strong>post</strong> 了. 在进行parse的过程中, 还可以根据情况来更新全局的数据文件.</p>
 <blockquote>
 <p><strong>post</strong> 包含了由解析器处理后的<code>sxml</code>数据以及相关的文件属性</p>
 </blockquote>
-<p>在得到一系列或者单个<strong>post</strong>之后,就会根据<strong>site</strong>的设定用每个独立的<strong>page</strong>单元调用依据对应不同部分的<strong>renderer</strong>来对原始<code>sxml</code>进行渲染和组装处理.这时候可能是输入诸如 post 时间, post 分类, 生成相关的<em>url</em>这类数据的阶段.组装完成后的数据会存放在<strong>page</strong>的<em>cont</em>域中.</p>
-<p>最后最后, 我们可能得到了一系列或者单个<strong>page</strong>原数据.这时最小的数据单元就是一个个或者单个<strong>page</strong>了.依据<strong>site</strong>的设定一个个的输出到对应的目标位置. 在这期间是否会有什么其他的操作不得而知, 但是基于<code>sxml</code>的特性, 依旧存在着继续处理的可能性.(因为 sxml 和一个 lisp 代码没有本质的区别,只是把它当成数据来处理了,这也是当初决定拿 scheme 来写这个东西的一个原因)</p>
-<p>结尾时, 再把一些网站的资源文件搬到对应的地方去, 由<strong>asset</strong>来处理.</p>
+<p>在得到一系列或者单个<strong>post</strong>之后,就会根据<strong>site</strong>的设定用每个独立的<strong>page</strong>单元调用依据对应不同部分的<strong>renderer</strong>来对原始<code>sxml</code>进行渲染和组装处理.这时候可能是输入诸如 post 时间, post 分类, 生成相关的<em>url</em>这类数据的阶段. 这里的page是一个处理模板, renderer给page提供了额外的复杂处理可能. render的过程发生的时间不定.</p>
+<p>最后最后, 我们可能得到了一系列或者单个<strong>page</strong>原数据.这时最小的数据单元就是一个个或者单个<strong>page</strong>了. 依据<strong>site</strong>的设定一个个的输出到对应的目标位置. 在这期间是否会有什么其他的操作不得而知, 但是基于<code>sxml</code>的特性, 依旧存在着继续处理的可能性.(因为 sxml 和一个 lisp 代码没有本质的区别,只是把它当成数据来处理了,这也是当初决定拿 scheme 来写这个东西的一个原因)</p>
+<p>结尾时, 再把一些网站的资源文件搬到对应的地方去, 由<strong>asset</strong>来处理. 这个asset负责搬运文件, 可以在一开始处理post的时候就生成这个元数据文件, 最后交给一个统一的执行函数来处理这个, 比如每个markdown中引用的图片, 或者网站中某个特殊的页面所需要的资源文件等.</p>
 <p>至此, 整个建站过程完成. 下面针对一些细节再次讨论一下:</p>
 <ul>
-<li>整个过程似乎没有提到一些特殊的页面, 比如<strong>categories</strong>和最开始的<strong>index</strong>页面, 这些怎么生成<blockquote>
-<p>现在补充的一个信息就是, 以上的工作流程是<strong>命令</strong> <code>exec</code> 的全部工作流程.<br>这里除了<strong>post</strong>可能会被写死专门处理有关 post 的事情, 其它的<strong>page</strong>,<strong>parser</strong><br>和<strong>site</strong>等等都是一些个带有特定意义的域的数据结构罢了. 具体的处理流程会由<strong>命令</strong>来<br>决定. 针对这些特殊的页面可以专门为其写入一个原始 sxml 文件中, 然后依旧交给<strong>parser</strong><br>和<strong>page</strong>进行处理, 根据对应的配置输出到相应的位置.</p>
-</blockquote>
-</li>
+<li>整个过程似乎没有提到一些特殊的页面, 比如<strong>categories</strong>和最开始的<strong>index</strong>页面, 这些怎么生成</li>
 </ul>
-<blockquote>
+<p>回答就是完全的由site和page的属性定义. 最后在处理的时候实际上是调用site域里面定义的一些函数来进行文件输入输出的. 但是这里的具体行为还没由确定下来, 因为不想把这个写死.所以需要再思考思考, 不过可以确定的是, 这个组合是没错的, 它能够达到想要的任何效果.</p>
 <p>同样的, 对于<strong>atom</strong>格式的 RSS,可能的订阅服务等, 都可以交由那两个来处理.</p>
-</blockquote>
-<blockquote>
-<p>所有的<strong>parser</strong>都是针对文件来说的, <code>melt</code>会针对不同格式的文件调用不同<strong>parser</strong><br>从而得到相对应输出文件.<br>所有的 post 都是针对<strong>parser</strong>来讲的. 这里我其实也没有把 post 写死, 他也不一定只是针对<br>post 来说的, 之后或许可以改个名.<br>然而<strong>page</strong>可能是对<strong>post</strong>也可能是对于<strong>parser</strong>来说的. <strong>page</strong> 是网站的最小<br>构成单元.</p>
-</blockquote>
+<p>这里面借助于chain这个结构的优势. chain允许定义一系列的执行序列, 提供它们的参数, 然后依次执行. 同时它自己还有维护一个它自带的数据域. 这个意味着, 可以定义多个执行的行为, 然后不断更新这个数据域, 方便后面的行为进行. 个人觉得这个是非常灵活的. 现阶段的chain已经能够达到这个程度了. 只是我还是项再思考思考将这个结构优化一下. </p>
 <hr>
 <hr>
-<h2 id="melt-目前的困难"><a href="#melt-目前的困难" class="headerlink" title="melt 目前的困难"></a>melt 目前的困难</h2><ul>
-<li style="list-style: none"><input type="checkbox" checked> 考虑加入缓存系统, 也就是一个全局的数据文件, 这个用来处理诸如 index 页面 post 预览顺序的问题<blockquote>
-<p>引入<code>.melt</code>配置目录, 提供临时文件存储地点, 以及模板配置等等.</p>
+<h2 id="melt-待定计划和功能实现"><a href="#melt-待定计划和功能实现" class="headerlink" title="melt 待定计划和功能实现"></a>melt 待定计划和功能实现</h2><ul>
+<li style="list-style: none"><input type="checkbox"> 因为体验到了<code>load-source</code>的威力, 考虑建立一个小型的代码数据文件.<blockquote>
+<p>为了存储一些持久性的数据, 因为每执行一次命令都要更新一些东西, 但是只有chain的数据域存储数据的话无法提供给下一次的处理. 这样对于一些更新和检测的功能就不好实现.</p>
 </blockquote>
 </li>
 <li style="list-style: none"><input type="checkbox" checked> markdown 的支持<blockquote>
 <p>19-3-12 更新: markdown完成.</p>
 </blockquote>
 </li>
-<li>内部的 url 连接问题, 以及在写 post 时对于其它 post 或者资源文件引用的问题</li>
-<li>单个 post 或者单个页面的资源位置存放问题</li>
-</ul>
-<ul>
-<li><p>[x] 插件系统</p>
-<blockquote>
-<p>这个主题本身就是一个程序, 它的配置选项,对应用户的额外需求似乎不需要我来插手.</p>
+<li style="list-style: none"><input type="checkbox"> markdown refine工作, 更新加强markdown, 将它尽量的模块化, 允许控制解析出来的sxml的具体格式</li>
+<li style="list-style: none"><input type="checkbox"> sxml-&gt;html 重构 : 希望将它重新以我的思路重写.</li>
+<li style="list-style: none"><input type="checkbox"> 内部的 url 连接问题, 以及在写 post 时对于其它 post 或者资源文件引用的问题</li>
+<li style="list-style: none"><input type="checkbox"> 单个 post 或者单个页面的资源位置存放问题</li>
+<li style="list-style: none"><input type="checkbox"> 插件系统<blockquote>
+<p>现在在想是不是可以有一个切实有用的系统, 这样一个插件”安装”了, 就可以直接看到效果?</p>
 </blockquote>
-<p>将每个部件定义为数据, 用户提供这种数据(也就是不同类部件的不同功能), 以供内部调用. 支持自定义命令. subcommand 特性支持.</p>
 </li>
+<li style="list-style: none"><input type="checkbox"> serve命令</li>
+<li style="list-style: none"><input type="checkbox" checked> 基本的工作流程确定 3-24确定</li>
+<li style="list-style: none"><input type="checkbox" checked> 配置文件布局的确定 3-24确定</li>
 </ul>
 <h2 id="melt-预备特性"><a href="#melt-预备特性" class="headerlink" title="melt 预备特性"></a>melt 预备特性</h2><ul>
 <li>git 集成</li>
@@ -323,18 +318,9 @@
 <li>comt ==&gt; 组件,比如个人介绍页, 资源页等.</li>
 <li>attr ==&gt; 网站的相关属性, 比如域名, 托管工具等等</li>
 </ul>
-<h3 id="hook-系统和-trigger-系统"><a href="#hook-系统和-trigger-系统" class="headerlink" title="hook 系统和 trigger 系统"></a>hook 系统和 trigger 系统</h3><p>这个似乎可以使用<code>call/cc</code>来实现, 正在绞尽脑汁中.</p>
-<h3 id="插件系统"><a href="#插件系统" class="headerlink" title="插件系统"></a>插件系统</h3><blockquote>
-<p>开发额外的插件, 提供额外的命令, 不一定只有 build 命令,目前不会多想</p>
-</blockquote>
-<h3 id="melt-文件夹"><a href="#melt-文件夹" class="headerlink" title=".melt 文件夹"></a>.melt 文件夹</h3><p>这里面就是整个的真身. 在使用 init 命令时, 会生成这个文件. 里面的有<code>settings.scm</code>定义 melt 配置, 然后由这个定义工作文件夹的布局, 提供命令什么的.</p>
-<h2 id="急需解决的问题"><a href="#急需解决的问题" class="headerlink" title="急需解决的问题"></a>急需解决的问题</h2><ul>
-<li style="list-style: none"><input type="checkbox" checked> markdown 的支持</li>
-<li style="list-style: none"><input type="checkbox" checked> 内部的 url 连接问题以及单个 post 或者单个页面的资源位置存放问题</li>
-<li style="list-style: none"><input type="checkbox"> serve命令</li>
-<li style="list-style: none"><input type="checkbox"> 基本的工作流程确定</li>
-<li style="list-style: none"><input type="checkbox"> 配置文件布局的确定</li>
-</ul>
+<h3 id="hook-系统和-trigger-系统"><a href="#hook-系统和-trigger-系统" class="headerlink" title="hook 系统和 trigger 系统"></a>hook 系统和 trigger 系统</h3><p>这个似乎可以使用<code>call/cc</code>来实现, 同时也在试着实现一个try throw系统.</p>
+<h3 id="插件系统"><a href="#插件系统" class="headerlink" title="插件系统"></a>插件系统</h3><p>目前已经想到了实现的方案, 但是现阶段追求melt的稳定性和完善程度, 会在plugin分支中进行开发, 至于会不会推上线上的仓库, 看情况.</p>
+<h3 id="melt-文件夹"><a href="#melt-文件夹" class="headerlink" title=".melt 文件夹"></a>.melt 文件夹</h3><p>这里面就是整个的真身. 在使用 init 命令时, 会生成这个文件. 里面的有<code>settings.scm</code>定义 melt 配置, 然后由这个定义工作文件夹的布局, 提供命令什么的. 现在这个已经落实下来了, 之后会给出更多的说明和定义.</p>
 
     </div>
   </article>
