@@ -238,8 +238,8 @@
   <article class="post">
     <div class="post-content">
       <h1 id="关于-melt-近期的信息"><a href="#关于-melt-近期的信息" class="headerlink" title="关于 melt 近期的信息"></a>关于 melt 近期的信息</h1><ul>
-<li>更新时间 : <code>2019-3-24</code></li>
-<li><code>melt</code> 最新开发信息: <code>v 0.0.3-1</code> 实现了scheme sxml模板的应用模式, 已经完成了一个demo页面的创建. 目前使用的函数是<code>load-source</code>, 发现可以使用这个达到更多的效果, 比如将一个命令编译成二进制的代码文件, 然后给出环境之后直接加载这个文件. 更加的灵活了. 另外markdown还是有点问题, 学了一些算法之后打算使用算法来更新这个.</li>
+<li>更新时间 : <code>2019-4-13</code></li>
+<li><code>melt</code> 最新开发信息: <code>v 0.0.3-3</code> 目前正在将原来的一些实现与api重写. 试着更新chain和hook的系统, chez内建了一个parameter的小型设置, 觉得挺不错的, 现在正在基于这个构建新的data文件. 重新考虑hook和chain系统. 另外hook似乎应该是一个回调才对…..</li>
 </ul>
 <p>如果有任何好的建议, 欢迎通过邮件与我交流.</p>
 <h2 id="melt-工作流程"><a href="#melt-工作流程" class="headerlink" title="melt 工作流程"></a>melt 工作流程</h2><p>首先<strong>parser</strong>读取源文件, 解析源文件, 将得到的数据返回, 然后调用refine中的函数判断是否进行额外的处理. 根据具体的设计可能对初始的原文件进行更新. 目前没有实现这个refine的功能, 之后考虑给parser加上一些配置功能, 同时给出几个成熟的refine的选项, 由使用者决定refine的行为.</p>
